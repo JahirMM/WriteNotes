@@ -8,7 +8,18 @@ export class UpdateNote {
     this.noteRepository = noteRepository;
   }
 
+  private validateFavoriteProperty(note: NoteInterface) {
+    if (typeof note.favorite !== "boolean") {
+      return false;
+    }
+    return true;
+  }
+
   async updateNote(note: NoteInterface, noteId: string) {
-    return await this.noteRepository.updateNoteByNoteId(note, noteId);
+    const isValid = this.validateFavoriteProperty(note);
+    if (isValid) {
+      return await this.noteRepository.updateNoteByNoteId(note, noteId);
+    }
+    return null;
   }
 }

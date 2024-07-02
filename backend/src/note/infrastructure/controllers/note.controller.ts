@@ -145,24 +145,33 @@ router.put("/note/:noteId", async (req: Request, res: Response) => {
       return res.status(404).json({ message: "Note not found" });
     }
 
+    if (!title && !description && favorite === undefined) {
+      return res
+        .status(400)
+        .json({ message: "No information provided for update" });
+    }
+
     const data = {
-      title: title || getNote.title,
-      description: description || getNote.description,
-      favorite: favorite || getNote.favorite,
+      title: title !== undefined ? title : getNote.title,
+      description:
+        description !== undefined ? description : getNote.description,
+      favorite: favorite !== undefined ? favorite : getNote.favorite,
       userId: getNote.userId,
     };
 
     const updateNote = new UpdateNote(new NoteRepository());
     const noteInformation = await updateNote.updateNote(data, noteId);
 
-    console.log(data);
-
-    return res
-      .status(200)
-      .json({
+    if (noteInformation) {
+      return res.status(200).json({
         message: "The note has been updated correctly",
         note: noteInformation,
       });
+    }
+
+    return res.status(422).json({
+      message: "Invalid value for 'favorite'. Must be a boolean",
+    });
   } catch (error) {
     console.log("Error updating the note.");
     console.log(error);

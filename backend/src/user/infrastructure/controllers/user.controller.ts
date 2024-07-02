@@ -34,13 +34,22 @@ router.put("/user/:userId", async (req: Request, res: Response) => {
       return res.status(404).json({ message: "User not found." });
     }
 
+    if (!firstName && !middleName && !lastName && !maternalLastName) {
+      return res
+        .status(400)
+        .json({ message: "No information provided for update" });
+    }
+
     const data = {
       email: getUser[0].email,
       password: getUser[0].password,
-      firstName: firstName || getUser[0].firstName,
-      middleName: middleName || getUser[0].middleName,
-      lastName: lastName || getUser[0].lastName,
-      maternalLastName: maternalLastName || getUser[0].maternalLastName,
+      firstName: firstName !== undefined ? firstName : getUser[0].firstName,
+      middleName: middleName !== undefined ? middleName : getUser[0].middleName,
+      lastName: lastName !== undefined ? lastName : getUser[0].lastName,
+      maternalLastName:
+        maternalLastName !== undefined
+          ? maternalLastName
+          : getUser[0].maternalLastName,
     };
 
     const updateUser = new UpdateUserInformation(new UserRepository());
@@ -53,12 +62,10 @@ router.put("/user/:userId", async (req: Request, res: Response) => {
       return res.status(422).json({ message: "Please complete all fields" });
     }
 
-    return res
-      .status(200)
-      .json({
-        message: "the user was successfully updated",
-        user: userInformation,
-      });
+    return res.status(200).json({
+      message: "the user was successfully updated",
+      user: userInformation,
+    });
   } catch (error) {
     console.log("UPDATE USER INFORMATION");
     console.log(error);
