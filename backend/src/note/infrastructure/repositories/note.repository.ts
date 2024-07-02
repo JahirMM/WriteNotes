@@ -26,13 +26,15 @@ export class NoteRepository implements NoteRepositoryInterface {
     return await Note.find({ userId: userId, favorite: true });
   }
 
-  async updateNoteByNoteId(note: NoteInterface): Promise<NoteInterface | null> {
-    const { noteId, title, description, favorite } = note;
-
-    return await Note.findOneAndUpdate(
-      { noteId: noteId },
-      { title: title, description: description, favorite: favorite },
+  async updateNoteByNoteId(
+    note: NoteInterface,
+    noteId: string
+  ): Promise<NoteInterface | null> {
+    const updateNote = await Note.findOneAndUpdate(
+      { noteId },
+      { $set: note },
       { new: true }
     );
+    return updateNote;
   }
 }

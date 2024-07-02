@@ -9,6 +9,8 @@ import { CreateNote } from "../../application/createNote.application";
 import { DeleteNote } from "../../application/deleteNote.application";
 import { UpdateNote } from "../../application/updateNote.application";
 import { GetFavoriteNotes } from "../../application/getFavoriteNotes.application";
+import { GetUser } from "../../../user/application/getUser.application";
+import { UserRepository } from "../../../user/infrastructure/repositories/user.repository";
 
 const router = Router();
 
@@ -18,7 +20,7 @@ router.get("/note/:noteId", async (req: Request, res: Response) => {
     const getNote = new GetANote(new NoteRepository());
     const note = await getNote.getAnote(noteId);
 
-    if (note === "") {
+    if (!note) {
       return res.status(404).json({ message: "Note not found" });
     }
 
@@ -38,7 +40,12 @@ router.get("/notes/:userId", async (req: Request, res: Response) => {
       return res.status(400).json({ message: "User ID is required" });
     }
 
-    // TODO: validar que el userId existe en la collection users
+    const getUser = new GetUser(new UserRepository());
+    const user = await getUser.getUser(userId);
+
+    if (user.length === 0) {
+      return res.status(404).json({ message: "User not found." });
+    }
 
     const getNotesInstance = new GetNotes(new NoteRepository());
 
@@ -55,6 +62,13 @@ router.get("/notes/:userId", async (req: Request, res: Response) => {
 router.get("/favoriteNotes/:userId", async (req: Request, res: Response) => {
   try {
     const userId = req.params.userId;
+
+    const getUser = new GetUser(new UserRepository());
+    const user = await getUser.getUser(userId);
+
+    if (user.length === 0) {
+      return res.status(404).json({ message: "User not found." });
+    }
 
     const getFavoriteNotes = new GetFavoriteNotes(new NoteRepository());
     const favoriteNotes = await getFavoriteNotes.getFavoritesNotes(userId);
@@ -80,6 +94,7 @@ router.post("/note", async (req: Request, res: Response) => {
     }
 
     const createNote = new CreateNote(new NoteRepository());
+
     const note = await createNote.createNote(
       userId,
       title,
@@ -97,9 +112,16 @@ router.post("/note", async (req: Request, res: Response) => {
 router.delete("/note/:noteId", async (req: Request, res: Response) => {
   try {
     const noteId = req.params.noteId;
+
+    const getNote = new GetANote(new NoteRepository());
+    const note = await getNote.getAnote(noteId);
+
+    if (!note) {
+      return res.status(404).json({ message: "Note not found" });
+    }
+
     const deleteNote = new DeleteNote(new NoteRepository());
     const result = await deleteNote.deleteNote(noteId);
-    console.log(result.deletedCount);
 
     if (result.deletedCount === 1) {
       return res.status(200).json({ message: "Note correctly deleted" });
@@ -113,42 +135,34 @@ router.delete("/note/:noteId", async (req: Request, res: Response) => {
   }
 });
 
-router.put("/note", async (req: Request, res: Response) => {
+router.put("/note/:noteId", async (req: Request, res: Response) => {
   try {
-    const { noteId, title, description, favorite } = req.body;
+    const noteId = req.params.noteId;
+    const { title, description, favorite } = req.body;
+    const getNote = await new GetANote(new NoteRepository()).getAnote(noteId);
 
-    if (!noteId || typeof favorite !== "boolean") {
-      return res
-        .status(400)
-        .json({ message: "Incomplete data or incorrect format" });
-    }
-
-    const getNote = new GetANote(new NoteRepository());
-    const note = await getNote.getAnote(noteId);
-
-    if (note === "") {
+    if (!getNote) {
       return res.status(404).json({ message: "Note not found" });
     }
 
-    const userId = note.userId;
+    const data = {
+      title: title || getNote.title,
+      description: description || getNote.description,
+      favorite: favorite || getNote.favorite,
+      userId: getNote.userId,
+    };
 
     const updateNote = new UpdateNote(new NoteRepository());
+    const noteInformation = await updateNote.updateNote(data, noteId);
 
-    const updatedNote = await updateNote.updateNote({
-      userId,
-      noteId,
-      title,
-      description,
-      favorite,
-    });
+    console.log(data);
 
-    if (updatedNote) {
-      return res
-        .status(200)
-        .json({ message: "Note updated successfully", note: updatedNote });
-    } else {
-      return res.status(404).json({ message: "Note not found" });
-    }
+    return res
+      .status(200)
+      .json({
+        message: "The note has been updated correctly",
+        note: noteInformation,
+      });
   } catch (error) {
     console.log("Error updating the note.");
     console.log(error);

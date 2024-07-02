@@ -40,9 +40,9 @@ router.post("/login", async (req: Request, res: Response) => {
 router.post("/logOut", (_req, res: Response) => {
   const tokenName = process.env.TOKEN_NAME;
 
-  if (!tokenName) {
-    return res.json({ message: "No hay token." });
-  }
+  // if (!tokenName) {
+  //   return res.status(401).json({ message: "No token found." });
+  // }
 
   const cookieConfig: CookieSerializeOptions = {
     httpOnly: true,
@@ -51,22 +51,43 @@ router.post("/logOut", (_req, res: Response) => {
     path: "/",
   };
 
-  const cookie = serialize(tokenName, "", cookieConfig);
+  const cookie = serialize(tokenName!, "", cookieConfig);
 
   res.setHeader("Set-Cookie", cookie);
 
-  return res.json({ message: "Cierre de sesión exitoso" });
+  return res.status(200).json({ message: "Successful logout." });
 });
 
 router.post("/createAccount", async (req: Request, res: Response) => {
   const data = req.body;
+  if (data.middleName === "") {
+    data.middleName = null;
+  }
+
+  const emailExists = await new AuthRepository().findUserByEmail(data.email);
+  const passwordExists = await new AuthRepository().findPassword(data.password);
+
+  if (emailExists) {
+    return res
+      .status(409)
+      .json({ message: "The email is already registered." });
+  }
+
+  if (passwordExists) {
+    return res.status(409).json({ message: "Password already exists." });
+  }
+
   const createUser = new CreateAccount(new AuthRepository());
   const newUser = await createUser.createAccount(data);
   if (!newUser) {
-    return res.json({ message: "datos inválidos o campos incompletos" });
+    return res
+      .status(400)
+      .json({ message: "datos inválidos o campos incompletos" });
   }
 
-  return res.json({ message: "Usuario creado exitosamente", user: newUser });
+  return res
+    .status(200)
+    .json({ message: "Usuario creado exitosamente", user: newUser });
 });
 
 export default router;

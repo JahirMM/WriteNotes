@@ -8,7 +8,7 @@ export class UpdateNote {
     this.noteRepository = noteRepository;
   }
 
-  async updateNote(note: NoteInterface) {
-    return await this.noteRepository.updateNoteByNoteId(note);
+  async updateNote(note: NoteInterface, noteId: string) {
+    return await this.noteRepository.updateNoteByNoteId(note, noteId);
   }
 }

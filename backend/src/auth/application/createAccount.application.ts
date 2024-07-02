@@ -8,12 +8,11 @@ export class CreateAccount {
     this.authRepository = authRepository;
   }
 
-  private validationException(user: UserAuthInterface) {
+  private async validationException(user: UserAuthInterface) {
     if (
       !user.email ||
       !user.password ||
       !user.firstName ||
-      !user.middleName ||
       !user.lastName ||
       !user.maternalLastName
     ) {
@@ -29,7 +28,11 @@ export class CreateAccount {
   }
 
   async createAccount(user: UserAuthInterface) {
-    const isDataValid = this.validationException(user);
+    if (user.middleName === undefined) {
+      user.middleName = null;
+    }
+
+    const isDataValid = await this.validationException(user);
     if (!isDataValid) {
       return null;
     }
