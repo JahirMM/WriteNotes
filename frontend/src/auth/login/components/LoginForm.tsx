@@ -6,18 +6,29 @@ import { useState } from "react";
 import Eye from "@/icons/Eye";
 import EyeSlash from "@/icons/EyeSlash";
 
+// SONNER
+import { Toaster, toast } from "sonner";
+import { useValidateEmail } from "@/share/useValidateEmail";
+
 function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const { validateEmail } = useValidateEmail();
+
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    console.log("correo: ", email, "password: ", password);
+    if (!email || !password) {
+      return toast.error("Please fill in all fields");
+    }
 
-    // Aquí puedes agregar la lógica para manejar el inicio de sesión
-    console.log("Formulario enviado");
+    if (!validateEmail(email)) {
+      return toast.error("Please enter a valid email address");
+    }
+    return toast.success("yes");
   };
+
   return (
     <section className="p-5 border border-black rounded-xl sm:p-2 sm:border-0 sm:m-auto sm:w-1/2 lg:w-4/12">
       <header className="mb-9">
@@ -29,7 +40,7 @@ function LoginForm() {
           <span className="underline cursor-pointer">Create a new account</span>
         </p>
       </header>
-      <form onSubmit={handleSubmit}>
+      <form>
         <label htmlFor="E-mail" className="block text-sm mb-2">
           E-mail:
         </label>
@@ -63,21 +74,35 @@ function LoginForm() {
               onClick={() => setShowPassword(!showPassword)}
               className="mr-2"
             >
-              <Eye width={20} height={20} fill="#000" />
+              <Eye
+                width={20}
+                height={20}
+                fill="#000"
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              />
             </div>
           ) : (
             <div
               onClick={() => setShowPassword(!showPassword)}
               className="mr-2"
             >
-              <EyeSlash width={20} height={20} fill="#000" />
+              <EyeSlash
+                width={20}
+                height={20}
+                fill="#000"
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              />
             </div>
           )}
         </div>
-        <button className="bg-black text-white font-bold w-full py-3 px-2 rounded-xl">
+        <button
+          className="bg-black text-white font-bold w-full py-3 px-2 rounded-xl"
+          onClick={handleSubmit}
+        >
           login
         </button>
       </form>
+      <Toaster position="top-right" richColors closeButton duration={4000} />
     </section>
   );
 }
