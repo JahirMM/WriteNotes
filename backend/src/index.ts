@@ -1,6 +1,7 @@
+import cookieParser from "cookie-parser";
+import cors from "cors";
 import express from "express";
 import dotenv from "dotenv";
-import cookieParser from "cookie-parser";
 import "./db/db";
 
 import { authenticate } from "./auth/infrastructure/middleware/authenticate.middleware";
@@ -16,6 +17,12 @@ const app = express();
 // TODO: poner las cords luego para usarlos en el fronted
 app.use(express.json());
 app.use(cookieParser());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 const PORT = process.env.PORT;
 

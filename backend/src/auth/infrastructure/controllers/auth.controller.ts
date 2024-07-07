@@ -18,8 +18,10 @@ router.post("/login", async (req: Request, res: Response) => {
     const token = await loginService.login(email, password);
     if (token) {
       const cookieConfig: CookieSerializeOptions = {
-        httpOnly: true,
-        sameSite: "none",
+        httpOnly: false,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: 1000 * 60 * 60,
         path: "/",
       };
       const cookie = serialize(process.env.TOKEN_NAME!, token, cookieConfig);
@@ -45,6 +47,7 @@ router.post("/logOut", (_req, res: Response) => {
   // }
 
   const cookieConfig: CookieSerializeOptions = {
+    // true no se podra acceder a la cookie desde js
     httpOnly: true,
     sameSite: "none",
     maxAge: 0,

@@ -13,14 +13,12 @@ export class Login {
     if (!key) {
       throw new Error("No key for creating the token");
     }
-    const token = jwt.sign({ email, userId }, key);
+    const token = jwt.sign({ email, userId }, key, { expiresIn: "1h" });
     return token;
   }
 
   async login(email: string, password: string) {
     const user = await this.authRepository.findUserByEmail(email);
-    // TODO: en futuro implementar bcrypt para haschear la password
-
     if (user && user.password === password) {
       const token = this.createToken(email, user.userId!);
       return token;

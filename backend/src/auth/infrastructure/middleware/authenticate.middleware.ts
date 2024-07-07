@@ -16,7 +16,7 @@ export const authenticate = (
     jwt.verify(token, process.env.SECRET_TOKEN_KEY!, (err: Error | null) => {
       if (err) {
         // Si el token no es válido, envía un mensaje de error
-        return res.status(403).json({ message: "Por favor iniciar sesión" });
+        return res.status(403).json({ message: "Please log in" });
       }
 
       // Si el token es válido, permite que la solicitud continúe
@@ -24,6 +24,6 @@ export const authenticate = (
     });
   } else {
     // Si no hay token, envía un mensaje de error
-    res.status(401).json({ message: "Por favor iniciar sesión" });
+    res.status(401).json({ message: "Please log in" });
   }
 };

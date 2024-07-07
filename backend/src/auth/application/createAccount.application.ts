@@ -1,5 +1,10 @@
 import { AuthRepositoryInterface } from "../domain/interfaces/authRepository.interface";
 import { UserAuthInterface } from "../domain/interfaces/userAuth.interfaces.interface";
+import dotenv from "dotenv";
+
+import * as bcrypt from "bcrypt";
+
+dotenv.config();
 
 export class CreateAccount {
   private authRepository: AuthRepositoryInterface;
@@ -36,6 +41,13 @@ export class CreateAccount {
     if (!isDataValid) {
       return null;
     }
+
+    const hashedPassword = bcrypt.hashSync(
+      user.password,
+      Number(process.env.SALT_ROUNDS)!
+    );
+
+    user.password = hashedPassword;
 
     return await this.authRepository.createAccount(user);
   }
