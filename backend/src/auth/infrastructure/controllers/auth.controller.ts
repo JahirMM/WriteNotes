@@ -26,16 +26,15 @@ router.post("/login", async (req: Request, res: Response) => {
       };
       const cookie = serialize(process.env.TOKEN_NAME!, token, cookieConfig);
       res.setHeader("Set-Cookie", cookie);
-      res.status(200).json({ message: "Successful login.", token });
+      return res.status(200).json({ message: "Successful login.", token });
     } else {
-      res
+      return res
         .status(401)
         .json({ message: "Sorry, incorrect credentials. Please try again." });
     }
   } catch (error) {
     console.log("Error when trying to log in.");
-    console.log(error);
-    res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ message: "Internal server error" });
   }
 });
 
@@ -62,35 +61,50 @@ router.post("/logOut", (_req, res: Response) => {
 });
 
 router.post("/createAccount", async (req: Request, res: Response) => {
-  const data = req.body;
-  if (data.middleName === "") {
-    data.middleName = null;
-  }
+  try {
+    const data = req.body;
+    if (data.middleName === "") {
+      data.middleName = null;
+    }
 
-  const emailExists = await new AuthRepository().findUserByEmail(data.email);
-  const passwordExists = await new AuthRepository().findPassword(data.password);
+    const emailExists = await new AuthRepository().findUserByEmail(data.email);
+    const passwordExists = await new AuthRepository().findPassword(
+      data.password
+    );
 
-  if (emailExists) {
+    if (emailExists) {
+      return res
+        .status(409)
+        .json({ message: "The email is already registered." });
+    }
+
+    if (passwordExists) {
+      return res.status(409).json({ message: "Password already exists." });
+    }
+
+    const createUser = new CreateAccount(new AuthRepository());
+    const newUser = await createUser.createAccount(data);
+    if (!newUser) {
+      return res
+        .status(400)
+        .json({ message: "Invalid data or incomplete fields" });
+    }
+
+    const publicUser = {
+      email: newUser.email,
+      firstName: newUser.firstName,
+      middleName: newUser.middleName,
+      lastName: newUser.lastName,
+      maternalLastName: newUser.maternalLastName,
+    };
+
     return res
-      .status(409)
-      .json({ message: "The email is already registered." });
+      .status(200)
+      .json({ message: "Account successfully created", user: publicUser });
+  } catch (error) {
+    console.log("Error when trying to log in.");
+    return res.status(500).json({ message: "Internal server error" });
   }
-
-  if (passwordExists) {
-    return res.status(409).json({ message: "Password already exists." });
-  }
-
-  const createUser = new CreateAccount(new AuthRepository());
-  const newUser = await createUser.createAccount(data);
-  if (!newUser) {
-    return res
-      .status(400)
-      .json({ message: "datos inválidos o campos incompletos" });
-  }
-
-  return res
-    .status(200)
-    .json({ message: "Usuario creado exitosamente", user: newUser });
 });
 
 export default router;

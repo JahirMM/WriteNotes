@@ -42,7 +42,7 @@ export class CreateAccount {
       return null;
     }
 
-    const hashedPassword = bcrypt.hashSync(
+    const hashedPassword = await bcrypt.hash(
       user.password,
       Number(process.env.SALT_ROUNDS)!
     );

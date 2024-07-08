@@ -1,5 +1,6 @@
 import { AuthRepositoryInterface } from "../domain/interfaces/authRepository.interface";
 import jwt from "jsonwebtoken";
+import * as bcrypt from "bcrypt";
 
 export class Login {
   private authRepository: AuthRepositoryInterface;
@@ -19,7 +20,14 @@ export class Login {
 
   async login(email: string, password: string) {
     const user = await this.authRepository.findUserByEmail(email);
-    if (user && user.password === password) {
+
+    if (!user) {
+      return null;
+    }
+
+    const isValidPassword = bcrypt.compareSync(password, user.password);
+
+    if (user && isValidPassword) {
       const token = this.createToken(email, user.userId!);
       return token;
     }
