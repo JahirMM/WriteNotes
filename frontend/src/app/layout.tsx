@@ -1,5 +1,6 @@
-import type { Metadata } from "next";
+import TanstackProvider from "@/share/providers/TanstackProvider";
 import { Inter, Lato } from "next/font/google";
+import type { Metadata } from "next";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -20,7 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`bg-[#F3EDE5] ${lato.className}`}>{children}</body>
+      <TanstackProvider>
+        <body className={`bg-[#F3EDE5] ${lato.className}`}>{children}</body>
+      </TanstackProvider>
     </html>
   );
 }

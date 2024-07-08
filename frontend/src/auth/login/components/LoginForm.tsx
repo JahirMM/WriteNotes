@@ -8,16 +8,20 @@ import EyeSlash from "@/icons/EyeSlash";
 
 // SONNER
 import { Toaster, toast } from "sonner";
-import { useValidateEmail } from "@/share/useValidateEmail";
+import { useValidateEmail } from "@/share/hooks/useValidateEmail";
+
+// HOOKS
+import { useLogin } from "../hooks/useLogin";
 
 function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
 
   const { validateEmail } = useValidateEmail();
+  const { mutationLogin } = useLogin();
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
     if (!email || !password) {
       return toast.error("Please fill in all fields");
@@ -26,7 +30,8 @@ function LoginForm() {
     if (!validateEmail(email)) {
       return toast.error("Please enter a valid email address");
     }
-    return toast.success("yes");
+
+    await mutationLogin.mutate({ email, password });
   };
 
   return (
