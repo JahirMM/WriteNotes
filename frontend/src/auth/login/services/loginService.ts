@@ -1,5 +1,4 @@
 // INTERFACES
-import { ErrorResponseInterface } from "@/share/interfaces/errorResponseInterface";
 import { LoginResponseInterface } from "../interfaces/LoginResponseInterface";
 import { LoginInterface } from "../interfaces/loginInterface";
 
@@ -9,7 +8,7 @@ const { initialApi } = useInitialApi();
 
 export const fetchLogin = async (
   credentials: LoginInterface
-): Promise<LoginResponseInterface | ErrorResponseInterface> => {
+): Promise<LoginResponseInterface> => {
   const res = await initialApi.post("login", credentials, {
     withCredentials: true,
   });

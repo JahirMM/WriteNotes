@@ -23,14 +23,15 @@ function isAxiosError(error: any): error is AxiosError<ErrorResponseInterface> {
 
 export function useLogin() {
   const router = useRouter();
+
   const mutationLogin = useMutation<
-    LoginResponseInterface | ErrorResponseInterface,
+    LoginResponseInterface,
     Error,
     LoginInterface
   >({
     mutationFn: fetchLogin,
     onSuccess: (response) => {
-      console.log(response);
+      console.log(response.token);
       toast.success(response.message);
       setTimeout(() => {
         router.push("/web/dashboard");
