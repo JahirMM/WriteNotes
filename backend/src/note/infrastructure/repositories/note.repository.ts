@@ -13,17 +13,19 @@ export class NoteRepository implements NoteRepositoryInterface {
     return await Note.deleteOne(note);
   }
 
-  async getNotesByUserId(userId: string): Promise<NoteInterface[]> {
-    return await Note.find({ userId: userId });
+  async getNotesByUserId(
+    userId: string,
+    favoriteNotes: boolean | undefined
+  ): Promise<NoteInterface[]> {
+    if (favoriteNotes === undefined) {
+      return await Note.find({ userId: userId });
+    }
+    return await Note.find({ userId: userId, favorite: favoriteNotes });
   }
 
   async getANoteByNoteId(noteId: string): Promise<NoteInterface | ""> {
     const note = await Note.findOne({ noteId: noteId });
     return note !== null ? note : "";
-  }
-
-  async getFavoriteNotesByUserId(userId: string): Promise<NoteInterface[]> {
-    return await Note.find({ userId: userId, favorite: true });
   }
 
   async updateNoteByNoteId(

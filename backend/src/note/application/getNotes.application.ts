@@ -7,7 +7,7 @@ export class GetNotes {
     this.noteRepository = noteRepository;
   }
 
-  async getNotes(userId: string) {
-    return await this.noteRepository.getNotesByUserId(userId);
+  async getNotes(userId: string, favorite: boolean | undefined) {
+    return await this.noteRepository.getNotesByUserId(userId, favorite);
   }
 }

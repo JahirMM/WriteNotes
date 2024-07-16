@@ -1,16 +1,16 @@
-import { Router } from "express";
 import { Request, Response } from "express";
+import { Router } from "express";
+import jwt from "jsonwebtoken";
 
+import { UserRepository } from "../../../user/infrastructure/repositories/user.repository";
 import { NoteRepository } from "../repositories/note.repository";
 
-import { GetNotes } from "../../application/getNotes.application";
-import { GetANote } from "../../application/getANote.application";
 import { CreateNote } from "../../application/createNote.application";
+import { GetANote } from "../../application/getANote.application";
+import { GetNotes } from "../../application/getNotes.application";
+import { GetUser } from "../../../user/application/getUser.application";
 import { DeleteNote } from "../../application/deleteNote.application";
 import { UpdateNote } from "../../application/updateNote.application";
-import { GetFavoriteNotes } from "../../application/getFavoriteNotes.application";
-import { GetUser } from "../../../user/application/getUser.application";
-import { UserRepository } from "../../../user/infrastructure/repositories/user.repository";
 
 const router = Router();
 
@@ -32,9 +32,24 @@ router.get("/note/:noteId", async (req: Request, res: Response) => {
   }
 });
 
-router.get("/notes/:userId", async (req: Request, res: Response) => {
+router.get("/notes", async (req: Request, res: Response) => {
   try {
-    const userId = req.params.userId;
+    const { myToken } = req.cookies;
+    const favorite = req.query.favorite;
+
+    if (favorite !== "true" && favorite !== "false" && favorite !== undefined) {
+      return res.status(400).json({ message: "Invalid value for favorite" });
+    }
+
+    let decoded: any;
+
+    try {
+      decoded = jwt.verify(myToken, process.env.SECRET_TOKEN_KEY!);
+    } catch (error) {
+      return res.status(403).json({ message: "Invalid token" });
+    }
+
+    const userId = decoded.userId;
 
     if (!userId) {
       return res.status(400).json({ message: "User ID is required" });
@@ -47,37 +62,17 @@ router.get("/notes/:userId", async (req: Request, res: Response) => {
       return res.status(404).json({ message: "User not found." });
     }
 
-    const getNotesInstance = new GetNotes(new NoteRepository());
+    let favoriteNotes: boolean | undefined;
+    if (typeof favorite === "string") {
+      favoriteNotes = favorite === "true";
+    } else favoriteNotes = undefined;
 
-    const notes = await getNotesInstance.getNotes(userId);
+    const getNotesInstance = new GetNotes(new NoteRepository());
+    const notes = await getNotesInstance.getNotes(userId, favoriteNotes);
 
     return res.status(200).json({ notes: notes, total: notes.length });
   } catch (error) {
     console.log("Error when getting notes.");
-    console.log(error);
-    return res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-router.get("/favoriteNotes/:userId", async (req: Request, res: Response) => {
-  try {
-    const userId = req.params.userId;
-
-    const getUser = new GetUser(new UserRepository());
-    const user = await getUser.getUser(userId);
-
-    if (user.length === 0) {
-      return res.status(404).json({ message: "User not found." });
-    }
-
-    const getFavoriteNotes = new GetFavoriteNotes(new NoteRepository());
-    const favoriteNotes = await getFavoriteNotes.getFavoritesNotes(userId);
-
-    return res
-      .status(200)
-      .json({ favoriteNotes: favoriteNotes, total: favoriteNotes.length });
-  } catch (error) {
-    console.log("Error when getting favorite notes.");
     console.log(error);
     return res.status(500).json({ message: "Internal server error" });
   }

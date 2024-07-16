@@ -14,16 +14,19 @@ const router = Router();
 router.post("/login", async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
+
     const loginService = new Login(new AuthRepository());
     const token = await loginService.login(email, password);
+
     if (token) {
       const cookieConfig: CookieSerializeOptions = {
-        httpOnly: false,
+        httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "strict",
         maxAge: 1000 * 60 * 60,
         path: "/",
       };
+
       const cookie = serialize(process.env.TOKEN_NAME!, token, cookieConfig);
       res.setHeader("Set-Cookie", cookie);
       return res.status(200).json({ message: "Successful login.", token });
