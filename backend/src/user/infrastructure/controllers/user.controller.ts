@@ -3,20 +3,39 @@ import { Request, Response } from "express";
 import { UserRepository } from "../repositories/user.repository";
 import { GetUser } from "../../application/getUser.application";
 import { UpdateUserInformation } from "../../application/updateUserInformation.application";
+import jwt from "jsonwebtoken";
 
 const router = Router();
 
 // obtener información de un usuario por su userId
-router.get("/user/:userId", async (req: Request, res: Response) => {
+router.get("/user", async (req: Request, res: Response) => {
   try {
-    const userId = req.params.userId;
+    const { myToken } = req.cookies;
+    let decoded: any;
+
+    try {
+      decoded = jwt.verify(myToken, process.env.SECRET_TOKEN_KEY!);
+    } catch (error) {
+      return res.status(403).json({ message: "Invalid token" });
+    }
+
+    const userId = decoded.userId;
     const getUser = new GetUser(new UserRepository());
     const user = await getUser.getUser(userId);
 
     if (user.length === 0) {
       return res.status(404).json({ message: "User not found." });
     }
-    return res.status(200).json({ user: user });
+
+    const data = {
+      email: user[0].email,
+      firstName: user[0].firstName,
+      middleName: user[0].middleName,
+      lastName: user[0].lastName,
+      maternalLastName: user[0].maternalLastName,
+    };
+
+    return res.status(200).json({ user: data });
   } catch (error) {
     console.log("GET USER BY ID");
     console.log(error);
@@ -24,10 +43,20 @@ router.get("/user/:userId", async (req: Request, res: Response) => {
   }
 });
 
-router.put("/user/:userId", async (req: Request, res: Response) => {
+router.put("/user", async (req: Request, res: Response) => {
   try {
-    const userId = req.params.userId;
     const { firstName, middleName, lastName, maternalLastName } = req.body;
+
+    const { myToken } = req.cookies;
+    let decoded: any;
+
+    try {
+      decoded = jwt.verify(myToken, process.env.SECRET_TOKEN_KEY!);
+    } catch (error) {
+      return res.status(403).json({ message: "Invalid token" });
+    }
+
+    const userId = decoded.userId;
     const getUser = await new GetUser(new UserRepository()).getUser(userId);
 
     if (getUser.length === 0) {
