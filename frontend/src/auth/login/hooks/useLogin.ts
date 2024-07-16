@@ -31,11 +31,10 @@ export function useLogin() {
   >({
     mutationFn: fetchLogin,
     onSuccess: (response) => {
-      console.log(response.token);
       toast.success(response.message);
       setTimeout(() => {
         router.push("/web/dashboard");
-      }, 1000);
+      }, 2000);
     },
     onError: (error) => {
       if (isAxiosError(error)) {
