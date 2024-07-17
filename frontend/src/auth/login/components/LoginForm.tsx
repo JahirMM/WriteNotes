@@ -12,6 +12,7 @@ import { useValidateEmail } from "@/share/hooks/useValidateEmail";
 
 // HOOKS
 import { useLogin } from "../hooks/useLogin";
+import { useRouter } from "next/navigation";
 
 function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -20,6 +21,7 @@ function LoginForm() {
 
   const { validateEmail } = useValidateEmail();
   const { mutationLogin } = useLogin();
+  const router = useRouter();
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
@@ -42,7 +44,12 @@ function LoginForm() {
         </h1>
         <p className="text-sm mt-9">
           Don't have an account?{"  "}
-          <span className="underline cursor-pointer">Create a new account</span>
+          <span
+            className="underline cursor-pointer"
+            onClick={() => router.push("/signUp")}
+          >
+            Create a new account
+          </span>
         </p>
       </header>
       <form>
