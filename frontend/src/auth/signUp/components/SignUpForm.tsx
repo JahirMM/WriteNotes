@@ -1,16 +1,80 @@
 "use client";
 
+import { useState } from "react";
+
 // ICONS
 import Eye from "@/icons/Eye";
 import EyeSlash from "@/icons/EyeSlash";
-import React, { useState } from "react";
+
+// SONNER
+import { toast, Toaster } from "sonner";
+
+// HOOKS
+import { useValidateEmail } from "@/share/hooks/useValidateEmail";
+import PasswordInput from "./PasswordInput";
 
 function SignUpForm() {
-  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
   const [repeatPassword, setRepeatPassword] = useState("");
   const [showRepeatPassword, setShowRepeatPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [errorEmail, setErrorEmail] = useState(false);
+
+  const { validateEmail } = useValidateEmail();
+
+  const [initialData, setInitialData] = useState({
+    email: "",
+    password: "",
+    firstName: "",
+    middleName: "",
+    lastName: "",
+    maternalLastName: "",
+  });
+
+  const handlePasswordChange = (e: any) => {
+    const { value } = e.target;
+    if (value.length <= 12) {
+      setInitialData({ ...initialData, password: value });
+    }
+  };
+
+  const handleRepeatPasswordChange = (e: any) => {
+    const { value } = e.target;
+    setRepeatPassword(value);
+    if (initialData.password !== value) {
+      setErrorMessage("Passwords do not match");
+    } else {
+      setErrorMessage("");
+    }
+  };
+
+  const handleSubmit = async (event: any) => {
+    event.preventDefault();
+
+    if (initialData.password !== repeatPassword) {
+      return setErrorMessage("Passwords do not match");
+    }
+
+    setErrorMessage("");
+
+    if (
+      !initialData.email ||
+      !initialData.password ||
+      !initialData.firstName ||
+      !initialData.lastName ||
+      !initialData.maternalLastName
+    ) {
+      return toast.error("Please fill in all fields");
+    }
+
+    if (!validateEmail(initialData.email)) {
+      setErrorEmail(true);
+      return toast.error("Please enter a valid email address");
+    }
+
+    setErrorEmail(false);
+    console.log(initialData);
+  };
 
   return (
     <section className="p-2 border border-black rounded-xl sm:p-2 sm:border-0 sm:m-auto sm:w-1/2 lg:w-4/12">
@@ -22,7 +86,7 @@ function SignUpForm() {
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label htmlFor="firstName" className="text-sm">
-              First Name
+              First Name <span className="text-red-700">*</span>
             </label>
             <input
               type="text"
@@ -30,6 +94,11 @@ function SignUpForm() {
               id="firstName"
               placeholder="First name"
               className="text-sm bg-transparent border border-black w-full rounded-xl p-2 focus:outline-none focus:ring-0"
+              required
+              value={initialData.firstName}
+              onChange={(e) =>
+                setInitialData({ ...initialData, firstName: e.target.value })
+              }
             />
           </div>
           <div>
@@ -42,11 +111,15 @@ function SignUpForm() {
               id="middleName"
               placeholder="Middle name"
               className="text-sm bg-transparent border border-black w-full rounded-xl p-2 focus:outline-none focus:ring-0"
+              value={initialData.middleName}
+              onChange={(e) =>
+                setInitialData({ ...initialData, middleName: e.target.value })
+              }
             />
           </div>
           <div>
             <label htmlFor="lastName" className="text-sm">
-              Last Name
+              Last Name <span className="text-red-700">*</span>
             </label>
             <input
               type="text"
@@ -54,11 +127,16 @@ function SignUpForm() {
               id="lastName"
               placeholder="Last name"
               className="text-sm bg-transparent border border-black w-full rounded-xl p-2 focus:outline-none focus:ring-0"
+              required
+              value={initialData.lastName}
+              onChange={(e) =>
+                setInitialData({ ...initialData, lastName: e.target.value })
+              }
             />
           </div>
           <div>
             <label htmlFor="middleName" className="text-sm">
-              Maternal Last Name
+              Maternal Last Name <span className="text-red-700">*</span>
             </label>
             <input
               type="text"
@@ -66,118 +144,69 @@ function SignUpForm() {
               id="maternalLastName"
               placeholder="Maternal last name"
               className="text-sm bg-transparent border border-black w-full rounded-xl p-2 focus:outline-none focus:ring-0"
+              required
+              value={initialData.maternalLastName}
+              onChange={(e) =>
+                setInitialData({
+                  ...initialData,
+                  maternalLastName: e.target.value,
+                })
+              }
             />
           </div>
           <div className="col-start-1 col-end-3">
             <label htmlFor="E-mail" className="block text-sm mb-2">
-              E-mail:
+              E-mail <span className="text-red-700">*</span>
             </label>
             <input
-              className="text-sm bg-transparent border border-black rounded-xl p-2 w-full focus:outline-none focus:ring-0"
+              className={`${
+                errorEmail ? "border-red-500" : "border-black"
+              } text-sm bg-transparent border rounded-xl p-2 w-full focus:outline-none focus:ring-0`}
               type="email"
               id="E-mail"
               name="E-mail"
               placeholder="E-mail"
               required
+              value={initialData.email}
+              onChange={(e) => {
+                setInitialData({ ...initialData, email: e.target.value });
+                setErrorEmail(!validateEmail(e.target.value));
+              }}
             />
           </div>
-          <div className="col-start-1 col-end-3">
-            <label htmlFor="password" className="block text-sm">
-              Password:
-            </label>
-            <div className="w-full border border-black rounded-xl flex items-center gap-2">
-              <input
-                className="text-sm bg-transparent w-full p-2 focus:outline-none focus:ring-0"
-                type={showPassword ? "text" : "password"}
-                id="password"
-                name="password"
-                placeholder="Ingresa tu contraseña"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-              {showPassword ? (
-                <div
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="mr-2"
-                >
-                  <Eye
-                    width={20}
-                    height={20}
-                    fill="#000"
-                    aria-label={
-                      showPassword ? "Hide password" : "Show password"
-                    }
-                  />
-                </div>
-              ) : (
-                <div
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="mr-2"
-                >
-                  <EyeSlash
-                    width={20}
-                    height={20}
-                    fill="#000"
-                    aria-label={
-                      showPassword ? "Hide password" : "Show password"
-                    }
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="col-start-1 col-end-3">
-            <label htmlFor="repeatPassword" className="block text-sm">
-              Repeat Password:
-            </label>
-            <div className="w-full border border-black rounded-xl flex items-center gap-2">
-              <input
-                className="text-sm bg-transparent w-full p-2 focus:outline-none focus:ring-0"
-                type={showRepeatPassword ? "text" : "password"}
-                id="repeatPassword"
-                name="repeatPassword"
-                placeholder="Ingresa tu contraseña"
-                value={repeatPassword}
-                onChange={(e) => setRepeatPassword(e.target.value)}
-                required
-              />
-              {showRepeatPassword ? (
-                <div
-                  onClick={() => setShowRepeatPassword(!showRepeatPassword)}
-                  className="mr-2"
-                >
-                  <Eye
-                    width={20}
-                    height={20}
-                    fill="#000"
-                    aria-label={
-                      showRepeatPassword ? "Hide password" : "Show password"
-                    }
-                  />
-                </div>
-              ) : (
-                <div
-                  onClick={() => setShowRepeatPassword(!showRepeatPassword)}
-                  className="mr-2"
-                >
-                  <EyeSlash
-                    width={20}
-                    height={20}
-                    fill="#000"
-                    aria-label={
-                      showPassword ? "Hide password" : "Show password"
-                    }
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-          <button className="bg-black text-white font-bold w-full mt-5 py-3 px-2 rounded-xl col-start-1 col-end-3">
+          <PasswordInput
+            label="Password"
+            name="password"
+            value={initialData.password}
+            onChange={handlePasswordChange}
+            showPassword={showPassword}
+            setShowPassword={setShowPassword}
+            required
+          />
+          <PasswordInput
+            label="Repeat Password"
+            name="repeatPassword"
+            value={repeatPassword}
+            onChange={handleRepeatPasswordChange}
+            showPassword={showRepeatPassword}
+            setShowPassword={setShowRepeatPassword}
+            required
+            error={errorMessage !== ""}
+          />
+          {errorMessage && (
+            <span className="text-sm text-red-500 col-start-1 col-end-3">
+              {errorMessage}
+            </span>
+          )}
+          <button
+            onClick={handleSubmit}
+            className="bg-black text-white font-bold w-full mt-5 py-3 px-2 rounded-xl col-start-1 col-end-3"
+          >
             login
           </button>
         </div>
       </form>
+      <Toaster position="top-right" richColors closeButton duration={4000} />
     </section>
   );
 }
