@@ -1,10 +1,6 @@
 "use client";
 
-import { useState } from "react";
-
-// ICONS
-import Eye from "@/icons/Eye";
-import EyeSlash from "@/icons/EyeSlash";
+import { useEffect, useState } from "react";
 
 // SONNER
 import { toast, Toaster } from "sonner";
@@ -41,12 +37,14 @@ function SignUpForm() {
   const handleRepeatPasswordChange = (e: any) => {
     const { value } = e.target;
     setRepeatPassword(value);
-    if (initialData.password !== value) {
-      setErrorMessage("Passwords do not match");
-    } else {
-      setErrorMessage("");
-    }
   };
+
+  useEffect(() => {
+    if (initialData.password !== repeatPassword) {
+      return setErrorMessage("Passwords do not match");
+    }
+    setErrorMessage("");
+  }, [repeatPassword, initialData.password]);
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
