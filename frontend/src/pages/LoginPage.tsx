@@ -7,7 +7,7 @@ import Moon from "@/icons/Moon";
 function LoginPage() {
   return (
     <main className="h-screen flex items-center justify-center sm:gap-4 sm:justify-between">
-      <div className=" hidden overflow-auto h-full w-1/2 sm:flex">
+      <div className="hidden overflow-auto h-full w-1/2 sm:flex">
         <img
           src="/login/imgLogin.jpg"
           alt="login image"
