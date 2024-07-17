@@ -9,6 +9,8 @@ import { toast, Toaster } from "sonner";
 import { useValidateEmail } from "@/share/hooks/useValidateEmail";
 import PasswordInput from "./PasswordInput";
 
+import { useRouter } from "next/navigation";
+
 function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [repeatPassword, setRepeatPassword] = useState("");
@@ -17,6 +19,7 @@ function SignUpForm() {
   const [errorEmail, setErrorEmail] = useState(false);
 
   const { validateEmail } = useValidateEmail();
+  const router = useRouter();
 
   const [initialData, setInitialData] = useState({
     email: "",
@@ -70,8 +73,15 @@ function SignUpForm() {
       return toast.error("Please enter a valid email address");
     }
 
+    initialData.email = "";
+    initialData.password = "";
+    initialData.firstName = "";
+    initialData.middleName = "";
+    initialData.lastName = "";
+    initialData.maternalLastName = "";
+    setRepeatPassword("");
     setErrorEmail(false);
-    console.log(initialData);
+    toast.success("Account successfully created");
   };
 
   return (
@@ -202,6 +212,15 @@ function SignUpForm() {
           >
             login
           </button>
+          <p className="text-sm text-gray-500">
+            Have an account?{" "}
+            <span
+              className="text-sm text-blue-500 cursor-pointer"
+              onClick={() => router.push("/")}
+            >
+              Login now!
+            </span>
+          </p>
         </div>
       </form>
       <Toaster position="top-right" richColors closeButton duration={4000} />
