@@ -10,6 +10,7 @@ import { useValidateEmail } from "@/share/hooks/useValidateEmail";
 import PasswordInput from "./PasswordInput";
 
 import { useRouter } from "next/navigation";
+import { useSignUp } from "../hooks/useSignUp";
 
 function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -20,6 +21,7 @@ function SignUpForm() {
 
   const { validateEmail } = useValidateEmail();
   const router = useRouter();
+  const { mutationSignUp } = useSignUp();
 
   const [initialData, setInitialData] = useState({
     email: "",
@@ -73,6 +75,8 @@ function SignUpForm() {
       return toast.error("Please enter a valid email address");
     }
 
+    await mutationSignUp.mutateAsync(initialData);
+
     initialData.email = "";
     initialData.password = "";
     initialData.firstName = "";
@@ -81,7 +85,6 @@ function SignUpForm() {
     initialData.maternalLastName = "";
     setRepeatPassword("");
     setErrorEmail(false);
-    toast.success("Account successfully created");
   };
 
   return (
@@ -212,7 +215,7 @@ function SignUpForm() {
           >
             login
           </button>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-gray-500 col-start-1 col-end-3">
             Have an account?{" "}
             <span
               className="text-sm text-blue-500 cursor-pointer"
@@ -223,7 +226,7 @@ function SignUpForm() {
           </p>
         </div>
       </form>
-      <Toaster position="top-right" richColors closeButton duration={4000} />
+      <Toaster position="top-right" richColors closeButton duration={5000} />
     </section>
   );
 }
