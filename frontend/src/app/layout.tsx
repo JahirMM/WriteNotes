@@ -22,7 +22,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <TanstackProvider>
-        <body className={`bg-[#F3EDE5] ${lato.className}`}>{children}</body>
+        <body className={`bg-backgroundPage ${lato.className}`}>
+          {children}
+        </body>
       </TanstackProvider>
     </html>
   );

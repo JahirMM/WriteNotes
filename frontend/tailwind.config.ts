@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import type { PluginAPI } from "tailwindcss/types/config";
 
 const config: Config = {
   content: [
@@ -9,13 +10,56 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        backgroundNavBarOption: "#F9F6F3",
+        backgroundDashboard: "#F9F6F3",
+        backgroundNotes: "#FFFFFF",
+        backgroundPage: "#F3EDE5",
+        backgroundIcon: "#E3D5C5",
+        colorTextPointer: "#B1805E",
+        colorMemoPad: "#FBE3BB",
+        colorBorder: "#B1805E",
+        colorNote: "#F3EDE5",
+        colorText: "#000000",
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      after: {
+        "custom-icon": {
+          content: "''",
+          position: "absolute",
+          left: "-0.25rem",
+          top: "20%",
+          width: "20px",
+          height: "20px",
+          borderRadius: "2px",
+          backgroundColor: "var(--backgroundIcon)",
+          transform: "rotate(45deg)",
+          zIndex: "-1",
+        },
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities, theme }: PluginAPI) {
+      addUtilities({
+        ".after-custom-icon::after": {
+          content: "''",
+          position: "absolute",
+          left: "-0.25rem",
+          top: "20%",
+          width: "20px",
+          height: "20px",
+          borderRadius: "2px",
+          backgroundColor: theme("colors.backgroundIcon"),
+          transform: "rotate(45deg)",
+          zIndex: "-1",
+        },
+      });
+    },
+  ],
 };
 export default config;
