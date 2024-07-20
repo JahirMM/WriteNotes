@@ -1,7 +1,8 @@
 // COMPONENTS
+import DashboardScratchPad from "./DashboardScratchPad";
 import DashboardNoteList from "./DashboardNoteList";
 import DashboardHeader from "./DashboardHeader";
-import DashboardScratchPad from "./DashboardScratchPad";
+
 import Link from "next/link";
 
 function Dashboard() {
