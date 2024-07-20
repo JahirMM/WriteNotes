@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export function useScratchPad() {
-  const [data, setData] = useState(() => {
+  const [data, setData] = useState<string>("");
+
+  useEffect(() => {
     const information = localStorage.getItem("scratchPadInformation");
-    return information || "";
-  });
+    setData(information || "");
+  }, []);
 
   const addData = (text: string) => {
     localStorage.setItem("scratchPadInformation", text);
