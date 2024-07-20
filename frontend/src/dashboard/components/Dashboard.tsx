@@ -1,7 +1,8 @@
 // COMPONENTS
 import DashboardNoteList from "./DashboardNoteList";
 import DashboardHeader from "./DashboardHeader";
-import DashboardMemoPad from "./DashboardMemoPad";
+import DashboardScratchPad from "./DashboardScratchPad";
+import Link from "next/link";
 
 function Dashboard() {
   return (
@@ -12,9 +13,12 @@ function Dashboard() {
           <header className="text-sm flex justify-between">
             <span>Notes</span>
             <div className="flex gap-3">
-              <span className="text-colorTextPointer cursor-pointer">
+              <Link
+                href={"/web/notes"}
+                className="text-colorTextPointer cursor-pointer"
+              >
                 View all
-              </span>
+              </Link>
               <span className="text-colorTextPointer cursor-pointer">add</span>
             </div>
           </header>
@@ -26,7 +30,7 @@ function Dashboard() {
           </header>
           <DashboardNoteList onlyFavoriteNotes={true} />
         </section>
-        <DashboardMemoPad />
+        <DashboardScratchPad />
       </div>
     </div>
   );
