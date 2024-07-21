@@ -9,6 +9,7 @@ import { useNotes } from "@/share/hooks/useNotes";
 import { Toaster } from "sonner";
 
 import Link from "next/link";
+import DashboardSkeleton from "../skeletons/DashboardSkeleton";
 
 function DashboardNoteList({
   onlyFavoriteNotes,
@@ -20,8 +21,13 @@ function DashboardNoteList({
   const { isLoading, isError, data, errorMessage } =
     useNotes(onlyFavoriteNotes);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error loading notes: {errorMessage}</div>;
+  if (isLoading) return <DashboardSkeleton />;
+  if (isError)
+    return (
+      <div className="h-64 w-48 flex justify-center items-center text-lg">
+        Error loading notes, sorry
+      </div>
+    );
 
   const notes =
     search !== ""
