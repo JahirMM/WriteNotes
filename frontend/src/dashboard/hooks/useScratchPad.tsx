@@ -5,7 +5,7 @@ export function useScratchPad() {
 
   useEffect(() => {
     const information = localStorage.getItem("scratchPadInformation");
-    setData(information || "");
+    setData(information === null ? "" : information);
   }, []);
 
   const addData = (text: string) => {

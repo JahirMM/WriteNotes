@@ -1,11 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useScratchPad } from "../hooks/useScratchPad";
 
 function DashboardScratchPad() {
   const { data, addData } = useScratchPad();
-  const [text, setText] = useState(data);
+  const [text, setText] = useState("");
+
+  useEffect(() => {
+    setText(data);
+  }, [data]);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newText = e.target.value;
