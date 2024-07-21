@@ -8,9 +8,12 @@ import Logout from "@/icons/Logout";
 import Arrow from "@/icons/Arrow";
 
 import { useState } from "react";
+import { Toaster } from "sonner";
+import { useLogout } from "../hooks/useLogout";
 
 function NavBarPage() {
   const [showMenu, setShowMenu] = useState(true);
+  const { mutationLogout } = useLogout();
 
   return (
     <div
@@ -70,6 +73,7 @@ function NavBarPage() {
               className={`${
                 showMenu ? "" : "relative flex items-center justify-center"
               } flex items-center gap-[10px] text-sm font-medium text-[#757575] py-3 px-2 rounded-lg transition-all duration-300 border border-colorBorder group`}
+              onClick={() => mutationLogout.mutate()}
             >
               <Logout fill="#B1805E" width={18} />
               <span
@@ -85,6 +89,7 @@ function NavBarPage() {
           </li>
         </ul>
       </section>
+      <Toaster position="top-right" richColors closeButton duration={5000} />
     </div>
   );
 }

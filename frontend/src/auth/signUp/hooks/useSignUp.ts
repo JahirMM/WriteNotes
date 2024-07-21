@@ -6,7 +6,7 @@ import { SignUpInterface } from "../interfaces/SignUpInterface";
 // SERVICE
 import { fetchSignup } from "../services/signUpService";
 
-// // TANSTACK
+// TANSTACK
 import { useMutation } from "@tanstack/react-query";
 
 // SONNER
