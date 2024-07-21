@@ -5,17 +5,18 @@ import DashboardNote from "./DashboardNote";
 
 // ICON
 import Note from "@/icons/Note";
-
-// HOOK
 import { useNotes } from "@/share/hooks/useNotes";
+
+// SONNER
+import { Toaster } from "sonner";
 
 import Link from "next/link";
 
-interface DashboardNoteListProps {
+function DashboardNoteList({
+  onlyFavoriteNotes,
+}: {
   onlyFavoriteNotes: boolean;
-}
-
-function DashboardNoteList({ onlyFavoriteNotes }: DashboardNoteListProps) {
+}) {
   const { isLoading, isError, data, errorMessage } =
     useNotes(onlyFavoriteNotes);
 
@@ -27,13 +28,7 @@ function DashboardNoteList({ onlyFavoriteNotes }: DashboardNoteListProps) {
   return (
     <div className="flex gap-3 overflow-auto scrollVisible">
       {notes.map((note) => (
-        <DashboardNote
-          key={note.noteId}
-          title={note.title}
-          description={note.description}
-          date={note.date}
-          favorite={note.favorite}
-        />
+        <DashboardNote key={note.noteId} note={note} />
       ))}
       <Link
         href={onlyFavoriteNotes ? "/web/favoriteNotes" : "/web/notes"}
@@ -44,6 +39,7 @@ function DashboardNoteList({ onlyFavoriteNotes }: DashboardNoteListProps) {
         </div>
         <span className="font-semibold">Notes ({notes.length})</span>
       </Link>
+      <Toaster position="top-right" richColors closeButton duration={3000} />
     </div>
   );
 }
