@@ -70,7 +70,17 @@ router.get("/notes", async (req: Request, res: Response) => {
     const getNotesInstance = new GetNotes(new NoteRepository());
     const notes = await getNotesInstance.getNotes(userId, favoriteNotes);
 
-    return res.status(200).json({ notes: notes, total: notes.length });
+    const noteData = notes.map((note) => {
+      return {
+        title: note.title,
+        description: note.description,
+        favorite: note.favorite,
+        noteId: note.noteId,
+        date: note.date,
+      };
+    });
+
+    return res.status(200).json({ notes: noteData, total: notes.length });
   } catch (error) {
     console.log("Error when getting notes.");
     console.log(error);
@@ -80,12 +90,27 @@ router.get("/notes", async (req: Request, res: Response) => {
 
 router.post("/note", async (req: Request, res: Response) => {
   try {
-    const { userId, title, description, favorite } = req.body;
+    const { myToken } = req.cookies;
+    const { title, description, favorite } = req.body;
 
-    if (!userId || !title || typeof favorite !== "boolean") {
+    if (!title || typeof favorite !== "boolean") {
       return res
         .status(400)
         .json({ message: "Incomplete data or incorrect format" });
+    }
+
+    let decoded: any;
+
+    try {
+      decoded = jwt.verify(myToken, process.env.SECRET_TOKEN_KEY!);
+    } catch (error) {
+      return res.status(403).json({ message: "Invalid token" });
+    }
+
+    const userId = decoded.userId;
+
+    if (!userId) {
+      return res.status(400).json({ message: "User ID is required" });
     }
 
     const createNote = new CreateNote(new NoteRepository());
@@ -96,7 +121,16 @@ router.post("/note", async (req: Request, res: Response) => {
       description,
       favorite
     );
-    return res.status(200).json({ message: "Note successfully created", note });
+
+    const data = {
+      title: note.title,
+      description: note.description,
+      favorite: note.favorite,
+      noteId: note.noteId,
+      date: note.date,
+    };
+
+    return res.status(200).json({ message: "Note successfully created", data });
   } catch (error) {
     console.log("Error when creating a note.");
     console.log(error);
@@ -158,9 +192,16 @@ router.put("/note/:noteId", async (req: Request, res: Response) => {
     const noteInformation = await updateNote.updateNote(data, noteId);
 
     if (noteInformation) {
+      const data = {
+        title: noteInformation.title,
+        description: noteInformation.description,
+        favorite: noteInformation.favorite,
+        noteId: noteInformation.noteId,
+        date: noteInformation.date,
+      };
       return res.status(200).json({
         message: "The note has been updated correctly",
-        note: noteInformation,
+        note: data,
       });
     }
 
