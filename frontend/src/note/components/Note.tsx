@@ -11,12 +11,14 @@ import { useFormatDate } from "@/share/hooks/useFormatDate";
 import { useUpdateNote } from "@/share/hooks/useUpdateNote";
 import { useDeleteNote } from "../hooks/useDeleteNote";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 function Note({ note }: { note: NoteInterface }) {
   const { formattedDate } = useFormatDate(note.date!);
   const { updateNoteMutation } = useUpdateNote();
   const { deleteNoteMutation } = useDeleteNote();
+  const searchParams = useSearchParams();
+
   const router = useRouter();
 
   const handleStarClick = (event: React.MouseEvent) => {
@@ -32,16 +34,17 @@ function Note({ note }: { note: NoteInterface }) {
   const handleTrashClick = (event: React.MouseEvent) => {
     event.stopPropagation();
     deleteNoteMutation.mutate({ noteId: note.noteId });
+    const updateUrl = note.noteId === searchParams?.get("noteId") || "";
+    if (updateUrl) router.push("/web/notes");
   };
 
   const handleNoteClick = () => {
-    router.push(
-      `/web/notes?title=${encodeURIComponent(
-        note.title
-      )}&description=${encodeURIComponent(
-        note.description
-      )}&&noteId=${encodeURIComponent(note.noteId)}`
-    );
+    const url = `/web/notes?title=${encodeURIComponent(
+      note.title
+    )}&description=${encodeURIComponent(
+      note.description
+    )}&noteId=${encodeURIComponent(note.noteId)}`;
+    router.push(url);
   };
 
   return (
