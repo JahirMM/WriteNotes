@@ -53,7 +53,11 @@ function NoteList({
       ) : notes && notes.length > 0 ? (
         <div className="flex gap-3 overflow-auto md:flex-col md:items-center">
           {notes?.map((note) => (
-            <Note note={note} key={note.noteId} />
+            <Note
+              note={note}
+              onlyFavoriteNotes={onlyFavoriteNotes}
+              key={note.noteId}
+            />
           ))}
         </div>
       ) : (

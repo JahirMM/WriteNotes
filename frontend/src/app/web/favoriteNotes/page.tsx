@@ -1,5 +1,7 @@
+import FavoriteNotePpage from "@/pages/FavoriteNotePpage";
+
 function page() {
-  return <div>FAVORITES NOTES</div>;
+  return <FavoriteNotePpage />;
 }
 
 export default page;

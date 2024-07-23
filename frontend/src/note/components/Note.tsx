@@ -13,7 +13,13 @@ import { useDeleteNote } from "../hooks/useDeleteNote";
 
 import { useRouter, useSearchParams } from "next/navigation";
 
-function Note({ note }: { note: NoteInterface }) {
+function Note({
+  note,
+  onlyFavoriteNotes,
+}: {
+  note: NoteInterface;
+  onlyFavoriteNotes: boolean;
+}) {
   const { formattedDate } = useFormatDate(note.date!);
   const { updateNoteMutation } = useUpdateNote();
   const { deleteNoteMutation } = useDeleteNote();
@@ -35,15 +41,24 @@ function Note({ note }: { note: NoteInterface }) {
     event.stopPropagation();
     deleteNoteMutation.mutate({ noteId: note.noteId });
     const updateUrl = note.noteId === searchParams?.get("noteId") || "";
-    if (updateUrl) router.push("/web/notes");
+    if (updateUrl)
+      onlyFavoriteNotes
+        ? router.push("/web/favoriteNotes")
+        : router.push("/web/notes");
   };
 
   const handleNoteClick = () => {
-    const url = `/web/notes?title=${encodeURIComponent(
-      note.title
-    )}&description=${encodeURIComponent(
-      note.description
-    )}&noteId=${encodeURIComponent(note.noteId)}`;
+    const url = onlyFavoriteNotes
+      ? `/web/favoriteNotes?title=${encodeURIComponent(
+          note.title
+        )}&description=${encodeURIComponent(
+          note.description
+        )}&noteId=${encodeURIComponent(note.noteId)}`
+      : `/web/notes?title=${encodeURIComponent(
+          note.title
+        )}&description=${encodeURIComponent(
+          note.description
+        )}&noteId=${encodeURIComponent(note.noteId)}`;
     router.push(url);
   };
 
