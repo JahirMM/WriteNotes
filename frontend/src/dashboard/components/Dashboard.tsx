@@ -3,18 +3,18 @@
 // COMPONENTS
 import DashboardScratchPad from "./DashboardScratchPad";
 import DashboardNoteList from "./DashboardNoteList";
-import DashboardHeader from "./DashboardHeader";
 
 import Link from "next/link";
 import { useFilter } from "@/share/hooks/useFilter";
+import HeaderPage from "@/share/components/HeaderPage";
 
 function Dashboard() {
   const { filter, search, handleFilterChange, handleSearch } = useFilter();
 
   return (
     <div className="h-screen w-full p-2">
-      <div className="bg-backgroundDashboard rounded-2xl overflow-auto scrollHidden h-full w-full p-4 grid grid-cols-1 gap-4 md:grid-cols-5">
-        <DashboardHeader
+      <div className="bg-backgroundSecondary rounded-2xl overflow-auto scrollHidden h-full w-full p-4 grid grid-cols-1 gap-4 md:grid-cols-5">
+        <HeaderPage
           filter={filter}
           handleFilterChange={handleFilterChange}
           handleSearch={handleSearch}

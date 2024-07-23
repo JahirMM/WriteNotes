@@ -1,5 +1,7 @@
+import NotePage from "@/pages/NotePage";
+
 function page() {
-  return <div>TDOAS LAS NOTAS</div>;
+  return <NotePage />;
 }
 
 export default page;

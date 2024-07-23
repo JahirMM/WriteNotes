@@ -12,7 +12,7 @@ const config: Config = {
     extend: {
       colors: {
         backgroundNavBarOption: "#F9F6F3",
-        backgroundDashboard: "#F9F6F3",
+        backgroundSecondary: "#F9F6F3",
         backgroundNotes: "#FFFFFF",
         backgroundPage: "#F3EDE5",
         backgroundIcon: "#E3D5C5",
@@ -26,20 +26,6 @@ const config: Config = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
-      after: {
-        "custom-icon": {
-          content: "''",
-          position: "absolute",
-          left: "-0.25rem",
-          top: "20%",
-          width: "20px",
-          height: "20px",
-          borderRadius: "2px",
-          backgroundColor: "var(--backgroundIcon)",
-          transform: "rotate(45deg)",
-          zIndex: "-1",
-        },
       },
     },
   },
@@ -57,6 +43,17 @@ const config: Config = {
           backgroundColor: theme("colors.backgroundIcon"),
           transform: "rotate(45deg)",
           zIndex: "-1",
+        },
+        ".small-note-dimensions": {
+          minHeight: "236px",
+          minWidth: "192px",
+          maxHeight: "236px",
+          maxWidth: "192px",
+        },
+        ".large-note-dimensions": {
+          minHeight: "192px",
+          maxHeight: "192px",
+          minWidth: "95%",
         },
       });
     },

@@ -12,14 +12,14 @@ import { Toaster } from "sonner";
 import { useLogout } from "../hooks/useLogout";
 
 function NavBarPage() {
-  const [showMenu, setShowMenu] = useState(true);
+  const [showMenu, setShowMenu] = useState(false);
   const { mutationLogout } = useLogout();
 
   return (
     <div
       className={`${
         showMenu ? " min-w-[216px]" : "min-w-[92px]"
-      } relative h-screen flex flex-col gap-5 p-7 transition-all duration-300 shadow-md`}
+      } fixed h-screen flex flex-col gap-5 p-7 transition-all duration-300 shadow-md bg-backgroundPage z-50`}
     >
       <div
         onClick={() => setShowMenu(!showMenu)}

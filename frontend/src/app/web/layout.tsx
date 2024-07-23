@@ -5,7 +5,7 @@ function layoutPage({ children }: { children: ReactNode }) {
   return (
     <div className="flex gap-2 w-full min-h-screen">
       <NavBarPage />
-      {children}
+      <div className="ml-28 w-full">{children}</div>
     </div>
   );
 }
