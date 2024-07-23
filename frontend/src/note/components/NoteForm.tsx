@@ -1,8 +1,14 @@
-import { useSearchParams } from "next/navigation";
+// HOOK
+import { useUpdateNote } from "@/share/hooks/useUpdateNote";
+
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 function NoteForm() {
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const { updateNoteMutation } = useUpdateNote();
+
   const [initialData, setInitialData] = useState({
     noteId: searchParams?.get("noteId") || "",
     title: searchParams?.get("title") || "",
@@ -32,8 +38,24 @@ function NoteForm() {
     );
   }
 
-  const handleClick = () => {
-    console.log(initialData);
+  const handleClick = async (event: any) => {
+    event.preventDefault();
+
+    updateNoteMutation.mutate({
+      noteId: initialData.noteId,
+      noteData: {
+        title: initialData.title,
+        description: initialData.description,
+      },
+    });
+
+    router.push(
+      `/web/notes?title=${encodeURIComponent(
+        initialData.title
+      )}&description=${encodeURIComponent(
+        initialData.description
+      )}&&noteId=${encodeURIComponent(initialData.noteId)}`
+    );
   };
 
   return (

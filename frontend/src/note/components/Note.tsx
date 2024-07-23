@@ -9,9 +9,9 @@ import { NoteInterface } from "@/share/interfaces/NoteInterface";
 // HOOKS
 import { useFormatDate } from "@/share/hooks/useFormatDate";
 import { useUpdateNote } from "@/share/hooks/useUpdateNote";
+import { useDeleteNote } from "../hooks/useDeleteNote";
 
 import { useRouter } from "next/navigation";
-import { useDeleteNote } from "../hooks/useDeleteNote";
 
 function Note({ note }: { note: NoteInterface }) {
   const { formattedDate } = useFormatDate(note.date!);
@@ -32,7 +32,6 @@ function Note({ note }: { note: NoteInterface }) {
   const handleTrashClick = (event: React.MouseEvent) => {
     event.stopPropagation();
     deleteNoteMutation.mutate({ noteId: note.noteId });
-    console.log("BORRAR");
   };
 
   const handleNoteClick = () => {
@@ -55,7 +54,9 @@ function Note({ note }: { note: NoteInterface }) {
           <span className="font-semibold">{note.title}</span>
           <Trash fill="#F25756" width={16} onClick={handleTrashClick} />
         </div>
-        <p className="line-clamp-6 text-sm">{note.description}</p>
+        <p className="line-clamp-6 text-sm md:line-clamp-5">
+          {note.description}
+        </p>
       </header>
       <div className="text-xs flex justify-between">
         <span>{formattedDate}</span>
