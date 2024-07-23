@@ -37,7 +37,11 @@ function Note({ note }: { note: NoteInterface }) {
 
   const handleNoteClick = () => {
     router.push(
-      `/web/notes?title=${note.title}&description=${note.description}&isFavorite=${note.favorite}&date=${note.date}`
+      `/web/notes?title=${encodeURIComponent(
+        note.title
+      )}&description=${encodeURIComponent(
+        note.description
+      )}&&noteId=${encodeURIComponent(note.noteId)}`
     );
   };
 

@@ -16,7 +16,7 @@ function DashboardScratchPad() {
   };
 
   return (
-    <section className="bg-backgroundNotes rounded-xl p-3 flex flex-col justify-around md:col-span-2">
+    <section className="bg-backgroundNotes rounded-xl p-3 flex flex-col gap-2 justify-around md:col-span-2 md:gap-0">
       <div>
         <p className="text-sm">Scratch Pad</p>
       </div>
