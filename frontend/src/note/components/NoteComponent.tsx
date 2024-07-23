@@ -7,7 +7,7 @@ import HeaderPage from "@/share/components/HeaderPage";
 import NoteForm from "./NoteForm";
 import NoteList from "./NoteList";
 
-function NoteComponent() {
+function NoteComponent({ onlyFavoriteNotes }: { onlyFavoriteNotes: boolean }) {
   const { filter, search, handleFilterChange, handleSearch } = useFilter();
   const currentDate = new Date();
 
@@ -19,7 +19,7 @@ function NoteComponent() {
           handleFilterChange={handleFilterChange}
           handleSearch={handleSearch}
         />
-        <NoteList onlyFavoriteNotes={false} search={search} />
+        <NoteList onlyFavoriteNotes={onlyFavoriteNotes} search={search} />
         <NoteForm />
       </div>
     </main>

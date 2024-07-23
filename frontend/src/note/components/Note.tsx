@@ -11,10 +11,12 @@ import { useFormatDate } from "@/share/hooks/useFormatDate";
 import { useUpdateNote } from "@/share/hooks/useUpdateNote";
 
 import { useRouter } from "next/navigation";
+import { useDeleteNote } from "../hooks/useDeleteNote";
 
 function Note({ note }: { note: NoteInterface }) {
   const { formattedDate } = useFormatDate(note.date!);
   const { updateNoteMutation } = useUpdateNote();
+  const { deleteNoteMutation } = useDeleteNote();
   const router = useRouter();
 
   const handleStarClick = (event: React.MouseEvent) => {
@@ -29,6 +31,7 @@ function Note({ note }: { note: NoteInterface }) {
 
   const handleTrashClick = (event: React.MouseEvent) => {
     event.stopPropagation();
+    deleteNoteMutation.mutate({ noteId: note.noteId });
     console.log("BORRAR");
   };
 

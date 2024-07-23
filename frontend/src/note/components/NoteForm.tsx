@@ -15,7 +15,7 @@ function NoteForm() {
             className="text-sm flex-1 p-2 w-full bg-transparent shadow-md focus:outline-none focus:ring-0"
           ></textarea>
           <button className="bg-black py-2 px-3 rounded-xl text-sm text-white">
-            Agregar cambios
+            Save changes
           </button>
         </form>
       </div>

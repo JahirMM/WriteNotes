@@ -4,6 +4,9 @@ import { useNotes } from "@/share/hooks/useNotes";
 // COMPONENT
 import Note from "./Note";
 
+// SONNER
+import { Toaster } from "sonner";
+
 function NoteList({
   onlyFavoriteNotes,
   search = "",
@@ -39,6 +42,7 @@ function NoteList({
           <Note note={note} key={note.noteId} />
         ))}
       </div>
+      <Toaster position="top-right" richColors closeButton duration={3000} />
     </section>
   );
 }
