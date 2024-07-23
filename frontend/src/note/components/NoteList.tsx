@@ -1,67 +1,43 @@
-// ICON
-import Start from "@/icons/Start";
-import Trash from "@/icons/Trash";
+// HOOK
+import { useNotes } from "@/share/hooks/useNotes";
 
-function NoteList({ onlyFavorites }: { onlyFavorites: boolean }) {
+// COMPONENT
+import Note from "./Note";
+
+function NoteList({
+  onlyFavoriteNotes,
+  search = "",
+}: {
+  onlyFavoriteNotes: boolean;
+  search: string;
+}) {
+  const { isLoading, data, isError, errorMessage } =
+    useNotes(onlyFavoriteNotes);
+
+  if (isLoading) return <div>cargando</div>;
+  if (isError)
+    return (
+      <div className="bg-backgroundNotes p-4 rounded-xl flex flex-col gap-4 row-span-3 md:row-span-7 md:col-span-2">
+        {errorMessage}
+      </div>
+    );
+
+  const notes =
+    search !== ""
+      ? data?.notes.filter((note) =>
+          note.title.toLowerCase().includes(search!.toLowerCase())
+        )
+      : data?.notes || [];
   return (
-    <section className="bg-backgroundNotes p-2 rounded-xl flex flex-col gap-4 row-span-3 md:row-span-7 md:col-span-2">
+    <section className="bg-backgroundNotes p-4 rounded-xl flex flex-col gap-4 row-span-3 md:row-span-7 md:col-span-2">
       <header className="text-sm flex justify-between">
         <span>Notes</span>
         <span>62 notes</span>
       </header>
       <div className="flex gap-3 overflow-auto md:flex-col md:items-center">
-        <div className="bg-colorNote small-note-dimensions p-3 rounded-xl flex flex-col justify-between md:large-note-dimensions">
-          <header>
-            <div className="flex justify-between text-sm mb-3">
-              <span className="font-semibold">Title</span>
-              <Trash fill="#F25756" width={16} />
-            </div>
-            <p className="line-clamp-6 text-sm">description</p>
-          </header>
-          <div className="text-xs flex justify-between">
-            <span>date</span>
-            <Start fill="#e4de1f" width={18} className="hover:animate-spin" />
-          </div>
-        </div>
-        <div className="bg-colorNote small-note-dimensions p-3 rounded-xl min-h-60 flex flex-col justify-between lg:large-note-dimensions md:large-note-dimensions">
-          <header>
-            <div className="flex justify-between text-sm mb-3">
-              <span className="font-semibold">Title</span>
-              <Trash fill="#F25756" width={16} />
-            </div>
-            <p className="line-clamp-6 text-sm">description</p>
-          </header>
-          <div className="text-xs flex justify-between">
-            <span>date</span>
-            <Start fill="#e4de1f" width={18} className="hover:animate-spin" />
-          </div>
-        </div>
-        <div className="bg-colorNote small-note-dimensions p-3 rounded-xl flex flex-col justify-between lg:large-note-dimensions md:large-note-dimensions">
-          <header>
-            <div className="flex justify-between text-sm mb-3">
-              <span className="font-semibold">Title</span>
-              <Trash fill="#F25756" width={16} />
-            </div>
-            <p className="line-clamp-6 text-sm">description</p>
-          </header>
-          <div className="text-xs flex justify-between">
-            <span>date</span>
-            <Start fill="#e4de1f" width={18} className="hover:animate-spin" />
-          </div>
-        </div>
-        <div className="bg-colorNote small-note-dimensions p-3 rounded-xl flex flex-col justify-between lg:large-note-dimensions md:large-note-dimensions">
-          <header>
-            <div className="flex justify-between text-sm mb-3">
-              <span className="font-semibold">Title</span>
-              <Trash fill="#F25756" width={16} />
-            </div>
-            <p className="line-clamp-6 text-sm">description</p>
-          </header>
-          <div className="text-xs flex justify-between">
-            <span>date</span>
-            <Start fill="#e4de1f" width={18} className="hover:animate-spin" />
-          </div>
-        </div>
+        {notes?.map((note) => (
+          <Note note={note} key={note.noteId} />
+        ))}
       </div>
     </section>
   );

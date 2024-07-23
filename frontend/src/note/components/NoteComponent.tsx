@@ -19,7 +19,7 @@ function NoteComponent() {
           handleFilterChange={handleFilterChange}
           handleSearch={handleSearch}
         />
-        <NoteList onlyFavorites={false} />
+        <NoteList onlyFavoriteNotes={false} search={search} />
         <NoteForm />
       </div>
     </main>
