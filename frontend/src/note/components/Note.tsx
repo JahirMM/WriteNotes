@@ -35,6 +35,25 @@ function Note({
         favorite: !note.favorite,
       },
     });
+    const updateUrl = note.noteId === searchParams?.get("noteId") || "";
+    if (updateUrl) {
+      const url = onlyFavoriteNotes
+        ? `/web/favoriteNotes?title=${encodeURIComponent(
+            note.title
+          )}&description=${encodeURIComponent(
+            note.description
+          )}&favorite=${encodeURIComponent(
+            note.favorite
+          )}&noteId=${encodeURIComponent(note.noteId)}`
+        : `/web/notes?title=${encodeURIComponent(
+            note.title
+          )}&description=${encodeURIComponent(
+            note.description
+          )}&favorite=${encodeURIComponent(
+            !note.favorite
+          )}&noteId=${encodeURIComponent(note.noteId)}`;
+      router.push(url);
+    }
   };
 
   const handleTrashClick = (event: React.MouseEvent) => {
@@ -53,18 +72,26 @@ function Note({
           note.title
         )}&description=${encodeURIComponent(
           note.description
+        )}&favorite=${encodeURIComponent(
+          note.favorite
         )}&noteId=${encodeURIComponent(note.noteId)}`
       : `/web/notes?title=${encodeURIComponent(
           note.title
         )}&description=${encodeURIComponent(
           note.description
+        )}&favorite=${encodeURIComponent(
+          note.favorite
         )}&noteId=${encodeURIComponent(note.noteId)}`;
     router.push(url);
   };
 
   return (
     <div
-      className="bg-colorNote small-note-dimensions p-3 rounded-xl flex flex-col justify-between md:large-note-dimensions"
+      className={`bg-colorNote small-note-dimensions p-3 rounded-xl flex flex-col justify-between md:large-note-dimensions  ${
+        note.noteId === searchParams?.get("noteId")
+          ? "border border-colorBorder"
+          : ""
+      }`}
       onClick={handleNoteClick}
     >
       <header>

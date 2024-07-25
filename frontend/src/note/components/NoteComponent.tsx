@@ -6,6 +6,7 @@ import { useFilter } from "@/share/hooks/useFilter";
 import HeaderPage from "@/share/components/HeaderPage";
 import NoteForm from "./NoteForm";
 import NoteList from "./NoteList";
+
 import { useState } from "react";
 
 function NoteComponent({ onlyFavoriteNotes }: { onlyFavoriteNotes: boolean }) {
@@ -24,7 +25,10 @@ function NoteComponent({ onlyFavoriteNotes }: { onlyFavoriteNotes: boolean }) {
           search={search}
           setTotalNotes={setTotalNotes}
         />
-        <NoteForm totalNotes={totalNotes} />
+        <NoteForm
+          totalNotes={totalNotes}
+          onlyFavoriteNotes={onlyFavoriteNotes}
+        />
       </div>
     </main>
   );

@@ -3,5 +3,5 @@ export interface NoteInterface {
   title: string;
   description: string;
   favorite: boolean;
-  date: string;
+  date?: string;
 }

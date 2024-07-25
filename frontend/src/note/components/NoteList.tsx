@@ -10,7 +10,8 @@ import Note from "./Note";
 // SONNER
 import { Toaster } from "sonner";
 
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 function NoteList({
   onlyFavoriteNotes,
@@ -21,6 +22,7 @@ function NoteList({
   search: string;
   setTotalNotes: Dispatch<SetStateAction<number>>;
 }) {
+  const router = useRouter();
   const { isLoading, data, isError, errorMessage } =
     useNotes(onlyFavoriteNotes);
 
@@ -38,15 +40,30 @@ function NoteList({
         )
       : data?.notes || [];
 
+  const handleAddNote = () => {
+    const url = onlyFavoriteNotes
+      ? `/web/favoriteNotes?action=create&title=&description=&favorite=true`
+      : `/web/notes?action=create&title=&description=&favorite=false`;
+    router.push(url);
+  };
+
   useEffect(() => {
     setTotalNotes(notes?.length || 0);
   }, [notes, setTotalNotes]);
 
   return (
     <section className="bg-backgroundNotes p-4 rounded-xl flex flex-col gap-4 row-span-3 md:row-span-7 md:col-span-2">
-      <header className="text-sm flex justify-between">
-        <span>Notes</span>
-        <span>{notes?.length}</span>
+      <header className="flex justify-between">
+        <div className="text-sm">
+          <span>Note: </span>
+          <span>{notes?.length}</span>
+        </div>
+        <span
+          className="text-colorTextPointer text-sm cursor-pointer"
+          onClick={handleAddNote}
+        >
+          Add note
+        </span>
       </header>
       {isLoading ? (
         <NoteListSkeleton />
@@ -62,7 +79,10 @@ function NoteList({
         </div>
       ) : (
         <div className="flex justify-center">
-          <button className="bg-black text-white text-sm py-3 px-5 rounded-xl">
+          <button
+            className="bg-black text-white text-sm py-3 px-5 rounded-xl"
+            onClick={handleAddNote}
+          >
             add note
           </button>
         </div>

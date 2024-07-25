@@ -1,8 +1,14 @@
-import Start from "@/icons/Start";
+// ICONS
 import StartNoBackground from "@/icons/StartNoBackground";
+import Start from "@/icons/Start";
+
+// INTERFACE
+import { NoteInterface } from "@/share/interfaces/NoteInterface";
+
+// HOOKS
 import { useFormatDate } from "@/share/hooks/useFormatDate";
 import { useUpdateNote } from "@/share/hooks/useUpdateNote";
-import { NoteInterface } from "@/share/interfaces/NoteInterface";
+
 import { useRouter } from "next/navigation";
 
 function DashboardNote({ note }: { note: NoteInterface }) {
@@ -22,7 +28,13 @@ function DashboardNote({ note }: { note: NoteInterface }) {
 
   const handleNoteClick = () => {
     router.push(
-      `/web/notes?title=${note.title}&description=${note.description}&isFavorite=${note.favorite}&date=${note.date}`
+      `/web/notes?title=${encodeURIComponent(
+        note.title
+      )}&description=${encodeURIComponent(
+        note.description
+      )}&favorite=${encodeURIComponent(
+        note.favorite
+      )}&noteId=${encodeURIComponent(note.noteId)}`
     );
   };
 

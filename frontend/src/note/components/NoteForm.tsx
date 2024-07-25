@@ -1,22 +1,95 @@
 // HOOK
 import { useUpdateNote } from "@/share/hooks/useUpdateNote";
+import { useCreateNote } from "../hooks/useCreateNote";
+import useNoteForm from "../hooks/useNoteForm";
 
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+// COMPONENTS
+import NotesFormHeader from "./NotesFormHeader";
+import AddNotePrompt from "./AddNotePrompt";
+import SelectNote from "./SelectNote";
 
-function NoteForm({ totalNotes }: { totalNotes: number }) {
+import { useRouter } from "next/navigation";
+
+interface NoteFormProps {
+  totalNotes: number;
+  onlyFavoriteNotes: boolean;
+}
+function NoteForm({ totalNotes, onlyFavoriteNotes }: NoteFormProps) {
   const { updateNoteMutation } = useUpdateNote();
-  const searchParams = useSearchParams();
+  const { createNoteMutation } = useCreateNote();
+  const { initialData, setInitialData, action, isFavorite } = useNoteForm();
   const router = useRouter();
 
-  const [initialData, setInitialData] = useState({
-    noteId: searchParams?.get("noteId") || "",
-    title: searchParams?.get("title") || "",
-    description: searchParams?.get("description") || "",
-  });
+  const handleStarClick = () => {
+    const newFavoriteStatus = !initialData.favorite;
 
-  const handleClick = async (event: any) => {
+    if (action) {
+      const url = onlyFavoriteNotes
+        ? `/web/favoriteNotes?action=create&title=${encodeURIComponent(
+            initialData.title
+          )}&description=${encodeURIComponent(
+            initialData.description
+          )}&favorite=${newFavoriteStatus}`
+        : `/web/notes?action=create&title=${encodeURIComponent(
+            initialData.title
+          )}&description=${encodeURIComponent(
+            initialData.description
+          )}&favorite=${newFavoriteStatus}`;
+      return router.push(url);
+    }
+
+    updateNoteMutation.mutate({
+      noteId: initialData.noteId,
+      noteData: { favorite: newFavoriteStatus },
+    });
+
+    const url = onlyFavoriteNotes
+      ? `/web/favoriteNotes`
+      : `/web/notes?title=${encodeURIComponent(
+          initialData.title
+        )}&description=${encodeURIComponent(
+          initialData.description
+        )}&favorite=${newFavoriteStatus}&noteId=${encodeURIComponent(
+          initialData.noteId
+        )}`;
+    router.push(url);
+  };
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setInitialData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleClick = async (event: React.FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
+
+    if (action) {
+      const data = {
+        title: initialData.title,
+        description: initialData.description,
+        favorite: initialData.favorite,
+      };
+
+      const res = await createNoteMutation.mutateAsync(data);
+      const url = res.data.favorite
+        ? `/web/favoriteNotes?title=${encodeURIComponent(
+            res.data.title
+          )}&description=${encodeURIComponent(
+            res.data.description
+          )}&favorite=${encodeURIComponent(
+            res.data.favorite
+          )}&noteId=${encodeURIComponent(res.data.noteId)}`
+        : `/web/notes?title=${encodeURIComponent(
+            res.data.title
+          )}&description=${encodeURIComponent(
+            res.data.description
+          )}&favorite=${encodeURIComponent(
+            res.data.favorite
+          )}&noteId=${encodeURIComponent(res.data.noteId)}`;
+      return router.push(url);
+    }
 
     updateNoteMutation.mutate({
       noteId: initialData.noteId,
@@ -26,76 +99,59 @@ function NoteForm({ totalNotes }: { totalNotes: number }) {
       },
     });
 
-    router.push(
-      `/web/notes?title=${encodeURIComponent(
-        initialData.title
-      )}&description=${encodeURIComponent(
-        initialData.description
-      )}&&noteId=${encodeURIComponent(initialData.noteId)}`
-    );
+    const url = onlyFavoriteNotes
+      ? `/web/favoriteNotes?title=${encodeURIComponent(
+          initialData.title
+        )}&description=${encodeURIComponent(
+          initialData.description
+        )}&favorite=${encodeURIComponent(
+          initialData.favorite
+        )}&noteId=${encodeURIComponent(initialData.noteId)}`
+      : `/web/notes?title=${encodeURIComponent(
+          initialData.title
+        )}&description=${encodeURIComponent(
+          initialData.description
+        )}&favorite=${encodeURIComponent(
+          initialData.favorite
+        )}&noteId=${encodeURIComponent(initialData.noteId)}`;
+    router.push(url);
   };
 
-  useEffect(() => {
-    setInitialData({
-      noteId: searchParams?.get("noteId") || "",
-      title: searchParams?.get("title") || "",
-      description: searchParams?.get("description") || "",
-    });
-  }, [searchParams]);
-
-  if (totalNotes === 0) {
-    return (
-      <section className="bg-backgroundNotes p-2 rounded-xl row-span-5 md:row-span-7 md:col-span-3">
-        <div className="h-full p-2 rounded-xl flex flex-col gap-7 items-center justify-center">
-          <img src="/notes/addNote.svg" alt="" className="w-3/4" />
-        </div>
-      </section>
-    );
+  if (totalNotes === 0 && !action) {
+    return <AddNotePrompt onlyFavoriteNotes={onlyFavoriteNotes} />;
   }
 
   if (
-    initialData.noteId === "" &&
-    initialData.title === "" &&
-    initialData.description === ""
+    !action &&
+    !initialData.noteId &&
+    !initialData.title &&
+    !initialData.description
   ) {
-    return (
-      <section className="bg-backgroundNotes p-2 rounded-xl row-span-5 md:row-span-7 md:col-span-3">
-        <div className="h-full p-2 rounded-xl flex flex-col gap-7 items-center justify-center">
-          <img src="/notes/selectNote.svg" alt="" className="w-3/4" />
-          <span className="font-semibold">select a note</span>
-        </div>
-      </section>
-    );
+    return <SelectNote />;
   }
 
   return (
     <section className="bg-backgroundNotes p-2 rounded-xl row-span-5 md:row-span-7 md:col-span-3 form-in">
       <div className="h-full p-2 rounded-xl">
-        <form action="" className="flex flex-col gap-5 h-full">
-          <input
-            type="text"
-            placeholder="Title"
-            value={initialData.title}
-            onChange={(e) =>
-              setInitialData({ ...initialData, title: e.target.value })
-            }
-            className="font-semibold text-lg p-2 bg-transparent transparent shadow-sm rounded-lg focus:outline-none focus:ring-0"
+        <form className="flex flex-col gap-5 h-full">
+          <NotesFormHeader
+            title={initialData.title}
+            favorite={initialData.favorite}
+            onTitleChange={handleInputChange}
+            onFavoriteClick={handleStarClick}
           />
           <textarea
             name="description"
-            id="description"
             placeholder="Start writing"
             value={initialData.description}
-            onChange={(e) =>
-              setInitialData({ ...initialData, description: e.target.value })
-            }
+            onChange={handleInputChange}
             className="resize-none text-sm flex-1 p-2 w-full bg-transparent shadow-md focus:outline-none focus:ring-0"
           ></textarea>
           <button
             className="bg-black py-2 px-3 rounded-xl text-sm text-white"
             onClick={handleClick}
           >
-            Save changes
+            {action ? "Create note" : "Save changes"}
           </button>
         </form>
       </div>
