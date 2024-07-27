@@ -40,7 +40,7 @@ function DashboardNote({ note }: { note: NoteInterface }) {
 
   return (
     <div
-      className="bg-colorNote min-h-64 min-w-48 max-h-64 max-w-48 rounded-xl p-2 mb-4 flex flex-col justify-between cursor-pointer"
+      className="bg-colorNote rounded-xl medium-note-dimensions p-2 mb-4 flex flex-col justify-between cursor-pointer"
       onClick={handleNoteClick}
     >
       <div className="text-sm space-y-2">

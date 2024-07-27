@@ -9,7 +9,7 @@ interface FilterProps {
 
 function Filter({ filter, handleFilterChange, handleSearch }: FilterProps) {
   return (
-    <div className="border border-colorBorder flex gap-3 rounded-2xl py-1 px-2 items-center justify-center">
+    <div className="border border-colorBorder flex gap-3 rounded-2xl py-3 px-2 items-center justify-center">
       <Search
         fill="#000"
         width={18}
@@ -19,7 +19,7 @@ function Filter({ filter, handleFilterChange, handleSearch }: FilterProps) {
       <input
         type="text"
         placeholder="Search notes"
-        className="flex-1 p-1 rounded-xl bg-transparent text-sm focus:outline-none focus:ring-0"
+        className="flex-1 rounded-xl bg-transparent text-sm focus:outline-none focus:ring-0"
         value={filter}
         onChange={(e) => handleFilterChange(e.target.value)}
       />

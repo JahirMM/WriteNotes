@@ -45,6 +45,13 @@ const config: Config = {
           zIndex: "-1",
         },
         ".small-note-dimensions": {
+          // min 158
+          minHeight: "142px",
+          minWidth: "192px",
+          maxHeight: "142px",
+          maxWidth: "192px",
+        },
+        ".medium-note-dimensions": {
           minHeight: "228px",
           minWidth: "192px",
           maxHeight: "228px",

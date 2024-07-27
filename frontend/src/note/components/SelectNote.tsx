@@ -1,8 +1,12 @@
-function SelectNote() {
+function SelectNote({ showForm }: { showForm: boolean }) {
   return (
-    <section className="bg-backgroundNotes p-2 rounded-xl row-span-5 md:row-span-7 md:col-span-3">
-      <div className="h-full p-2 rounded-xl flex flex-col gap-7 items-center justify-center">
-        <img src="/notes/selectNote.svg" alt="" className="w-3/4" />
+    <section
+      className={`bg-backgroundNotes rounded-xl p-2 row-start-2 row-end-6 ${
+        showForm ? "block" : "hidden"
+      } md:block md:col-start-3 md:col-end-6`}
+    >
+      <div className="flex flex-col h-full justify-center items-center">
+        <img src="/notes/selectNote.svg" alt="" className="w-0 md:w-1/2" />
         <span className="font-semibold">select a note</span>
       </div>
     </section>

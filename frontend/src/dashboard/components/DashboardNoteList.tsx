@@ -43,14 +43,14 @@ function DashboardNoteList({
       ))}
       <Link
         href={onlyFavoriteNotes ? "/web/favoriteNotes" : "/web/notes"}
-        className="bg-colorNote min-h-64 min-w-48 max-h-64 max-w-48 rounded-xl cursor-pointer flex flex-col gap-3 justify-center items-center"
+        className="bg-colorNote medium-note-dimensions rounded-xl cursor-pointer flex flex-col gap-3 justify-center items-center"
       >
         <div className="bg-backgroundIcon h-28 w-28 rounded-full flex justify-center items-center">
           <Note fill="#000" width={68} />
         </div>
         <span className="font-semibold">Notes ({notes?.length})</span>
       </Link>
-      <Toaster position="top-right" richColors closeButton duration={3000} />
+      <Toaster richColors closeButton duration={3000} />
     </div>
   );
 }

@@ -10,17 +10,21 @@ import Note from "./Note";
 // SONNER
 import { Toaster } from "sonner";
 
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 function NoteList({
   onlyFavoriteNotes,
   search = "",
   setTotalNotes,
+  showForm,
+  setShowForm,
 }: {
   onlyFavoriteNotes: boolean;
   search: string;
   setTotalNotes: Dispatch<SetStateAction<number>>;
+  showForm: boolean;
+  setShowForm: Dispatch<SetStateAction<boolean>>;
 }) {
   const router = useRouter();
   const { isLoading, data, isError, errorMessage } =
@@ -28,8 +32,11 @@ function NoteList({
 
   if (isError)
     return (
-      <div className="bg-backgroundNotes p-4 rounded-xl flex flex-col gap-4 row-span-3 md:row-span-7 md:col-span-2">
-        {errorMessage}
+      <div className="bg-backgroundNotes p-2 rounded-xl flex flex-col justify-center items-center gap-5 md:row-start-2 md:row-end-8">
+        <img src="/notes/errorNote.svg" alt="" className="w-0 md:w-3/4" />
+        <span className="font-semibold">
+          {errorMessage ? errorMessage : "An unknown error occurred"}
+        </span>
       </div>
     );
 
@@ -52,15 +59,19 @@ function NoteList({
   }, [notes, setTotalNotes]);
 
   return (
-    <section className="bg-backgroundNotes p-4 rounded-xl flex flex-col gap-4 row-span-3 md:row-span-7 md:col-span-2">
-      <header className="flex justify-between">
-        <div className="text-sm">
+    <section
+      className={`bg-backgroundNotes p-4 rounded-xl flex flex-col row-start-2 row-end-6 ${
+        showForm ? "hidden" : "block"
+      } md:block md:col-start-1 md:col-end-3`}
+    >
+      <header className="text-sm flex justify-between md:mb-3">
+        <div>
           <span>Note: </span>
           <span>{notes?.length}</span>
         </div>
         <span
-          className="text-colorTextPointer text-sm cursor-pointer"
           onClick={handleAddNote}
+          className="text-colorTextPointer cursor-pointer"
         >
           Add note
         </span>
@@ -68,11 +79,13 @@ function NoteList({
       {isLoading ? (
         <NoteListSkeleton />
       ) : notes && notes.length > 0 ? (
-        <div className="flex gap-3 overflow-auto md:flex-col md:items-center">
+        <div className="flex flex-col items-center gap-3 py-2 overflow-auto max-h-[95%] scrollVisibleNotes">
           {notes?.map((note) => (
             <Note
               note={note}
               onlyFavoriteNotes={onlyFavoriteNotes}
+              showForm={showForm}
+              setShowForm={setShowForm}
               key={note.noteId}
             />
           ))}

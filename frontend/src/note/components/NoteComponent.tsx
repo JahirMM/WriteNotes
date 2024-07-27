@@ -7,14 +7,28 @@ import HeaderPage from "@/share/components/HeaderPage";
 import NoteForm from "./NoteForm";
 import NoteList from "./NoteList";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useNoteForm from "../hooks/useNoteForm";
+import { useSearchParams } from "next/navigation";
 
 function NoteComponent({ onlyFavoriteNotes }: { onlyFavoriteNotes: boolean }) {
   const { filter, search, handleFilterChange, handleSearch } = useFilter();
   const [totalNotes, setTotalNotes] = useState(0);
+
+  const { initialData, action } = useNoteForm();
+  const [showForm, setShowForm] = useState(initialData.noteId !== "" || action);
+
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const noteId = searchParams?.get("noteId") || "";
+    const action = searchParams?.get("action") === "create";
+    setShowForm(noteId !== "" || action);
+  }, [searchParams]);
+
   return (
     <main className="h-screen w-full p-2">
-      <div className="bg-backgroundSecondary rounded-2xl h-full w-full p-4 grid grid-cols-1 grid-rows-8 gap-4 md:grid-cols-5">
+      <div className="grid grid-cols-1 grid-rows-5 gap-4 h-full md:grid-cols-5">
         <HeaderPage
           filter={filter}
           handleFilterChange={handleFilterChange}
@@ -24,10 +38,14 @@ function NoteComponent({ onlyFavoriteNotes }: { onlyFavoriteNotes: boolean }) {
           onlyFavoriteNotes={onlyFavoriteNotes}
           search={search}
           setTotalNotes={setTotalNotes}
+          showForm={showForm}
+          setShowForm={setShowForm}
         />
         <NoteForm
           totalNotes={totalNotes}
           onlyFavoriteNotes={onlyFavoriteNotes}
+          showForm={showForm}
+          setShowForm={setShowForm}
         />
       </div>
     </main>

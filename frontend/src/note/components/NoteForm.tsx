@@ -9,12 +9,20 @@ import AddNotePrompt from "./AddNotePrompt";
 import SelectNote from "./SelectNote";
 
 import { useRouter } from "next/navigation";
+import { Dispatch, SetStateAction } from "react";
 
 interface NoteFormProps {
   totalNotes: number;
   onlyFavoriteNotes: boolean;
+  showForm: boolean;
+  setShowForm: Dispatch<SetStateAction<boolean>>;
 }
-function NoteForm({ totalNotes, onlyFavoriteNotes }: NoteFormProps) {
+function NoteForm({
+  totalNotes,
+  onlyFavoriteNotes,
+  showForm,
+  setShowForm,
+}: NoteFormProps) {
   const { updateNoteMutation } = useUpdateNote();
   const { createNoteMutation } = useCreateNote();
   const { initialData, setInitialData, action, isFavorite } = useNoteForm();
@@ -118,7 +126,12 @@ function NoteForm({ totalNotes, onlyFavoriteNotes }: NoteFormProps) {
   };
 
   if (totalNotes === 0 && !action) {
-    return <AddNotePrompt onlyFavoriteNotes={onlyFavoriteNotes} />;
+    return (
+      <AddNotePrompt
+        onlyFavoriteNotes={onlyFavoriteNotes}
+        showForm={showForm}
+      />
+    );
   }
 
   if (
@@ -127,34 +140,36 @@ function NoteForm({ totalNotes, onlyFavoriteNotes }: NoteFormProps) {
     !initialData.title &&
     !initialData.description
   ) {
-    return <SelectNote />;
+    return <SelectNote showForm={showForm} />;
   }
 
   return (
-    <section className="bg-backgroundNotes p-2 rounded-xl row-span-5 md:row-span-7 md:col-span-3 form-in">
-      <div className="h-full p-2 rounded-xl">
-        <form className="flex flex-col gap-5 h-full">
-          <NotesFormHeader
-            title={initialData.title}
-            favorite={initialData.favorite}
-            onTitleChange={handleInputChange}
-            onFavoriteClick={handleStarClick}
-          />
-          <textarea
-            name="description"
-            placeholder="Start writing"
-            value={initialData.description}
-            onChange={handleInputChange}
-            className="resize-none text-sm flex-1 p-2 w-full bg-transparent shadow-md focus:outline-none focus:ring-0"
-          ></textarea>
-          <button
-            className="bg-black py-2 px-3 rounded-xl text-sm text-white"
-            onClick={handleClick}
-          >
-            {action ? "Create note" : "Save changes"}
-          </button>
-        </form>
-      </div>
+    <section
+      className={`bg-backgroundNotes rounded-xl p-2 row-start-2 row-end-6 ${
+        showForm ? "block" : "hidden"
+      } md:block md:col-start-3 md:col-end-6`}
+    >
+      <form className="p-2 flex flex-col gap-5 h-full">
+        <NotesFormHeader
+          title={initialData.title}
+          favorite={initialData.favorite}
+          onTitleChange={handleInputChange}
+          onFavoriteClick={handleStarClick}
+        />
+        <textarea
+          name="description"
+          placeholder="Start writing"
+          value={initialData.description}
+          onChange={handleInputChange}
+          className="flex-1 p-2 w-full resize-none text-sm bg-transparent shadow-md focus:outline-none focus:ring-0"
+        ></textarea>
+        <button
+          className="bg-black py-2 px-3 rounded-xl text-sm text-white"
+          onClick={handleClick}
+        >
+          {action ? "Create note" : "Save changes"}
+        </button>
+      </form>
     </section>
   );
 }

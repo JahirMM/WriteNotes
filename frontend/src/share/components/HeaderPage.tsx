@@ -18,8 +18,8 @@ function HeaderPage({
   });
 
   return (
-    <header className="flex flex-col gap-4 justify-around md:col-start-1 md:col-end-6">
-      <span className="text-xl sm:text-3xl">Today: {formattedDate}</span>
+    <header className="flex flex-col gap-5 col-span-full justify-evenly">
+      <span className="text-xl">Today: {formattedDate}</span>
       <Filter
         filter={filter}
         handleFilterChange={handleFilterChange}

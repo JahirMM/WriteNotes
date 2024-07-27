@@ -12,13 +12,18 @@ import { useUpdateNote } from "@/share/hooks/useUpdateNote";
 import { useDeleteNote } from "../hooks/useDeleteNote";
 
 import { useRouter, useSearchParams } from "next/navigation";
+import { Dispatch, SetStateAction } from "react";
 
 function Note({
   note,
   onlyFavoriteNotes,
+  showForm,
+  setShowForm,
 }: {
   note: NoteInterface;
   onlyFavoriteNotes: boolean;
+  showForm: boolean;
+  setShowForm: Dispatch<SetStateAction<boolean>>;
 }) {
   const { formattedDate } = useFormatDate(note.date!);
   const { updateNoteMutation } = useUpdateNote();
@@ -87,7 +92,7 @@ function Note({
 
   return (
     <div
-      className={`bg-colorNote small-note-dimensions p-3 rounded-xl flex flex-col justify-between md:large-note-dimensions  ${
+      className={`bg-colorNote p-3 rounded-xl flex flex-col justify-between large-note-dimensions sm:large-note-dimensions  ${
         note.noteId === searchParams?.get("noteId")
           ? "border border-colorBorder"
           : ""
@@ -99,7 +104,7 @@ function Note({
           <span className="font-semibold">{note.title}</span>
           <Trash fill="#F25756" width={16} onClick={handleTrashClick} />
         </div>
-        <p className="line-clamp-6 text-sm md:line-clamp-5">
+        <p className="line-clamp-2 text-sm md:line-clamp-5">
           {note.description}
         </p>
       </header>

@@ -16,16 +16,14 @@ function DashboardScratchPad() {
   };
 
   return (
-    <section className="bg-backgroundNotes rounded-xl p-3 flex flex-col gap-2 justify-around md:col-span-2 md:gap-0">
-      <div>
-        <p className="text-sm">Scratch Pad</p>
-      </div>
+    <section className="bg-backgroundNotes rounded-xl p-3 flex flex-col gap-3 justify-evenly md:col-start-4 md:col-end-6">
+      <p>Scratch Pad</p>
       <textarea
         name="memoPad"
         id="memoPad"
         value={text}
-        className="bg-colorMemoPad min-h-64 max-h-64 w-full rounded-2xl p-2 focus:outline-none focus:ring-0"
         onChange={handleChange}
+        className="bg-colorMemoPad min-h-64 max-h-64 rounded-2xl p-2 focus:outline-none focus:ring-0"
       ></textarea>
     </section>
   );
