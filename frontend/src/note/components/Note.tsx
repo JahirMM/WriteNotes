@@ -99,7 +99,7 @@ function Note({
           <span className="font-semibold">{note.title}</span>
           <Trash fill="#F25756" width={16} onClick={handleTrashClick} />
         </div>
-        <p className="line-clamp-2 text-sm md:line-clamp-5">
+        <p className="line-clamp-2 text-sm sm:line-clamp-4 md:line-clamp-5">
           {note.description}
         </p>
       </header>

@@ -10,6 +10,7 @@ import SelectNote from "./SelectNote";
 
 import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
+import CloseFormButton from "./CloseFormButton";
 
 interface NoteFormProps {
   totalNotes: number;
@@ -149,7 +150,8 @@ function NoteForm({
         showForm ? "block" : "hidden"
       } md:block md:col-start-3 md:col-end-6`}
     >
-      <form className="p-2 flex flex-col gap-5 h-full">
+      <form className="p-2 flex flex-col h-full gap-5 md:gap-0">
+        <CloseFormButton onlyFavoriteNotes={onlyFavoriteNotes} />
         <NotesFormHeader
           title={initialData.title}
           favorite={initialData.favorite}
@@ -164,7 +166,7 @@ function NoteForm({
           className="flex-1 p-2 w-full resize-none text-sm bg-transparent shadow-md focus:outline-none focus:ring-0"
         ></textarea>
         <button
-          className="bg-black py-2 px-3 rounded-xl text-sm text-white"
+          className="bg-black py-2 px-3 rounded-xl text-sm text-white md:mt-4"
           onClick={handleClick}
         >
           {action ? "Create note" : "Save changes"}

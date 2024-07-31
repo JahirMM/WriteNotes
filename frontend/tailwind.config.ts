@@ -61,6 +61,7 @@ const config: Config = {
           minHeight: "192px",
           maxHeight: "192px",
           minWidth: "95%",
+          maxWidth: "95%",
         },
       });
     },
