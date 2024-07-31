@@ -84,8 +84,6 @@ function NoteList({
             <Note
               note={note}
               onlyFavoriteNotes={onlyFavoriteNotes}
-              showForm={showForm}
-              setShowForm={setShowForm}
               key={note.noteId}
             />
           ))}

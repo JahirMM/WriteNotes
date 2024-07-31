@@ -16,6 +16,12 @@ body {
   background-color: #f3ede5;
   border-radius: 15px;
   height: 10px;
+}
+
+.scrollVisible::-webkit-scrollbar-thumb,
+.scrollVisibleNotes::-webkit-scrollbar-thumb {
+  background-color: #e9ddcd;
+  border-radius: 15px;
   cursor: pointer;
 }
 
@@ -23,5 +29,4 @@ body {
   background-color: #f3ede5;
   border-radius: 15px;
   width: 7px;
-  cursor: pointer;
 }

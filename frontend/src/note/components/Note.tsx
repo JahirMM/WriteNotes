@@ -12,18 +12,13 @@ import { useUpdateNote } from "@/share/hooks/useUpdateNote";
 import { useDeleteNote } from "../hooks/useDeleteNote";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { Dispatch, SetStateAction } from "react";
 
 function Note({
   note,
   onlyFavoriteNotes,
-  showForm,
-  setShowForm,
 }: {
   note: NoteInterface;
   onlyFavoriteNotes: boolean;
-  showForm: boolean;
-  setShowForm: Dispatch<SetStateAction<boolean>>;
 }) {
   const { formattedDate } = useFormatDate(note.date!);
   const { updateNoteMutation } = useUpdateNote();
