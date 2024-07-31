@@ -1,19 +1,30 @@
 "use client";
 
 // COMPONENTS
+import UserProfile from "@/user/components/UserProfile";
 import NavBarOptions from "./NavBarOptions";
+import Modal from "./Modal";
+
+// HOOKS
+import { useLogout } from "../hooks/useLogout";
 
 // ICONS
 import Logout from "@/icons/Logout";
 import Arrow from "@/icons/Arrow";
 
-import { useState } from "react";
+// SONNER
 import { Toaster } from "sonner";
-import { useLogout } from "../hooks/useLogout";
+
+import { useState } from "react";
 
 function NavBarPage() {
   const [showMenu, setShowMenu] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
   const { mutationLogout } = useLogout();
+
+  const handleShowProfile = () => {
+    setShowProfile(!showProfile);
+  };
 
   return (
     <div
@@ -34,11 +45,14 @@ function NavBarPage() {
         </span>
       </div>
       <header className="flex gap-5 pb-5 border-b border-[#f6f6f6]">
-        <div className="w-11 h-11 rounded-[50%] overflow-hidden">
+        <div
+          className="w-11 h-11 rounded-[50%] overflow-hidden cursor-pointer"
+          onClick={handleShowProfile}
+        >
           <img src="/login/imgLogin.jpg" className="w-full object-cover"></img>
         </div>
         {showMenu && (
-          <div>
+          <div className="cursor-pointer" onClick={handleShowProfile}>
             <p className="text-[10px] font-medium text-[#757575] bg-transparent">
               USER ACCOUNT
             </p>
@@ -90,6 +104,14 @@ function NavBarPage() {
         </ul>
       </section>
       <Toaster position="top-right" richColors closeButton duration={5000} />
+      {showProfile && (
+        <Modal>
+          <UserProfile
+            showProfile={showProfile}
+            setShowProfile={setShowProfile}
+          />
+        </Modal>
+      )}
     </div>
   );
 }
