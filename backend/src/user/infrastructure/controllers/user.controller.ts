@@ -1,8 +1,10 @@
-import { Router } from "express";
-import { Request, Response } from "express";
+import { UpdateUserInformation } from "../../application/updateUserInformation.application";
 import { UserRepository } from "../repositories/user.repository";
 import { GetUser } from "../../application/getUser.application";
-import { UpdateUserInformation } from "../../application/updateUserInformation.application";
+
+import { Request, Response } from "express";
+import { Router } from "express";
+
 import jwt from "jsonwebtoken";
 
 const router = Router();
@@ -70,8 +72,6 @@ router.put("/user", async (req: Request, res: Response) => {
     }
 
     const data = {
-      email: getUser[0].email,
-      password: getUser[0].password,
       firstName: firstName !== undefined ? firstName : getUser[0].firstName,
       middleName: middleName !== undefined ? middleName : getUser[0].middleName,
       lastName: lastName !== undefined ? lastName : getUser[0].lastName,
@@ -79,6 +79,7 @@ router.put("/user", async (req: Request, res: Response) => {
         maternalLastName !== undefined
           ? maternalLastName
           : getUser[0].maternalLastName,
+      email: getUser[0].email,
     };
 
     const updateUser = new UpdateUserInformation(new UserRepository());
@@ -91,9 +92,17 @@ router.put("/user", async (req: Request, res: Response) => {
       return res.status(422).json({ message: "Please complete all fields" });
     }
 
+    const dataResponsive = {
+      firstName: userInformation.firstName,
+      middleName: userInformation.middleName,
+      lastName: userInformation.lastName,
+      maternalLastName: userInformation.maternalLastName,
+      email: userInformation.email,
+    };
+
     return res.status(200).json({
       message: "the user was successfully updated",
-      user: userInformation,
+      user: dataResponsive,
     });
   } catch (error) {
     console.log("UPDATE USER INFORMATION");

@@ -44,14 +44,13 @@ router.post("/login", async (req: Request, res: Response) => {
 router.post("/logOut", (_req, res: Response) => {
   const tokenName = process.env.TOKEN_NAME;
 
-  // if (!tokenName) {
-  //   return res.status(401).json({ message: "No token found." });
-  // }
+  if (!tokenName) {
+    return res.status(401).json({ message: "No token found." });
+  }
 
   const cookieConfig: CookieSerializeOptions = {
-    // true no se podra acceder a la cookie desde js
     httpOnly: true,
-    sameSite: "none",
+    sameSite: "strict",
     maxAge: 0,
     path: "/",
   };
