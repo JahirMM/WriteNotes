@@ -1,7 +1,19 @@
+// INTERFACE
+import { UserProfileInterface } from "../interfaces/UserProfileInterface";
+
 // ICON
 import Email from "@/icons/Email";
 
-function UserProfileEmail() {
+import { ChangeEvent } from "react";
+
+interface UserProfileEmailProps {
+  initialData: UserProfileInterface;
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+}
+function UserProfileEmail({
+  initialData,
+  handleChange,
+}: UserProfileEmailProps) {
   return (
     <div className="grid grid-cols-1 gap-3 lg:grid-cols-5 lg:gap-0">
       <label htmlFor="email" className="text-xs">
@@ -13,8 +25,10 @@ function UserProfileEmail() {
           type="email"
           id="email"
           name="email"
-          placeholder="jahir@gmail.com"
+          placeholder="email"
           className="bg-transparent text-sm flex-1 py-1 px-2 focus:outline-none focus:ring-0"
+          value={initialData.email}
+          onChange={handleChange}
         />
       </div>
     </div>

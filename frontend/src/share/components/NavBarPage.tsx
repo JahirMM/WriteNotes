@@ -12,9 +12,6 @@ import { useLogout } from "../hooks/useLogout";
 import Logout from "@/icons/Logout";
 import Arrow from "@/icons/Arrow";
 
-// SONNER
-import { Toaster } from "sonner";
-
 import { useState } from "react";
 
 function NavBarPage() {
@@ -103,7 +100,6 @@ function NavBarPage() {
           </li>
         </ul>
       </section>
-      <Toaster position="top-right" richColors closeButton duration={5000} />
       {showProfile && (
         <Modal>
           <UserProfile
