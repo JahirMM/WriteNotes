@@ -12,12 +12,12 @@ import UserProfileEmail from "./UserProfileEmail";
 // HOOK
 import { useValidateEmail } from "@/share/hooks/useValidateEmail";
 import { useValidateField } from "@/share/hooks/useValidateField";
+import { useUpdateUser } from "../hooks/useUpdateUser";
 
 // SONNER
 import { toast } from "sonner";
 
 import { ChangeEvent, useState } from "react";
-import { useUpdateUser } from "../hooks/useUpdateUser";
 
 function UserProfileForm({ user }: { user: GetUserResponseInterface["user"] }) {
   const { validateEmail } = useValidateEmail();
