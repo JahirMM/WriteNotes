@@ -50,7 +50,7 @@ function DashboardNoteList({
         </div>
         <span className="font-semibold">Notes ({notes?.length})</span>
       </Link>
-      <Toaster richColors closeButton duration={3000} />
+      <Toaster position="top-right" richColors closeButton duration={3000} />
     </div>
   );
 }

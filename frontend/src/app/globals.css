@@ -30,3 +30,29 @@ body {
   border-radius: 15px;
   width: 7px;
 }
+
+@keyframes showUserProfile {
+  from {
+    scale: 0;
+  }
+  to {
+    scale: 1;
+  }
+}
+
+@keyframes closeUserProfile {
+  from {
+    scale: 1;
+  }
+  to {
+    scale: 0;
+  }
+}
+
+.formVisible {
+  animation: showUserProfile 0.3s ease-in;
+}
+
+.formHidden {
+  animation: closeUserProfile 0.3s ease-in-out;
+}
