@@ -2,6 +2,7 @@
 
 // COMPONENTS
 import UserProfile from "@/user/components/UserProfile";
+import NavBarButtonAddNote from "./NavBarButtonAddNote";
 import NavBarToggleButton from "./NavBarToggleButton";
 import NavBarOptions from "./NavBarOptions";
 import NavBarLogout from "./NavBarLogout";
@@ -31,6 +32,7 @@ function NavBarPage() {
         showProfile={showProfile}
         setShowProfile={setShowProfile}
       />
+      <NavBarButtonAddNote showMenu={showMenu} />
       <nav className="flex-1">
         <section>
           <p

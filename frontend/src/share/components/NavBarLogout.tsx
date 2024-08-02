@@ -23,7 +23,7 @@ function NavBarLogout({ showMenu }: { showMenu: boolean }) {
               : "absolute left-[70px] top-1/2 -translate-y-1/2 p-3 rounded text-colorText bg-backgroundIcon hidden transition-all duration-300 after-custom-icon"
           } flex-1 group-hover:flex group-hover:left-[50px] group-hover:opacity-100`}
         >
-          ul Logout
+          Logout
         </span>
       </a>
     </li>
