@@ -6,6 +6,7 @@ import NavBarOptions from "./NavBarOptions";
 import Modal from "./Modal";
 
 // HOOKS
+import { useGetUser } from "../hooks/useGetUser";
 import { useLogout } from "../hooks/useLogout";
 
 // ICONS
@@ -13,7 +14,6 @@ import Logout from "@/icons/Logout";
 import Arrow from "@/icons/Arrow";
 
 import { useState } from "react";
-import { useGetUser } from "../hooks/useGetUser";
 
 function NavBarPage() {
   const [showMenu, setShowMenu] = useState(false);
@@ -25,8 +25,6 @@ function NavBarPage() {
   const handleShowProfile = () => {
     setShowProfile(!showProfile);
   };
-
-  console.log(data);
 
   return (
     <div

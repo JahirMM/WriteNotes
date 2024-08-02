@@ -39,7 +39,9 @@ function UserProfile({ showProfile, setShowProfile, user }: UserProfileProps) {
               className="w-20 h-20 rounded-full"
             />
           </div>
-          <span className="text-sm inline-block">{user.firstName}</span>
+          <span className="text-sm inline-block">
+            {user.firstName} {user.middleName}
+          </span>
           <span className="text-xs inline-block">{user.email}</span>
         </div>
         <UserProfileForm user={user} />

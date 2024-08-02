@@ -17,9 +17,11 @@ import { useValidateField } from "@/share/hooks/useValidateField";
 import { toast } from "sonner";
 
 import { ChangeEvent, useState } from "react";
+import { useUpdateUser } from "../hooks/useUpdateUser";
 
 function UserProfileForm({ user }: { user: GetUserResponseInterface["user"] }) {
   const { validateEmail } = useValidateEmail();
+  const { updateUserMutation } = useUpdateUser();
 
   const [initialData, setInitialData] = useState<UserProfileInterface>({
     firstName: user.firstName,
@@ -71,7 +73,8 @@ function UserProfileForm({ user }: { user: GetUserResponseInterface["user"] }) {
     if (!validateEmail(initialData.email)) {
       return toast.error("Please enter a valid email address");
     }
-    console.log(initialData);
+
+    updateUserMutation.mutate(initialData);
   };
 
   return (
