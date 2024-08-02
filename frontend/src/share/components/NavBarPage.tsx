@@ -13,15 +13,20 @@ import Logout from "@/icons/Logout";
 import Arrow from "@/icons/Arrow";
 
 import { useState } from "react";
+import { useGetUser } from "../hooks/useGetUser";
 
 function NavBarPage() {
   const [showMenu, setShowMenu] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+
   const { mutationLogout } = useLogout();
+  const { isError, errorMessage, data } = useGetUser();
 
   const handleShowProfile = () => {
     setShowProfile(!showProfile);
   };
+
+  console.log(data);
 
   return (
     <div
@@ -102,10 +107,17 @@ function NavBarPage() {
       </section>
       {showProfile && (
         <Modal>
-          <UserProfile
-            showProfile={showProfile}
-            setShowProfile={setShowProfile}
-          />
+          {isError ? (
+            <div>{errorMessage}</div>
+          ) : data?.user ? (
+            <UserProfile
+              showProfile={showProfile}
+              setShowProfile={setShowProfile}
+              user={data.user}
+            />
+          ) : (
+            <div>Loading...</div>
+          )}
         </Modal>
       )}
     </div>

@@ -1,13 +1,21 @@
-import Close from "@/icons/Close";
+// INTERFACE
+import { GetUserResponseInterface } from "@/share/interfaces/GetUserResponseInterface";
+
+// COMPONENT
 import UserProfileForm from "./UserProfileForm";
+
+// ICON
+import Close from "@/icons/Close";
+
 import { Dispatch, SetStateAction } from "react";
 
 interface UserProfileProps {
   showProfile: boolean;
   setShowProfile: Dispatch<SetStateAction<boolean>>;
+  user: GetUserResponseInterface["user"];
 }
 
-function UserProfile({ showProfile, setShowProfile }: UserProfileProps) {
+function UserProfile({ showProfile, setShowProfile, user }: UserProfileProps) {
   const handleCloseProfile = () => {
     setShowProfile(!showProfile);
   };
@@ -31,10 +39,10 @@ function UserProfile({ showProfile, setShowProfile }: UserProfileProps) {
               className="w-20 h-20 rounded-full"
             />
           </div>
-          <span className="text-sm inline-block">Jahir Machuca</span>
-          <span className="text-xs inline-block">jahir@gmail.com</span>
+          <span className="text-sm inline-block">{user.firstName}</span>
+          <span className="text-xs inline-block">{user.email}</span>
         </div>
-        <UserProfileForm />
+        <UserProfileForm user={user} />
       </section>
     </div>
   );

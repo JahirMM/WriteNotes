@@ -1,4 +1,5 @@
 // INTERFACE
+import { GetUserResponseInterface } from "@/share/interfaces/GetUserResponseInterface";
 import { FieldRulesInterface } from "@/share/interfaces/FieldRulesInterface";
 import { UserProfileInterface } from "../interfaces/UserProfileInterface";
 
@@ -17,15 +18,15 @@ import { toast } from "sonner";
 
 import { ChangeEvent, useState } from "react";
 
-function UserProfileForm() {
+function UserProfileForm({ user }: { user: GetUserResponseInterface["user"] }) {
   const { validateEmail } = useValidateEmail();
 
   const [initialData, setInitialData] = useState<UserProfileInterface>({
-    firstName: "",
-    middleName: "",
-    lastName: "",
-    maternalLastName: "",
-    email: "",
+    firstName: user.firstName,
+    middleName: user.middleName,
+    lastName: user.lastName,
+    maternalLastName: user.maternalLastName,
+    email: user.email,
   });
 
   const configs: Record<string, FieldRulesInterface> = {
