@@ -7,10 +7,14 @@ function NavBarButtonAddNote({ showMenu }: { showMenu: boolean }) {
   return (
     <Link
       href={"/web/notes?action=create&title=&description=&favorite=false"}
-      className="bg-colorTextPointer py-2 rounded-md flex gap-3 items-center justify-center"
+      className="bg-colorTextPointer w-full py-2 flex items-center justify-center rounded-lg mb-3"
     >
       <Plus fill={"#F9F6F3"} width={16} />
-      <span className={`${showMenu ? "" : "hidden"} text-sm text-colorNote`}>
+      <span
+        className={`text-sm text-colorNote navbar-text-transition ${
+          showMenu ? "opacity-0 w-0" : "opacity-100 ml-3"
+        }`}
+      >
         Create note
       </span>
     </Link>

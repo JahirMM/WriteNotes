@@ -63,6 +63,12 @@ const config: Config = {
           minWidth: "95%",
           maxWidth: "95%",
         },
+        ".navbar-text-transition": {
+          whiteSpace: "nowrap",
+          transitionProperty: "opacity",
+          transitionDuration: "0.5s",
+          transitionTimingFunction: "ease",
+        },
       });
     },
   ],

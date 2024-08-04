@@ -39,30 +39,30 @@ function NavBarOptions({ showMenu }: NavBarOptionsProps) {
   return (
     <ul>
       {options.map((option, index) => (
-        <li key={index} className="relative mb-[5px]">
+        <li className="flex" key={index}>
           <Link
             href={option.path}
-            className={`
-          ${pathname === option.path ? "bg-backgroundNavBarOption" : ""}
-          ${
-            showMenu ? "" : "relative flex items-center justify-center"
-          } flex items-center gap-[10px] text-colorText text-sm p-2 rounded-lg transition-all duration-300 group hover:bg-backgroundNavBarOption`}
+            className={`p-2 w-full flex items-center rounded-lg ${
+              showMenu ? "justify-center" : "gap-2"
+            } ${
+              pathname === option.path ? "bg-backgroundNavBarOption" : ""
+            } group hover:bg-backgroundNavBarOption`}
           >
             <span
-              className={`${
+              className={`min-h-9 min-w-9 rounded-full flex items-center justify-center transition-colors duration-500 ease-linear ${
                 pathname === option.path ? "bg-backgroundIcon" : ""
-              } h-7 w-7 rounded-full flex items-center justify-center group-hover:bg-backgroundIcon`}
+              } group-hover:bg-backgroundIcon`}
             >
-              <option.icon fill={option.fill} width={option.width} />
+              <option.icon
+                fill={option.fill}
+                width={option.width}
+                className=""
+              />
             </span>
             <span
-              className={`
-            ${pathname === option.path ? "font-bold " : ""}
-            ${
-              showMenu
-                ? ""
-                : "absolute left-[70px] top-1/2 -translate-y-1/2 p-3 rounded text-colorText bg-backgroundIcon hidden transition-all duration-300 after-custom-icon"
-            } flex-1 group-hover:flex group-hover:left-[50px] group-hover:opacity-100`}
+              className={`text-sm navbar-text-transition ${
+                showMenu ? "opacity-0 w-0" : "opacity-100"
+              } ${pathname === option.path ? "font-semibold " : ""}`}
             >
               {option.name}
             </span>
