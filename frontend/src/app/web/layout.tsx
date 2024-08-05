@@ -1,5 +1,5 @@
 import NavBarPage from "@/share/components/NavBarPage";
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 
 function layoutPage({ children }: { children: ReactNode }) {
   return (
