@@ -12,18 +12,18 @@ function NavBarToggleButton({
   setShowMenu: Dispatch<SetStateAction<boolean>>;
   showSideBar: boolean;
 }) {
+  console.log(showMenu);
+
   return (
     <div
       onClick={() => setShowMenu(!showMenu)}
       className={`${
-        showMenu ? "left-[70px] top-[3.5%]" : "left-[190px] top-[3.5%]"
-      } ${
-        showSideBar ? "-left-[400px]" : "left-0"
-      } bg-backgroundIcon absolute w-7 h-7 rounded-lg flex items-center justify-center cursor-pointer border-2 border-[#f6f6f6] transition-all duration-500 ease-linear z-50`}
+        showSideBar ? "-left-64" : showMenu ? "left-[70px]" : "left-[190px]"
+      } top-[3.5%] bg-backgroundIcon absolute w-7 h-7 rounded-lg flex items-center justify-center cursor-pointer border-2 border-[#f6f6f6] transition-all duration-500 ease-linear z-50`}
     >
       <span
         className={`${
-          showMenu ? "" : "rotate-180 transition-all duration-300"
+          showMenu ? "" : "rotate-180 transition-all duration-500"
         }`}
       >
         <Arrow fill="#B1805E" width={9} />
