@@ -13,7 +13,7 @@ function NavBarHeader({
     setShowProfile(!showProfile);
   };
   return (
-    <header className="w-full h-16 flex items-center">
+    <header className="w-full h-16 flex items-center mt-5 portrait:mb-5 landscape:mb-0">
       <img
         src="/login/imgLogin.jpg"
         className="min-h-11 min-w-11 max-h-11 max-w-11 rounded-[50%] cursor-pointer"

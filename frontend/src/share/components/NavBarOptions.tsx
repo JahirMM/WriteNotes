@@ -38,6 +38,13 @@ function NavBarOptions({ showMenu }: NavBarOptionsProps) {
   ];
   return (
     <ul>
+      <p
+        className={`text-[10px] mb-2 mt-5 text-[#757575] navbar-text-transition uppercase ${
+          showMenu ? "opacity-0 hidden" : "opacity-100"
+        }`}
+      >
+        Navigation
+      </p>
       {options.map((option, index) => (
         <li className="flex" key={index}>
           <Link

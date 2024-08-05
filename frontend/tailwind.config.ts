@@ -22,11 +22,6 @@ const config: Config = {
         colorNote: "#F3EDE5",
         colorText: "#000000",
       },
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
     },
   },
   plugins: [

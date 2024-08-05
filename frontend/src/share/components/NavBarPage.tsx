@@ -24,11 +24,6 @@ function NavBarPage() {
 
   return (
     <>
-      <NavBarToggleButton
-        showMenu={showMenu}
-        setShowMenu={setShowMenu}
-        showSideBar={showSideBar}
-      />
       <NavBarMenuButton
         showSideBar={showSideBar}
         setShowSideBar={setShowSideBar}
@@ -39,14 +34,15 @@ function NavBarPage() {
         } bg-backgroundPage h-full px-4 py-5 transition-all duration-500 ease-linear fixed overflow-hidden flex flex-col justify-between z-40 sm:left-0`}
       >
         <div>
+          <NavBarToggleButton showMenu={showMenu} setShowMenu={setShowMenu} />
           <NavBarHeader
             showMenu={showMenu}
             showProfile={showProfile}
             setShowProfile={setShowProfile}
           />
-          <NavBarButtonAddNote showMenu={showMenu} />
         </div>
         <nav className="flex-1 overflow-y-auto overflow-x-hidden scrollVisible">
+          <NavBarButtonAddNote showMenu={showMenu} />
           <NavBarOptions showMenu={showMenu} />
         </nav>
         <div>

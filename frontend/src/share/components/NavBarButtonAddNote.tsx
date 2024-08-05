@@ -7,7 +7,7 @@ function NavBarButtonAddNote({ showMenu }: { showMenu: boolean }) {
   return (
     <Link
       href={"/web/notes?action=create&title=&description=&favorite=false"}
-      className="bg-colorTextPointer w-full py-2 flex items-center justify-center rounded-lg mb-3"
+      className="bg-colorTextPointer w-full py-2 flex items-center justify-center rounded-lg mb-2"
     >
       <Plus fill={"#F9F6F3"} width={16} />
       <span
