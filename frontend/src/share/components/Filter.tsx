@@ -9,7 +9,7 @@ interface FilterProps {
 
 function Filter({ filter, handleFilterChange, handleSearch }: FilterProps) {
   return (
-    <div className="border border-colorBorder flex gap-3 rounded-2xl py-3 px-2 items-center justify-center">
+    <div className="border border-colorBorder flex gap-3 rounded-2xl p-2 items-center justify-center">
       <Search
         fill="#000"
         width={18}

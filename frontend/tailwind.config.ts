@@ -47,9 +47,9 @@ const config: Config = {
           maxWidth: "192px",
         },
         ".medium-note-dimensions": {
-          minHeight: "228px",
+          minHeight: "256px",
           minWidth: "192px",
-          maxHeight: "228px",
+          maxHeight: "256px",
           maxWidth: "192px",
         },
         ".large-note-dimensions": {

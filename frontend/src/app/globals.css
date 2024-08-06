@@ -13,17 +13,22 @@ body {
 }
 
 .scrollVisible::-webkit-scrollbar {
-  /* background-color: #f3ede5;
-  border-radius: 15px;
-  height: 10px; */
+  height: 10px;
   width: 5px;
 }
 
+.scrollVisiblePage::-webkit-scrollbar {
+  width: 15px;
+}
+
+.scrollVisiblePage::-webkit-scrollbar-thumb {
+  cursor: pointer;
+  background-color: #c8baa8;
+  border-radius: 5px;
+}
 .scrollVisible::-webkit-scrollbar-thumb,
 .scrollVisibleNotes::-webkit-scrollbar-thumb {
-  /* background-color: #e9ddcd;
-  border-radius: 15px;
-  cursor: pointer; */
+  cursor: pointer;
   background-color: #e9ddcd;
   border-radius: 5px;
 }

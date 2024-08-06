@@ -18,8 +18,10 @@ function HeaderPage({
   });
 
   return (
-    <header className="flex flex-col gap-5 col-span-full justify-evenly">
-      <span className="text-xl">Today: {formattedDate}</span>
+    <header className="mb-12">
+      <span className="text-xl mb-9 inline-block md:text-2xl lg:text-3xl">
+        Today: {formattedDate}
+      </span>
       <Filter
         filter={filter}
         handleFilterChange={handleFilterChange}
