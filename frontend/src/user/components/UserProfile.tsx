@@ -23,7 +23,7 @@ function UserProfile({ showProfile, setShowProfile, user }: UserProfileProps) {
     <div
       className={`${
         showProfile ? "formVisible" : "formHidden"
-      } bg-white rounded-lg relative p-5 min-w-1/2 max-w-[500px] min-h-[250px] max-h-[600px] overflow-auto md:max-h-[632px]`}
+      } bg-white rounded-lg relative p-5 max-h-[85%] overflow-auto`}
     >
       <header className="bg-backgroundPage p-2 flex items-center justify-end">
         <button onClick={handleCloseProfile}>
