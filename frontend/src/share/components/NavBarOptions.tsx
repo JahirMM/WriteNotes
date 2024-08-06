@@ -37,9 +37,9 @@ function NavBarOptions({ showMenu }: NavBarOptionsProps) {
     },
   ];
   return (
-    <ul>
+    <ul className="flex flex-col gap-2">
       <p
-        className={`text-[10px] mb-2 mt-5 text-[#757575] navbar-text-transition uppercase ${
+        className={`text-[10px] mt-5 text-[#757575] navbar-text-transition uppercase ${
           showMenu ? "opacity-0 hidden" : "opacity-100"
         }`}
       >
