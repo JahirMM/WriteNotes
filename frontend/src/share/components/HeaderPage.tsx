@@ -18,7 +18,7 @@ function HeaderPage({
   });
 
   return (
-    <header className="mb-12">
+    <header>
       <span className="text-xl mb-9 inline-block md:text-2xl lg:text-3xl">
         Today: {formattedDate}
       </span>

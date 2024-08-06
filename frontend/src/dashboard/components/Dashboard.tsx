@@ -29,7 +29,7 @@ function Dashboard() {
         handleFilterChange={handleFilterChange}
         handleSearch={handleSearch}
       />
-      <section className="grid grid-cols-1 gap-4 md:grid-cols-5 xl:gap-16">
+      <section className="grid grid-cols-1 gap-4 mt-12 md:grid-cols-5 xl:gap-16">
         <div className="bg-backgroundNotes rounded-xl flex flex-col gap-3 p-3 md:col-span-full">
           <div className="text-sm flex justify-between">
             <span>Notes:</span>

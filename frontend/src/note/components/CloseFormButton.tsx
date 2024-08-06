@@ -13,7 +13,7 @@ function CloseFormButton({
     router.push(url);
   };
   return (
-    <span className="flex justify-end md:hidden">
+    <span className="flex justify-end mb-3 md:hidden">
       <Close
         fill="#FA7268"
         width={16}

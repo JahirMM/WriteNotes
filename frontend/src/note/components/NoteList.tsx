@@ -7,9 +7,6 @@ import { useNotes } from "@/share/hooks/useNotes";
 // COMPONENT
 import Note from "./Note";
 
-// SONNER
-import { Toaster } from "sonner";
-
 import { Dispatch, SetStateAction, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
@@ -18,13 +15,11 @@ function NoteList({
   search = "",
   setTotalNotes,
   showForm,
-  setShowForm,
 }: {
   onlyFavoriteNotes: boolean;
   search: string;
   setTotalNotes: Dispatch<SetStateAction<number>>;
   showForm: boolean;
-  setShowForm: Dispatch<SetStateAction<boolean>>;
 }) {
   const router = useRouter();
   const { isLoading, data, isError, errorMessage } =
@@ -59,19 +54,19 @@ function NoteList({
   }, [notes, setTotalNotes]);
 
   return (
-    <section
-      className={`bg-backgroundNotes p-4 rounded-xl flex flex-col row-start-2 row-end-6 ${
+    <div
+      className={`bg-backgroundNotes rounded-xl p-4 h-full overflow-hidden ${
         showForm ? "hidden" : "block"
-      } md:block md:col-start-1 md:col-end-3`}
+      } md:block`}
     >
-      <header className="text-sm flex justify-between md:mb-3">
+      <header className="text-sm flex justify-between mb-4">
         <div>
           <span>Note: </span>
           <span>{notes?.length}</span>
         </div>
         <span
-          onClick={handleAddNote}
           className="text-colorTextPointer cursor-pointer"
+          onClick={handleAddNote}
         >
           Add note
         </span>
@@ -79,7 +74,7 @@ function NoteList({
       {isLoading ? (
         <NoteListSkeleton />
       ) : notes && notes.length > 0 ? (
-        <div className="flex flex-col items-center gap-3 py-2 overflow-auto max-h-[95%] scrollVisibleNotes">
+        <div className="flex flex-col gap-3 items-center max-h-[95%] overflow-auto">
           {notes?.map((note) => (
             <Note
               note={note}
@@ -98,8 +93,7 @@ function NoteList({
           </button>
         </div>
       )}
-      <Toaster position="top-right" richColors closeButton duration={3000} />
-    </section>
+    </div>
   );
 }
 

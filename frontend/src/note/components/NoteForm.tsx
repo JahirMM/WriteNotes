@@ -146,11 +146,11 @@ function NoteForm({
 
   return (
     <section
-      className={`bg-backgroundNotes rounded-xl p-2 row-start-2 row-end-6 ${
+      className={`${
         showForm ? "block" : "hidden"
-      } md:block md:col-start-3 md:col-end-6`}
+      } bg-backgroundNotes rounded-xl p-4 md:block`}
     >
-      <form className="p-2 flex flex-col h-full gap-5 md:gap-0">
+      <form className={`p-2 flex flex-col h-full md:gap-0`}>
         <CloseFormButton onlyFavoriteNotes={onlyFavoriteNotes} />
         <NotesFormHeader
           title={initialData.title}
@@ -163,7 +163,7 @@ function NoteForm({
           placeholder="Start writing"
           value={initialData.description}
           onChange={handleInputChange}
-          className="flex-1 p-2 w-full resize-none text-sm bg-transparent shadow-md focus:outline-none focus:ring-0"
+          className="flex-1 p-2 mt-5 w-full resize-none text-sm bg-transparent shadow-md focus:outline-none focus:ring-0"
         ></textarea>
         <button
           className="bg-black py-2 px-3 rounded-xl text-sm text-white md:mt-4"
