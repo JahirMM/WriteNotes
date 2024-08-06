@@ -22,11 +22,6 @@ const config: Config = {
         colorNote: "#F3EDE5",
         colorText: "#000000",
       },
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
     },
   },
   plugins: [
@@ -52,9 +47,9 @@ const config: Config = {
           maxWidth: "192px",
         },
         ".medium-note-dimensions": {
-          minHeight: "228px",
+          minHeight: "256px",
           minWidth: "192px",
-          maxHeight: "228px",
+          maxHeight: "256px",
           maxWidth: "192px",
         },
         ".large-note-dimensions": {
@@ -62,6 +57,12 @@ const config: Config = {
           maxHeight: "192px",
           minWidth: "95%",
           maxWidth: "95%",
+        },
+        ".navbar-text-transition": {
+          whiteSpace: "nowrap",
+          transitionProperty: "opacity",
+          transitionDuration: "0.5s",
+          transitionTimingFunction: "ease",
         },
       });
     },

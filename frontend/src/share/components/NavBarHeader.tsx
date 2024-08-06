@@ -13,21 +13,28 @@ function NavBarHeader({
     setShowProfile(!showProfile);
   };
   return (
-    <header className="flex gap-5 pb-5 border-b border-[#f6f6f6]">
-      <div
-        className="w-11 h-11 rounded-[50%] overflow-hidden cursor-pointer"
+    <header className="w-full h-16 flex items-center mt-5 portrait:mb-5 landscape:mb-0">
+      <img
+        src="/login/imgLogin.jpg"
+        className="min-h-11 min-w-11 max-h-11 max-w-11 rounded-[50%] cursor-pointer"
         onClick={handleShowProfile}
-      >
-        <img src="/login/imgLogin.jpg" className="w-full object-cover"></img>
+      ></img>
+      <div onClick={handleShowProfile}>
+        <p
+          className={`text-[10px] ml-2 text-[#757575] navbar-text-transition ${
+            showMenu ? "opacity-0" : "opacity-100"
+          }`}
+        >
+          USER ACCOUNT
+        </p>
+        <span
+          className={`text-sm ml-2 navbar-text-transition ${
+            showMenu ? "opacity-0" : "opacity-100"
+          }`}
+        >
+          Jahir Machuca
+        </span>
       </div>
-      {showMenu && (
-        <div className="cursor-pointer" onClick={handleShowProfile}>
-          <p className="text-[10px] font-medium text-[#757575] bg-transparent">
-            USER ACCOUNT
-          </p>
-          <p className="text-sm font-medium">Jahir Machuca</p>
-        </div>
-      )}
     </header>
   );
 }

@@ -4,6 +4,7 @@
 import UserProfile from "@/user/components/UserProfile";
 import NavBarButtonAddNote from "./NavBarButtonAddNote";
 import NavBarToggleButton from "./NavBarToggleButton";
+import NavBarMenuButton from "./NavBarMenuButton";
 import NavBarOptions from "./NavBarOptions";
 import NavBarLogout from "./NavBarLogout";
 import NavBarHeader from "./NavBarHeader";
@@ -16,47 +17,39 @@ import { useState } from "react";
 
 function NavBarPage() {
   const [showProfile, setShowProfile] = useState(false);
-  const [showMenu, setShowMenu] = useState(false);
+  const [showSideBar, setShowSideBar] = useState(true);
+  const [showMenu, setShowMenu] = useState(true);
 
   const { isError, errorMessage, data } = useGetUser();
 
   return (
-    <div
-      className={`${
-        showMenu ? " min-w-[216px]" : "min-w-[92px]"
-      } fixed h-screen flex flex-col gap-5 p-7 transition-all duration-300 shadow-md bg-backgroundPage z-50`}
-    >
-      <NavBarToggleButton showMenu={showMenu} setShowMenu={setShowMenu} />
-      <NavBarHeader
-        showMenu={showMenu}
-        showProfile={showProfile}
-        setShowProfile={setShowProfile}
+    <>
+      <NavBarMenuButton
+        showSideBar={showSideBar}
+        setShowSideBar={setShowSideBar}
       />
-      <NavBarButtonAddNote showMenu={showMenu} />
-      <nav className="flex-1">
-        <section>
-          <p
-            className={` ${
-              showMenu ? "" : "text-center"
-            } text-[10px] text-[#757575] mb-[10px] font-medium uppercase`}
-          >
-            Options
-          </p>
+      <div
+        className={`${showMenu ? "w-20" : "w-52 shadow-xl"} ${
+          showSideBar ? "-left-64" : "left-0"
+        } bg-backgroundPage h-full px-4 py-5 transition-all duration-500 ease-linear fixed overflow-hidden flex flex-col justify-between z-40 sm:left-0`}
+      >
+        <div>
+          <NavBarToggleButton showMenu={showMenu} setShowMenu={setShowMenu} />
+          <NavBarHeader
+            showMenu={showMenu}
+            showProfile={showProfile}
+            setShowProfile={setShowProfile}
+          />
+        </div>
+        <nav className="flex-1 overflow-y-auto overflow-x-hidden scrollVisible">
+          <NavBarButtonAddNote showMenu={showMenu} />
           <NavBarOptions showMenu={showMenu} />
-        </section>
-      </nav>
-      <section>
-        <p
-          className={` ${
-            showMenu ? "" : "text-center"
-          } text-[10px] text-[#757575] mb-[10px] font-medium uppercase`}
-        >
-          Account
-        </p>
-        <ul>
+        </nav>
+        <div>
+          <div className="w-full h-[1px] bg-[#f6f6f6]"></div>
           <NavBarLogout showMenu={showMenu} />
-        </ul>
-      </section>
+        </div>
+      </div>
       {showProfile && (
         <Modal>
           {isError ? (
@@ -72,7 +65,7 @@ function NavBarPage() {
           )}
         </Modal>
       )}
-    </div>
+    </>
   );
 }
 

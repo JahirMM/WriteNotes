@@ -17,19 +17,18 @@ function NoteComponent({ onlyFavoriteNotes }: { onlyFavoriteNotes: boolean }) {
   const { showForm, setShowForm } = useNoteForm();
 
   return (
-    <main className="h-screen w-full p-2">
-      <div className="bg-backgroundSecondary rounded-2xl p-4 grid grid-cols-1 grid-rows-5 gap-4 h-full md:grid-cols-5">
-        <HeaderPage
-          filter={filter}
-          handleFilterChange={handleFilterChange}
-          handleSearch={handleSearch}
-        />
+    <>
+      <HeaderPage
+        filter={filter}
+        handleFilterChange={handleFilterChange}
+        handleSearch={handleSearch}
+      />
+      <section className="h-screen mt-9 grid grid-cols-1 gap-4 md:grid-cols-2">
         <NoteList
           onlyFavoriteNotes={onlyFavoriteNotes}
           search={search}
           setTotalNotes={setTotalNotes}
           showForm={showForm}
-          setShowForm={setShowForm}
         />
         <NoteForm
           totalNotes={totalNotes}
@@ -37,8 +36,8 @@ function NoteComponent({ onlyFavoriteNotes }: { onlyFavoriteNotes: boolean }) {
           showForm={showForm}
           setShowForm={setShowForm}
         />
-      </div>
-    </main>
+      </section>
+    </>
   );
 }
 

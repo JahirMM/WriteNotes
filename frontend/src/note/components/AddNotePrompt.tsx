@@ -16,9 +16,9 @@ function AddNotePrompt({
   };
   return (
     <section
-      className={`bg-backgroundNotes p-2 rounded-xl row-start-2 row-end-6 ${
+      className={`bg-backgroundNotes p-2 rounded-xl ${
         showForm ? "block" : "hidden"
-      } md:block md:col-start-3 md:col-end-6`}
+      } md:block`}
     >
       <div className="h-full p-2 rounded-xl flex flex-col gap-7 items-center justify-center">
         <img
