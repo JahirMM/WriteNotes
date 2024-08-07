@@ -8,8 +8,12 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: "class",
   theme: {
     extend: {
+      transitionProperty: {
+        left: "left",
+      },
       colors: {
         backgroundNavBarOption: "#F9F6F3",
         backgroundSecondary: "#F9F6F3",
@@ -20,7 +24,7 @@ const config: Config = {
         colorMemoPad: "#FBE3BB",
         colorBorder: "#B1805E",
         colorNote: "#F3EDE5",
-        colorText: "#000000",
+        colorText: "#000",
       },
     },
   },

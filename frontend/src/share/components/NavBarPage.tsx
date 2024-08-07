@@ -4,6 +4,7 @@
 import UserProfile from "@/user/components/UserProfile";
 import NavBarButtonAddNote from "./NavBarButtonAddNote";
 import NavBarToggleButton from "./NavBarToggleButton";
+import NavBarChangeTheme from "./NavBarChangeTheme";
 import NavBarMenuButton from "./NavBarMenuButton";
 import NavBarOptions from "./NavBarOptions";
 import NavBarLogout from "./NavBarLogout";
@@ -15,13 +16,12 @@ import { useGetUser } from "../hooks/useGetUser";
 
 import { useState } from "react";
 
-function NavBarPage() {
+function NavBarPage({}) {
   const [showProfile, setShowProfile] = useState(false);
   const [showSideBar, setShowSideBar] = useState(true);
   const [showMenu, setShowMenu] = useState(true);
 
   const { isError, errorMessage, data } = useGetUser();
-
   return (
     <>
       <NavBarMenuButton
@@ -44,6 +44,7 @@ function NavBarPage() {
         <nav className="flex-1 overflow-y-auto overflow-x-hidden scrollVisible">
           <NavBarButtonAddNote showMenu={showMenu} />
           <NavBarOptions showMenu={showMenu} />
+          <NavBarChangeTheme showMenu={showMenu} />
         </nav>
         <div>
           <div className="w-full h-[1px] bg-[#f6f6f6]"></div>

@@ -4,7 +4,10 @@ function DashboardSkeleton() {
   const initialNotes = [];
   for (let index = 0; index < 5; index++) {
     initialNotes.push(
-      <li className="bg-colorNote rounded-xl mb-4 p-3 flex flex-col justify-between medium-note-dimensions animate-pulse">
+      <li
+        key={index}
+        className="bg-colorNote rounded-xl mb-4 p-3 flex flex-col justify-between medium-note-dimensions animate-pulse"
+      >
         <div className="text-sm space-y-4">
           <p className="bg-backgroundSecondary h-3 w-32 rounded-lg"></p>
           <div className="flex flex-col gap-2">
