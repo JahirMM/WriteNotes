@@ -14,7 +14,11 @@ import { useValidateEmail } from "@/share/hooks/useValidateEmail";
 import { useLogin } from "../hooks/useLogin";
 import { useRouter } from "next/navigation";
 
-function LoginForm() {
+interface LoginFormProps {
+  theme: "light" | "dark";
+}
+
+function LoginForm({ theme }: LoginFormProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -39,13 +43,13 @@ function LoginForm() {
   return (
     <section className="p-5 border border-black rounded-xl sm:p-2 sm:border-0 sm:m-auto sm:w-1/2 lg:w-4/12">
       <header className="mb-9">
-        <h1 className="font-bold text-4xl tracking-wide md:text-5xl">
+        <h1 className="font-bold text-colorText text-4xl tracking-wide md:text-5xl dark:text-colorTextDrak">
           WriteNote
         </h1>
-        <p className="text-sm mt-9">
+        <p className="text-sm text-colorText mt-9 dark:text-colorTextDrak dark:font-light">
           Don't have an account?{"  "}
           <span
-            className="underline cursor-pointer"
+            className="underline cursor-pointer dark:text-colorTextDrak dark:font-light"
             onClick={() => router.push("/signUp")}
           >
             Create a new account
@@ -53,11 +57,14 @@ function LoginForm() {
         </p>
       </header>
       <form>
-        <label htmlFor="E-mail" className="block text-sm mb-2">
+        <label
+          htmlFor="E-mail"
+          className="block text-colorText text-sm mb-2 dark:text-colorTextDrak dark:font-light"
+        >
           E-mail:
         </label>
         <input
-          className="text-sm bg-transparent border border-black w-full rounded-xl p-2 mb-9 focus:outline-none focus:ring-0"
+          className="text-sm text-colorText bg-transparent border border-black w-full rounded-xl p-2 mb-9 focus:outline-none focus:ring-0 dark:text-colorTextDrak"
           type="email"
           id="E-mail"
           name="E-mail"
@@ -67,12 +74,15 @@ function LoginForm() {
           required
         />
 
-        <label htmlFor="password" className="block text-sm mb-2">
+        <label
+          htmlFor="password"
+          className="block text-colorText text-sm mb-2 dark:text-colorTextDrak dark:font-light"
+        >
           Password:
         </label>
         <div className="mb-9 border border-black rounded-xl flex items-center gap-2">
           <input
-            className="text-sm bg-transparent w-full p-2 focus:outline-none focus:ring-0"
+            className="text-sm text-colorText bg-transparent w-full p-2 focus:outline-none focus:ring-0 dark:text-colorTextDrak"
             type={showPassword ? "text" : "password"}
             id="password"
             name="password"
@@ -89,7 +99,7 @@ function LoginForm() {
               <Eye
                 width={20}
                 height={20}
-                fill="#000"
+                fill={`${theme === "light" ? "#000" : "#B1805E"}`}
                 aria-label={showPassword ? "Hide password" : "Show password"}
               />
             </div>
@@ -101,7 +111,7 @@ function LoginForm() {
               <EyeSlash
                 width={20}
                 height={20}
-                fill="#000"
+                fill={`${theme === "light" ? "#000" : "#B1805E"}`}
                 aria-label={showPassword ? "Hide password" : "Show password"}
               />
             </div>

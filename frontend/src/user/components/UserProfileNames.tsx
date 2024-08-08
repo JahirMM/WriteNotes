@@ -14,7 +14,10 @@ function UserProfileNames({
 }: UserProfileNamesProps) {
   return (
     <div className="flex flex-col justify-between gap-3 lg:md:flex-row lg:gap-8">
-      <label htmlFor="firstName" className="text-xs">
+      <label
+        htmlFor="firstName"
+        className="text-xs text-colorText dark:text-colorTextDrak dark:font-light"
+      >
         First Name
       </label>
       <div className="flex flex-col gap-2 md:flex-row">
@@ -23,7 +26,7 @@ function UserProfileNames({
           id="firstName"
           name="firstName"
           placeholder="first name"
-          className="text-sm py-1 px-2 rounded-md border border-colorBorder focus:outline-none focus:ring-0"
+          className="text-sm text-colorText py-1 px-2 rounded-md border border-colorBorder bg-transparent focus:outline-none focus:ring-0 dark:text-colorTextDrak"
           value={initialData.firstName}
           onChange={handleChange}
         />
@@ -32,7 +35,7 @@ function UserProfileNames({
           id="middleName"
           name="middleName"
           placeholder="middle name"
-          className="text-sm py-1 px-2 rounded-md border border-colorBorder focus:outline-none focus:ring-0"
+          className="text-sm text-colorText py-1 px-2 rounded-md border border-colorBorder bg-transparent focus:outline-none focus:ring-0 dark:text-colorTextDrak"
           value={initialData.middleName}
           onChange={handleChange}
         />

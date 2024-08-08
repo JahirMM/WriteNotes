@@ -15,7 +15,7 @@ function NavBarMenuButton({
 }: NavBarMenuButtonProps) {
   return (
     <div
-      className="absolute right-[45px] top-[40px] flex justify-center items-center rounded-full cursor-pointer z-50 sm:hidden"
+      className="absolute right-[60px] top-[40px] flex justify-center items-center rounded-full cursor-pointer z-50 sm:hidden"
       onClick={() => setShowSideBar(!showSideBar)}
     >
       {showSideBar ? (

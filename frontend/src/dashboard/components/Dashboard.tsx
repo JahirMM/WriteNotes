@@ -30,18 +30,20 @@ function Dashboard() {
         handleSearch={handleSearch}
       />
       <section className="grid grid-cols-1 gap-4 mt-12 md:grid-cols-5 xl:gap-16">
-        <div className="bg-backgroundNotes rounded-xl flex flex-col gap-3 p-3 md:col-span-full">
+        <div className="bg-backgroundNotes rounded-xl flex flex-col gap-3 p-3 md:col-span-full dark:bg-backgroundNotesDark">
           <div className="text-sm flex justify-between">
-            <span>Notes:</span>
+            <span className="text-colorText dark:text-colorTextDrak">
+              Notes:
+            </span>
             <div className="flex gap-3">
               <Link
                 href={"/web/notes"}
-                className="text-colorTextPointer cursor-pointer"
+                className="text-colorTextPointer cursor-pointer dark:font-bold dark:text-colorTextPointerDark"
               >
                 View all
               </Link>
               <span
-                className="text-colorTextPointer cursor-pointer"
+                className="text-colorTextPointer cursor-pointer dark:font-bold dark:text-colorTextPointerDark"
                 onClick={() => handleAddNote(false)}
               >
                 add
@@ -50,18 +52,20 @@ function Dashboard() {
           </div>
           <DashboardNoteList onlyFavoriteNotes={false} search={search} />
         </div>
-        <div className="bg-backgroundNotes rounded-xl flex flex-col gap-3 p-3 md:col-span-full md:col-start-1 md:col-end-4">
+        <div className="bg-backgroundNotes rounded-xl flex flex-col gap-3 p-3 md:col-span-full md:col-start-1 md:col-end-4 dark:bg-backgroundNotesDark">
           <div className="text-sm flex justify-between">
-            <span>favorite notes:</span>
-            <div>
+            <span className="text-colorText dark:text-colorTextDrak">
+              favorite notes:
+            </span>
+            <div className="flex gap-3">
               <Link
                 href={"/web/favoriteNotes"}
-                className="text-colorTextPointer cursor-pointer"
+                className="text-colorTextPointer cursor-pointer dark:font-bold dark:text-colorTextPointerDark"
               >
                 View all
               </Link>
               <span
-                className="text-colorTextPointer cursor-pointer"
+                className="text-colorTextPointer cursor-pointer dark:font-bold dark:text-colorTextPointerDark"
                 onClick={() => handleAddNote(false)}
               >
                 add

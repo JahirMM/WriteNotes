@@ -15,34 +15,44 @@ const config: Config = {
         left: "left",
       },
       colors: {
+        // LIGHT
         backgroundNavBarOption: "#F9F6F3",
+        backgroundTopUserImage: "#F3EDE5",
+        backgroundBottomUserImage: "#fff",
+        backgroundUserModal: "#FFFFFF",
         backgroundSecondary: "#F9F6F3",
         backgroundNotes: "#FFFFFF",
         backgroundPage: "#F3EDE5",
         backgroundIcon: "#E3D5C5",
+
+        colorLineSeparatorUser: "#E5E7EB",
+        colorLineSeparator: "#B1805E",
         colorTextPointer: "#B1805E",
         colorMemoPad: "#FBE3BB",
         colorBorder: "#B1805E",
         colorNote: "#F3EDE5",
         colorText: "#000",
+
+        // DARK
+        backgroundBottomUserImageDark: "#6F493D",
+        backgroundTopUserImageDark: "#301F1A",
+        backgroundNavBarOptionDark: "#5B3D33",
+        backgroundSecondaryDark: "#5B3D33",
+        backgroundPageDark: "#301F1A",
+        backgroundIconDark: "#B1805E",
+        backgroundNotesDark: "#6F493D",
+        backgroundUserModalDark: "#6F493D",
+
+        colorLineSeparatorUserDark: "#B1805E",
+        colorTextPointerDark: "#E3D5C5",
+        colorTextDrak: "#fff",
+        colorNoteDark: "#301F1A",
       },
     },
   },
   plugins: [
-    function ({ addUtilities, theme }: PluginAPI) {
+    function ({ addUtilities }: PluginAPI) {
       addUtilities({
-        ".after-custom-icon::after": {
-          content: "''",
-          position: "absolute",
-          left: "-0.25rem",
-          top: "20%",
-          width: "20px",
-          height: "20px",
-          borderRadius: "2px",
-          backgroundColor: theme("colors.backgroundIcon"),
-          transform: "rotate(45deg)",
-          zIndex: "-1",
-        },
         ".small-note-dimensions": {
           // min 158
           minHeight: "142px",

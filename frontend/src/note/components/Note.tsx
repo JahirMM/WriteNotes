@@ -87,24 +87,28 @@ function Note({
 
   return (
     <div
-      className={`bg-colorNote p-3 rounded-xl flex flex-col justify-between large-note-dimensions sm:large-note-dimensions  ${
+      className={`bg-colorNote p-3 rounded-xl flex flex-col justify-between large-note-dimensions cursor-pointer sm:large-note-dimensions  ${
         note.noteId === searchParams?.get("noteId")
           ? "border border-colorBorder"
           : ""
-      }`}
+      } dark:bg-colorNoteDark`}
       onClick={handleNoteClick}
     >
       <header>
         <div className="flex justify-between text-sm mb-3">
-          <span className="font-semibold">{note.title}</span>
+          <span className="font-semibold text-colorText dark:text-colorTextDrak">
+            {note.title}
+          </span>
           <Trash fill="#F25756" width={16} onClick={handleTrashClick} />
         </div>
-        <p className="line-clamp-2 text-sm sm:line-clamp-4 md:line-clamp-5">
+        <p className="line-clamp-2 text-sm sm:line-clamp-4 md:line-clamp-5 text-colorText dark:text-colorTextDrak dark:font-light">
           {note.description}
         </p>
       </header>
       <div className="text-xs flex justify-between">
-        <span>{formattedDate}</span>
+        <span className="text-colorText dark:text-colorTextDrak dark:font-light">
+          {formattedDate}
+        </span>
         {note.favorite ? (
           <Start
             fill="#e4de1f"

@@ -23,7 +23,7 @@ const NotesFormHeader: React.FC<NotesFormHeaderProps> = ({
         placeholder="Title"
         value={title}
         onChange={onTitleChange}
-        className="font-semibold text-lg p-2 bg-transparent shadow-md rounded-lg focus:outline-none focus:ring-0 flex-1"
+        className="font-semibold text-lg p-2 bg-transparent shadow-md rounded-lg focus:outline-none focus:ring-0 flex-1 dark:bg-backgroundNavBarOptionDark"
       />
       <span className="flex justify-end">
         {favorite ? (

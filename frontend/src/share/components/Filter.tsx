@@ -1,5 +1,6 @@
 // ICON
 import Search from "@/icons/Search";
+import { useChangeTheme } from "../hooks/useChangeTheme";
 
 interface FilterProps {
   filter: string;
@@ -8,6 +9,7 @@ interface FilterProps {
 }
 
 function Filter({ filter, handleFilterChange, handleSearch }: FilterProps) {
+  const { theme } = useChangeTheme();
   return (
     <div className="border border-colorBorder flex gap-3 rounded-2xl p-2 items-center justify-center">
       <Search
@@ -19,7 +21,7 @@ function Filter({ filter, handleFilterChange, handleSearch }: FilterProps) {
       <input
         type="text"
         placeholder="Search notes"
-        className="flex-1 rounded-xl bg-transparent text-sm focus:outline-none focus:ring-0"
+        className="text-colorText flex-1 rounded-xl bg-transparent text-sm focus:outline-none focus:ring-0 dark:text-colorTextDrak"
         value={filter}
         onChange={(e) => handleFilterChange(e.target.value)}
       />

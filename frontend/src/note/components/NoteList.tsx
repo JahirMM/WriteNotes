@@ -27,7 +27,7 @@ function NoteList({
 
   if (isError)
     return (
-      <div className="bg-backgroundNotes p-2 rounded-xl flex flex-col justify-center items-center gap-5 md:row-start-2 md:row-end-8">
+      <div className="bg-backgroundNotes p-2 rounded-xl flex flex-col justify-center items-center gap-5 md:row-start-2 md:row-end-8 dark:bg-backgroundNotesDark">
         <img src="/notes/errorNote.svg" alt="" className="w-0 md:w-3/4" />
         <span className="font-semibold">
           {errorMessage ? errorMessage : "An unknown error occurred"}
@@ -57,15 +57,15 @@ function NoteList({
     <div
       className={`bg-backgroundNotes rounded-xl p-4 h-full overflow-hidden ${
         showForm ? "hidden" : "block"
-      } md:block`}
+      } md:block dark:bg-backgroundNotesDark`}
     >
       <header className="text-sm flex justify-between mb-4">
-        <div>
+        <div className="text-colorText dark:text-colorTextDrak">
           <span>Note: </span>
           <span>{notes?.length}</span>
         </div>
         <span
-          className="text-colorTextPointer cursor-pointer"
+          className="text-colorTextPointer cursor-pointer dark:font-bold dark:text-colorTextPointerDark"
           onClick={handleAddNote}
         >
           Add note

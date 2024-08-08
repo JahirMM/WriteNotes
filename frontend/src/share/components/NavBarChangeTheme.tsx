@@ -2,16 +2,17 @@
 import Moon from "@/icons/Moon";
 import Sun from "@/icons/Sun";
 
-// HOOK
-import { useChangeTheme } from "../hooks/useChangeTheme";
-
 interface NavBarChangeThemeProps {
   showMenu: boolean;
+  theme: "light" | "dark";
+  handleChangeTheme: () => void;
 }
 
-function NavBarChangeTheme({ showMenu }: NavBarChangeThemeProps) {
-  const { handleChangeTheme, theme } = useChangeTheme();
-
+function NavBarChangeTheme({
+  showMenu,
+  theme,
+  handleChangeTheme,
+}: NavBarChangeThemeProps) {
   return (
     <div>
       <p
@@ -27,13 +28,13 @@ function NavBarChangeTheme({ showMenu }: NavBarChangeThemeProps) {
             ) : (
               <Sun fill="#cec042" width={18} />
             )}
-            <span className="text-sm whitespace-nowrap">
+            <span className="text-sm text-colorText whitespace-nowrap dark:text-colorTextDrak dark:font-light">
               {theme === "light" ? "Dark Mode" : "Light Mode"}
             </span>
           </>
         )}
         <div
-          className="min-w-[50px] h-[45px] flex items-center justify-center"
+          className="min-w-[50px] h-[45px] flex items-center justify-center cursor-pointer"
           onClick={handleChangeTheme}
         >
           <div className="base w-[35px] h-[20px] bg-[#B1805E] rounded-[50px] relative flex items-center dark:bg-[#6F493D]">

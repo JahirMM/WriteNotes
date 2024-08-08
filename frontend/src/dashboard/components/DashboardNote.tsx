@@ -40,15 +40,17 @@ function DashboardNote({ note }: { note: NoteInterface }) {
 
   return (
     <div
-      className="bg-colorNote rounded-xl medium-note-dimensions p-2 mb-4 flex flex-col justify-between cursor-pointer"
+      className="bg-colorNote rounded-xl medium-note-dimensions p-2 mb-4 flex flex-col justify-between cursor-pointer dark:bg-colorNoteDark"
       onClick={handleNoteClick}
     >
-      <div className="text-sm space-y-2">
+      <div className="text-sm text-colorText space-y-2 dark:text-colorTextDrak">
         <p className="font-semibold">{note.title}</p>
-        <p className="line-clamp-6">{note.description}</p>
+        <p className="line-clamp-6 font-light">{note.description}</p>
       </div>
       <div className="flex justify-between items-center">
-        <span className="text-xs">{formattedDate}</span>
+        <span className="text-xs text-colorText dark:text-colorTextDrak dark:font-light">
+          {formattedDate}
+        </span>
         {note.favorite ? (
           <Start
             fill="#e4de1f"

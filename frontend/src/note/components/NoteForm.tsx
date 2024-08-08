@@ -4,26 +4,19 @@ import { useCreateNote } from "../hooks/useCreateNote";
 import useNoteForm from "../hooks/useNoteForm";
 
 // COMPONENTS
+import CloseFormButton from "./CloseFormButton";
 import NotesFormHeader from "./NotesFormHeader";
 import AddNotePrompt from "./AddNotePrompt";
 import SelectNote from "./SelectNote";
 
 import { useRouter } from "next/navigation";
-import { Dispatch, SetStateAction } from "react";
-import CloseFormButton from "./CloseFormButton";
 
 interface NoteFormProps {
   totalNotes: number;
   onlyFavoriteNotes: boolean;
   showForm: boolean;
-  setShowForm: Dispatch<SetStateAction<boolean>>;
 }
-function NoteForm({
-  totalNotes,
-  onlyFavoriteNotes,
-  showForm,
-  setShowForm,
-}: NoteFormProps) {
+function NoteForm({ totalNotes, onlyFavoriteNotes, showForm }: NoteFormProps) {
   const { updateNoteMutation } = useUpdateNote();
   const { createNoteMutation } = useCreateNote();
   const { initialData, setInitialData, action, isFavorite } = useNoteForm();
@@ -148,7 +141,7 @@ function NoteForm({
     <section
       className={`${
         showForm ? "block" : "hidden"
-      } bg-backgroundNotes rounded-xl p-4 md:block`}
+      } bg-backgroundNotes rounded-xl p-4 md:block dark:bg-backgroundNotesDark`}
     >
       <form className={`p-2 flex flex-col h-full md:gap-0`}>
         <CloseFormButton onlyFavoriteNotes={onlyFavoriteNotes} />
@@ -163,10 +156,10 @@ function NoteForm({
           placeholder="Start writing"
           value={initialData.description}
           onChange={handleInputChange}
-          className="flex-1 p-2 mt-5 w-full resize-none text-sm bg-transparent shadow-md focus:outline-none focus:ring-0"
+          className="flex-1 p-2 mt-5 w-full resize-none text-sm bg-transparent shadow-md focus:outline-none focus:ring-0 dark:bg-backgroundNavBarOptionDark"
         ></textarea>
         <button
-          className="bg-black py-2 px-3 rounded-xl text-sm text-white md:mt-4"
+          className="bg-black py-2 px-3 rounded-xl text-sm text-white mt-4"
           onClick={handleClick}
         >
           {action ? "Create note" : "Save changes"}

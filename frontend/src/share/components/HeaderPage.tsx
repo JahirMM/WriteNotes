@@ -19,7 +19,7 @@ function HeaderPage({
 
   return (
     <header>
-      <span className="text-xl mb-9 inline-block md:text-2xl lg:text-3xl">
+      <span className="text-xl text-colorText mb-9 inline-block md:text-2xl lg:text-3xl dark:text-colorTextDrak">
         Today: {formattedDate}
       </span>
       <Filter

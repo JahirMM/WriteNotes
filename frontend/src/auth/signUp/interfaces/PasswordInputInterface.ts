@@ -7,4 +7,5 @@ export interface PasswordInputProps {
   setShowPassword: (show: boolean) => void;
   required?: boolean;
   error?: boolean;
+  theme: "light" | "dark";
 }

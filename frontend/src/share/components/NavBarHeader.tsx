@@ -28,9 +28,9 @@ function NavBarHeader({
           USER ACCOUNT
         </p>
         <span
-          className={`text-sm ml-2 navbar-text-transition ${
+          className={`text-sm ml-2 navbar-text-transition text-colorText font-light ${
             showMenu ? "opacity-0" : "opacity-100"
-          }`}
+          } dark:text-colorTextDrak`}
         >
           Jahir Machuca
         </span>

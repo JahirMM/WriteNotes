@@ -18,7 +18,7 @@ function AddNotePrompt({
     <section
       className={`bg-backgroundNotes p-2 rounded-xl ${
         showForm ? "block" : "hidden"
-      } md:block`}
+      } md:block dark:bg-backgroundNotesDark`}
     >
       <div className="h-full p-2 rounded-xl flex flex-col gap-7 items-center justify-center">
         <img
@@ -27,7 +27,10 @@ function AddNotePrompt({
           className="w-0 cursor-pointer md:w-3/4"
           onClick={handleAddNote}
         />
-        <span className="font-semibold" onClick={handleAddNote}>
+        <span
+          className="font-semibold text-colorText dark:text-colorTextDrak"
+          onClick={handleAddNote}
+        >
           Add note
         </span>
       </div>

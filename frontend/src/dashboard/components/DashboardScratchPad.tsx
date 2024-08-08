@@ -18,8 +18,10 @@ function DashboardScratchPad() {
   };
 
   return (
-    <div className="bg-backgroundNotes rounded-xl flex flex-col gap-3 p-3 row-start-2 row-end-3 md:col-start-4 md:col-end-6">
-      <p className="text-sm">Scratch Pad</p>
+    <div className="bg-backgroundNotes rounded-xl flex flex-col gap-3 p-3 row-start-2 row-end-3 md:col-start-4 md:col-end-6 dark:bg-backgroundNotesDark">
+      <p className="text-sm text-colorText dark:text-colorTextDrak">
+        Scratch Pad
+      </p>
       <textarea
         name="memoPad"
         id="memoPad"

@@ -42,12 +42,14 @@ function DashboardNoteList({
       ))}
       <Link
         href={onlyFavoriteNotes ? "/web/favoriteNotes" : "/web/notes"}
-        className="bg-colorNote rounded-xl medium-note-dimensions cursor-pointer flex flex-col gap-3 justify-center items-center"
+        className="bg-colorNote rounded-xl medium-note-dimensions cursor-pointer flex flex-col gap-3 justify-center items-center dark:bg-colorNoteDark"
       >
-        <div className="bg-backgroundIcon h-28 w-28 rounded-full flex justify-center items-center">
+        <div className="bg-backgroundIcon h-28 w-28 rounded-full flex justify-center items-center dark:bg-backgroundIconDark">
           <Note fill="#000" width={68} />
         </div>
-        <span className="font-semibold">Notes ({notes?.length})</span>
+        <span className="text-colorText font-semibold dark:text-colorTextDrak">
+          Notes ({notes?.length})
+        </span>
       </Link>
     </div>
   );

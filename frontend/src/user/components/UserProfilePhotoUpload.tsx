@@ -1,7 +1,10 @@
 function UserProfilePhotoUpload() {
   return (
-    <div className="flex flex-col justify-between gap-3 pb-5 pt-5 border-b border-t border-gray-200 sm:flex-row md:justify-start md:gap-5">
-      <label htmlFor="profilePhoto" className="text-xs">
+    <div className="flex flex-col justify-between gap-3 pb-5 pt-5 border-b border-t border-colorLineSeparatorUser sm:flex-row md:justify-start md:gap-5 dark:border-colorLineSeparatorUserDark">
+      <label
+        htmlFor="profilePhoto"
+        className="text-xs text-colorText dark:text-colorTextDrak dark:font-light"
+      >
         Profile Photo
       </label>
       <div className="flex flex-col items-center gap-2 sm:flex-row">

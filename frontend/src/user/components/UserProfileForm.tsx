@@ -78,7 +78,7 @@ function UserProfileForm({ user }: { user: GetUserResponseInterface["user"] }) {
   };
 
   return (
-    <form action="" className="flex flex-col gap-3">
+    <form action="" className="flex flex-col gap-3 ">
       <UserProfileNames initialData={initialData} handleChange={handleChange} />
       <UserProfileSurnames
         initialData={initialData}

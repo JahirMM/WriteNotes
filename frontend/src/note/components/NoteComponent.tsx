@@ -34,7 +34,6 @@ function NoteComponent({ onlyFavoriteNotes }: { onlyFavoriteNotes: boolean }) {
           totalNotes={totalNotes}
           onlyFavoriteNotes={onlyFavoriteNotes}
           showForm={showForm}
-          setShowForm={setShowForm}
         />
       </section>
     </>

@@ -23,26 +23,28 @@ function UserProfile({ showProfile, setShowProfile, user }: UserProfileProps) {
     <div
       className={`${
         showProfile ? "formVisible" : "formHidden"
-      } bg-white rounded-lg relative p-5 max-h-[85%] overflow-auto`}
+      } bg-backgroundUserModal rounded-lg relative p-5 max-h-[85%] overflow-auto dark:bg-backgroundUserModalDark`}
     >
-      <header className="bg-backgroundPage p-2 flex items-center justify-end">
+      <header className="bg-backgroundPage p-2 flex items-center justify-end dark:bg-backgroundPageDark">
         <button onClick={handleCloseProfile}>
           <Close fill="#FA7268" width={16} className="cursor-pointer" />
         </button>
       </header>
       <section>
-        <div className="mb-5 flex flex-col items-center pb-5 border-b border-gray-200">
-          <div className="w-full flex justify-center bg-gradient-to-b from-50% from-[#F3EDE5] to-50% to-white">
+        <div className="mb-5 flex flex-col items-center pb-5 border-b border-colorLineSeparatorUser dark:border-colorLineSeparatorUserDark">
+          <div className="w-full flex justify-center bg-gradient-to-b from-50% from-backgroundTopUserImage to-50% to-backgroundBottomUserImage dark:from-backgroundTopUserImageDark dark:to-backgroundBottomUserImageDark">
             <img
               src="/login/imgLogin.jpg"
               alt="login image"
               className="w-20 h-20 rounded-full"
             />
           </div>
-          <span className="text-sm inline-block">
+          <span className="text-sm text-colorText inline-block dark:text-colorTextDrak">
             {user.firstName} {user.middleName}
           </span>
-          <span className="text-xs inline-block">{user.email}</span>
+          <span className="text-xs text-colorText inline-block dark:text-colorTextDrak dark:font-light">
+            {user.email}
+          </span>
         </div>
         <UserProfileForm user={user} />
       </section>

@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useState } from "react";
 
 // SONNER
@@ -12,7 +10,11 @@ import PasswordInput from "./PasswordInput";
 import { useRouter } from "next/navigation";
 import { useSignUp } from "../hooks/useSignUp";
 
-function SignUpForm() {
+interface SignUpFormProps {
+  theme: "light" | "dark";
+}
+
+function SignUpForm({ theme }: SignUpFormProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [repeatPassword, setRepeatPassword] = useState("");
   const [showRepeatPassword, setShowRepeatPassword] = useState(false);
@@ -90,13 +92,20 @@ function SignUpForm() {
   return (
     <section className="p-2 border border-black rounded-xl sm:p-2 sm:border-0 sm:m-auto sm:w-1/2 lg:w-4/12">
       <header className="text-center mb-4">
-        <span className="text-4xl font-bold">Create an account</span>
-        <p className="text-sm font">Start creating your notes</p>
+        <span className="text-4xl font-bold dark:text-colorTextDrak">
+          Create an account
+        </span>
+        <p className="text-sm font dark:text-colorTextDrak dark:font-light">
+          Start creating your notes
+        </p>
       </header>
       <form>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label htmlFor="firstName" className="text-sm">
+            <label
+              htmlFor="firstName"
+              className="text-sm block mb-2 dark:text-colorTextDrak dark:font-light"
+            >
               First Name <span className="text-red-700">*</span>
             </label>
             <input
@@ -104,7 +113,7 @@ function SignUpForm() {
               name="firstName"
               id="firstName"
               placeholder="First name"
-              className="text-sm bg-transparent border border-black w-full rounded-xl p-2 focus:outline-none focus:ring-0"
+              className="text-sm bg-transparent border border-black w-full rounded-xl p-2 focus:outline-none focus:ring-0 dark:border-colorBorder"
               required
               value={initialData.firstName}
               onChange={(e) =>
@@ -113,7 +122,10 @@ function SignUpForm() {
             />
           </div>
           <div>
-            <label htmlFor="middleName" className="text-sm">
+            <label
+              htmlFor="middleName"
+              className="text-sm block mb-2 text-colorText dark:text-colorTextDrak dark:font-light"
+            >
               Middle Name
             </label>
             <input
@@ -121,7 +133,7 @@ function SignUpForm() {
               name="middleName"
               id="middleName"
               placeholder="Middle name"
-              className="text-sm bg-transparent border border-black w-full rounded-xl p-2 focus:outline-none focus:ring-0"
+              className="text-sm bg-transparent border border-black w-full rounded-xl p-2 focus:outline-none focus:ring-0 dark:border-colorBorder"
               value={initialData.middleName}
               onChange={(e) =>
                 setInitialData({ ...initialData, middleName: e.target.value })
@@ -129,7 +141,10 @@ function SignUpForm() {
             />
           </div>
           <div>
-            <label htmlFor="lastName" className="text-sm">
+            <label
+              htmlFor="lastName"
+              className="text-sm block mb-2 text-colorText dark:text-colorTextDrak dark:font-light"
+            >
               Last Name <span className="text-red-700">*</span>
             </label>
             <input
@@ -137,7 +152,7 @@ function SignUpForm() {
               name="lastName"
               id="lastName"
               placeholder="Last name"
-              className="text-sm bg-transparent border border-black w-full rounded-xl p-2 focus:outline-none focus:ring-0"
+              className="text-sm bg-transparent border border-black w-full rounded-xl p-2 focus:outline-none focus:ring-0 dark:border-colorBorder"
               required
               value={initialData.lastName}
               onChange={(e) =>
@@ -146,7 +161,10 @@ function SignUpForm() {
             />
           </div>
           <div>
-            <label htmlFor="middleName" className="text-sm">
+            <label
+              htmlFor="middleName"
+              className="text-sm block mb-2 text-colorText dark:text-colorTextDrak dark:font-light"
+            >
               Maternal Last Name <span className="text-red-700">*</span>
             </label>
             <input
@@ -154,7 +172,7 @@ function SignUpForm() {
               name="maternalLastName"
               id="maternalLastName"
               placeholder="Maternal last name"
-              className="text-sm bg-transparent border border-black w-full rounded-xl p-2 focus:outline-none focus:ring-0"
+              className="text-sm bg-transparent border border-black w-full rounded-xl p-2 focus:outline-none focus:ring-0 dark:border-colorBorder"
               required
               value={initialData.maternalLastName}
               onChange={(e) =>
@@ -166,13 +184,16 @@ function SignUpForm() {
             />
           </div>
           <div className="col-start-1 col-end-3">
-            <label htmlFor="E-mail" className="block text-sm mb-2">
+            <label
+              htmlFor="E-mail"
+              className="block text-sm mb-2 text-colorText dark:text-colorTextDrak dark:font-light"
+            >
               E-mail <span className="text-red-700">*</span>
             </label>
             <input
               className={`${
                 errorEmail ? "border-red-500" : "border-black"
-              } text-sm bg-transparent border rounded-xl p-2 w-full focus:outline-none focus:ring-0`}
+              } text-sm bg-transparent border rounded-xl p-2 w-full focus:outline-none focus:ring-0 dark:border-colorBorder`}
               type="email"
               id="E-mail"
               name="E-mail"
@@ -192,6 +213,7 @@ function SignUpForm() {
             onChange={handlePasswordChange}
             showPassword={showPassword}
             setShowPassword={setShowPassword}
+            theme={theme}
             required
           />
           <PasswordInput
@@ -201,8 +223,9 @@ function SignUpForm() {
             onChange={handleRepeatPasswordChange}
             showPassword={showRepeatPassword}
             setShowPassword={setShowRepeatPassword}
-            required
             error={errorMessage !== ""}
+            theme={theme}
+            required
           />
           {errorMessage && (
             <span className="text-sm text-red-500 col-start-1 col-end-3">
