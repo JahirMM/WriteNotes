@@ -5,6 +5,7 @@ import { UserProfileInterface } from "../interfaces/UserProfileInterface";
 import { useUpdateUserPhoto } from "../hooks/useUpdateUserPhoto";
 
 import { Dispatch, SetStateAction } from "react";
+import DefaultUserImage from "@/share/components/DefaultUserImage";
 
 interface UserProfilePhotoUploadProps {
   domain: string;
@@ -53,11 +54,18 @@ function UserProfilePhotoUpload({
         Profile Photo
       </label>
       <div className="flex flex-col items-center gap-2 sm:flex-row">
-        <img
-          src={`${domain}${initialData.profilePicture}`}
-          alt="User Profile"
-          className="min-w-14 min-h-14 max-w-14 max-h-14 rounded-full"
-        />
+        {initialData.profilePicture ? (
+          <img
+            src={`${domain}${initialData.profilePicture}`}
+            alt="User Profile"
+            className="min-w-14 min-h-14 max-w-14 max-h-14 rounded-full"
+          />
+        ) : (
+          <DefaultUserImage
+            dimensionClasses="h-14 w-14 rounded-full"
+            dimensionImageClasses="h-7 w-7"
+          />
+        )}
         <div>
           <button
             type="button"
