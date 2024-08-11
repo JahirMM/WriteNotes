@@ -16,6 +16,7 @@ import { useChangeTheme } from "../hooks/useChangeTheme";
 import { useGetUser } from "../hooks/useGetUser";
 
 import { useState } from "react";
+import NavBarHeaderSkeleton from "../skeletons/NavBarHeaderSkeleton";
 
 function NavBarPage({}) {
   const [showProfile, setShowProfile] = useState(false);
@@ -55,7 +56,7 @@ function NavBarPage({}) {
               domain={domain}
             />
           ) : (
-            <div>Loading...</div>
+            <NavBarHeaderSkeleton showMenu={showMenu} />
           )}
         </div>
         <nav className="flex-1 overflow-y-auto overflow-x-hidden scrollVisible">
