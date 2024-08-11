@@ -1,13 +1,20 @@
+// INTERFACE
+import { GetUserResponseInterface } from "../interfaces/GetUserResponseInterface";
+
 import { Dispatch, SetStateAction } from "react";
 
 function NavBarHeader({
   showMenu,
   showProfile,
   setShowProfile,
+  user,
+  domain,
 }: {
   showMenu: boolean;
   showProfile: boolean;
   setShowProfile: Dispatch<SetStateAction<boolean>>;
+  user: GetUserResponseInterface["user"];
+  domain: string;
 }) {
   const handleShowProfile = () => {
     setShowProfile(!showProfile);
@@ -15,7 +22,7 @@ function NavBarHeader({
   return (
     <header className="w-full h-16 flex items-center mt-5 portrait:mb-5 landscape:mb-0">
       <img
-        src="/login/imgLogin.jpg"
+        src={`${domain}${user.profilePicture}`}
         className="min-h-11 min-w-11 max-h-11 max-w-11 rounded-[50%] cursor-pointer"
         onClick={handleShowProfile}
       ></img>
@@ -32,7 +39,7 @@ function NavBarHeader({
             showMenu ? "opacity-0" : "opacity-100"
           } dark:text-colorTextDrak`}
         >
-          Jahir Machuca
+          {user.firstName} {user.middleName}
         </span>
       </div>
     </header>

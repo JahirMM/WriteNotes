@@ -5,10 +5,10 @@ import { toast, Toaster } from "sonner";
 
 // HOOKS
 import { useValidateEmail } from "@/share/hooks/useValidateEmail";
+import { useSignUp } from "../hooks/useSignUp";
 import PasswordInput from "./PasswordInput";
 
 import { useRouter } from "next/navigation";
-import { useSignUp } from "../hooks/useSignUp";
 
 interface SignUpFormProps {
   theme: "light" | "dark";

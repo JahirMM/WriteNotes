@@ -17,7 +17,7 @@ export function useValidateField(
     const rules = rulesList[id];
 
     if (!rules) {
-      // Si el id no está en rulesList, simplemente actualizamos el estado
+      // Si el id no está en rulesList, simplemente actualiza el estado
       setInitialData((prevData) => ({ ...prevData, [id]: value }));
       return;
     }

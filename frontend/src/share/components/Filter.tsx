@@ -1,6 +1,5 @@
 // ICON
 import Search from "@/icons/Search";
-import { useChangeTheme } from "../hooks/useChangeTheme";
 
 interface FilterProps {
   filter: string;
@@ -9,7 +8,6 @@ interface FilterProps {
 }
 
 function Filter({ filter, handleFilterChange, handleSearch }: FilterProps) {
-  const { theme } = useChangeTheme();
   return (
     <div className="border border-colorBorder flex gap-3 rounded-2xl p-2 items-center justify-center">
       <Search

@@ -4,4 +4,5 @@ export interface UserProfileInterface {
   lastName: string;
   maternalLastName: string;
   email: string;
+  profilePicture?: File | string | null;
 }

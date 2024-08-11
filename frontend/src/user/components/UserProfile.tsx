@@ -13,9 +13,15 @@ interface UserProfileProps {
   showProfile: boolean;
   setShowProfile: Dispatch<SetStateAction<boolean>>;
   user: GetUserResponseInterface["user"];
+  domain: string;
 }
 
-function UserProfile({ showProfile, setShowProfile, user }: UserProfileProps) {
+function UserProfile({
+  showProfile,
+  setShowProfile,
+  user,
+  domain,
+}: UserProfileProps) {
   const handleCloseProfile = () => {
     setShowProfile(!showProfile);
   };
@@ -34,7 +40,7 @@ function UserProfile({ showProfile, setShowProfile, user }: UserProfileProps) {
         <div className="mb-5 flex flex-col items-center pb-5 border-b border-colorLineSeparatorUser dark:border-colorLineSeparatorUserDark">
           <div className="w-full flex justify-center bg-gradient-to-b from-50% from-backgroundTopUserImage to-50% to-backgroundBottomUserImage dark:from-backgroundTopUserImageDark dark:to-backgroundBottomUserImageDark">
             <img
-              src="/login/imgLogin.jpg"
+              src={`${domain}${user.profilePicture}`}
               alt="login image"
               className="w-20 h-20 rounded-full"
             />
@@ -46,7 +52,7 @@ function UserProfile({ showProfile, setShowProfile, user }: UserProfileProps) {
             {user.email}
           </span>
         </div>
-        <UserProfileForm user={user} />
+        <UserProfileForm user={user} domain={domain} />
       </section>
     </div>
   );

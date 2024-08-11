@@ -10,7 +10,7 @@ const { initialApi } = useInitialApi();
 export const updateUser = async (
   data: UserProfileInterface
 ): Promise<UpdateUserResponseInterface> => {
-  const res = await initialApi.put("user", data, {
+  const res = await initialApi.put("userInformation", data, {
     withCredentials: true,
   });
   return res.data;

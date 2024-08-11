@@ -19,7 +19,13 @@ import { toast } from "sonner";
 
 import { ChangeEvent, useState } from "react";
 
-function UserProfileForm({ user }: { user: GetUserResponseInterface["user"] }) {
+function UserProfileForm({
+  user,
+  domain,
+}: {
+  user: GetUserResponseInterface["user"];
+  domain: string;
+}) {
   const { validateEmail } = useValidateEmail();
   const { updateUserMutation } = useUpdateUser();
 
@@ -29,6 +35,7 @@ function UserProfileForm({ user }: { user: GetUserResponseInterface["user"] }) {
     lastName: user.lastName,
     maternalLastName: user.maternalLastName,
     email: user.email,
+    profilePicture: user.profilePicture,
   });
 
   const configs: Record<string, FieldRulesInterface> = {
@@ -85,7 +92,11 @@ function UserProfileForm({ user }: { user: GetUserResponseInterface["user"] }) {
         handleChange={handleChange}
       />
       <UserProfileEmail initialData={initialData} handleChange={handleChange} />
-      <UserProfilePhotoUpload />
+      <UserProfilePhotoUpload
+        domain={domain}
+        setInitialData={setInitialData}
+        initialData={initialData}
+      />
       <div className="flex justify-end">
         <button
           type="submit"

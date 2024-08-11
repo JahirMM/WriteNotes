@@ -5,5 +5,6 @@ export interface GetUserResponseInterface {
     middleName: string;
     lastName: string;
     maternalLastName: string;
+    profilePicture: string;
   };
 }

@@ -25,6 +25,8 @@ function NavBarPage({}) {
   const { isError, errorMessage, data } = useGetUser();
   const { handleChangeTheme, theme } = useChangeTheme();
 
+  const domain = process.env.NEXT_PUBLIC_DOMAIN;
+
   return (
     <>
       <NavBarMenuButton
@@ -42,11 +44,19 @@ function NavBarPage({}) {
             setShowMenu={setShowMenu}
             theme={theme}
           />
-          <NavBarHeader
-            showMenu={showMenu}
-            showProfile={showProfile}
-            setShowProfile={setShowProfile}
-          />
+          {isError ? (
+            <div>{errorMessage}</div>
+          ) : data?.user && domain ? (
+            <NavBarHeader
+              showMenu={showMenu}
+              showProfile={showProfile}
+              setShowProfile={setShowProfile}
+              user={data.user}
+              domain={domain}
+            />
+          ) : (
+            <div>Loading...</div>
+          )}
         </div>
         <nav className="flex-1 overflow-y-auto overflow-x-hidden scrollVisible">
           <NavBarButtonAddNote showMenu={showMenu} />
@@ -66,11 +76,12 @@ function NavBarPage({}) {
         <Modal>
           {isError ? (
             <div>{errorMessage}</div>
-          ) : data?.user ? (
+          ) : data?.user && domain ? (
             <UserProfile
               showProfile={showProfile}
               setShowProfile={setShowProfile}
               user={data.user}
+              domain={domain}
             />
           ) : (
             <div>Loading...</div>
