@@ -6,4 +6,5 @@ export interface UserAuthInterface {
   middleName: string | null;
   lastName: string;
   maternalLastName: string;
+  profilePicture: string | null;
 }

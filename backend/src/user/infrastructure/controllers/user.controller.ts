@@ -1,4 +1,5 @@
 import { UpdateUserInformation } from "../../application/updateUserInformation.application";
+import { UpdateUserPhoto } from "../../application/UpdateUserPhoto.application";
 import { UserRepository } from "../repositories/user.repository";
 import { GetUser } from "../../application/getUser.application";
 
@@ -9,7 +10,6 @@ import jwt from "jsonwebtoken";
 
 const router = Router();
 
-// obtener información de un usuario por su userId
 router.get("/user", async (req: Request, res: Response) => {
   try {
     const { myToken } = req.cookies;
@@ -35,61 +35,56 @@ router.get("/user", async (req: Request, res: Response) => {
       middleName: user[0].middleName,
       lastName: user[0].lastName,
       maternalLastName: user[0].maternalLastName,
+      profilePicture: user[0].profilePicture,
     };
 
     return res.status(200).json({ user: data });
   } catch (error) {
-    console.log("GET USER BY ID");
-    console.log(error);
     return res.status(500).json({ message: "Internal server error" });
   }
 });
 
-router.put("/user", async (req: Request, res: Response) => {
+router.put("/userInformation", async (req: Request, res: Response) => {
+  const updateUser = new UpdateUserInformation(new UserRepository());
+  const { myToken } = req.cookies;
+
+  let decoded: any;
+
   try {
-    const { firstName, middleName, lastName, maternalLastName } = req.body;
+    decoded = jwt.verify(myToken, process.env.SECRET_TOKEN_KEY!);
+  } catch (error) {
+    return res.status(403).json({ message: "Invalid token." });
+  }
 
-    const { myToken } = req.cookies;
-    let decoded: any;
+  const userId = decoded.userId;
+  const getUser = await new GetUser(new UserRepository()).getUser(userId);
 
-    try {
-      decoded = jwt.verify(myToken, process.env.SECRET_TOKEN_KEY!);
-    } catch (error) {
-      return res.status(403).json({ message: "Invalid token" });
-    }
+  if (getUser.length === 0) {
+    return res.status(404).json({ message: "User not found." });
+  }
 
-    const userId = decoded.userId;
-    const getUser = await new GetUser(new UserRepository()).getUser(userId);
+  const { firstName, middleName, lastName, maternalLastName, email } = req.body;
 
-    if (getUser.length === 0) {
-      return res.status(404).json({ message: "User not found." });
-    }
+  const data = {
+    firstName: firstName !== undefined ? firstName : getUser[0].firstName,
+    middleName: middleName !== undefined ? middleName : getUser[0].middleName,
+    lastName: lastName !== undefined ? lastName : getUser[0].lastName,
+    maternalLastName:
+      maternalLastName !== undefined
+        ? maternalLastName
+        : getUser[0].maternalLastName,
+    email: email !== undefined ? email : getUser[0].email,
+    profilePicture: getUser[0].profilePicture,
+  };
 
-    if (!firstName && !middleName && !lastName && !maternalLastName) {
-      return res
-        .status(400)
-        .json({ message: "No information provided for update" });
-    }
-
-    const data = {
-      firstName: firstName !== undefined ? firstName : getUser[0].firstName,
-      middleName: middleName !== undefined ? middleName : getUser[0].middleName,
-      lastName: lastName !== undefined ? lastName : getUser[0].lastName,
-      maternalLastName:
-        maternalLastName !== undefined
-          ? maternalLastName
-          : getUser[0].maternalLastName,
-      email: getUser[0].email,
-    };
-
-    const updateUser = new UpdateUserInformation(new UserRepository());
+  try {
     const userInformation = await updateUser.updateUserInformation(
       data,
       userId
     );
 
     if (!userInformation) {
-      return res.status(422).json({ message: "Please complete all fields" });
+      return res.status(422).json({ message: "Please complete all fields." });
     }
 
     const dataResponsive = {
@@ -98,17 +93,65 @@ router.put("/user", async (req: Request, res: Response) => {
       lastName: userInformation.lastName,
       maternalLastName: userInformation.maternalLastName,
       email: userInformation.email,
+      profilePicture: userInformation.profilePicture,
     };
 
     return res.status(200).json({
-      message: "the user was successfully updated",
+      message: "User information successfully updated.",
       user: dataResponsive,
     });
   } catch (error) {
-    console.log("UPDATE USER INFORMATION");
-    console.log(error);
-    return res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ message: "Internal server error." });
   }
+});
+
+router.put("/userPhoto", (req: Request, res: Response) => {
+  const updateUserPhoto = new UpdateUserPhoto(new UserRepository());
+
+  updateUserPhoto.upload(req, res, async function (err: any) {
+    if (err) {
+      if (
+        err.message ===
+        "Invalid file type. Please upload a JPEG, PNG, or JPG image."
+      ) {
+        return res.status(422).json({
+          message: "Please upload a valid image file (JPEG, PNG, JPG).",
+        });
+      }
+      return res.status(422).json({ message: "Error uploading image." });
+    }
+
+    try {
+      const { myToken } = req.cookies;
+
+      let decoded: any;
+
+      try {
+        decoded = jwt.verify(myToken, process.env.SECRET_TOKEN_KEY!);
+      } catch (error) {
+        return res.status(403).json({ message: "Invalid token." });
+      }
+
+      const userId = decoded.userId;
+      const filename = req.file ? req.file.filename : null;
+
+      const userInformation = await updateUserPhoto.updateUserPhoto(
+        userId,
+        filename
+      );
+
+      if (!userInformation) {
+        return res.status(422).json({ message: "Could not update photo." });
+      }
+
+      return res.status(200).json({
+        message: "Profile photo successfully updated.",
+        profilePicture: userInformation.profilePicture,
+      });
+    } catch (error) {
+      return res.status(500).json({ message: "Internal server error." });
+    }
+  });
 });
 
 export default router;

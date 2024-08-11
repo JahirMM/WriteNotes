@@ -10,6 +10,7 @@ export const authUserSchema = new mongoose.Schema<UserAuthInterface>({
   middleName: String,
   lastName: { type: String, required: true },
   maternalLastName: { type: String, required: true },
+  profilePicture: { type: String || null },
 });
 
 export const AuthUser = mongoose.model<UserAuthInterface>(
@@ -17,18 +18,3 @@ export const AuthUser = mongoose.model<UserAuthInterface>(
   authUserSchema,
   "users"
 );
-
-// import { UserAuthInterface } from "./interfaces/userAuth.interfaces.interface";
-// import mongoose from "mongoose";
-
-// export const authUserSchema = new mongoose.Schema<UserAuthInterface>({
-//   email: String,
-//   password: String,
-//   userId: String,
-// });
-
-// export const AuthUser = mongoose.model<UserAuthInterface>(
-//   "User",
-//   authUserSchema,
-//   "users"
-// );

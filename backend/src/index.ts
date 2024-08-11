@@ -13,16 +13,19 @@ import userRouter from "../src/user/infrastructure/controllers/user.controller";
 dotenv.config();
 
 const app = express();
+const HOST = "localhost";
+const frontendIP = "http://" + HOST + ":3000";
 
-// TODO: poner las cords luego para usarlos en el fronted
 app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: frontendIP,
     credentials: true,
   })
 );
+
+app.use(express.static("public"));
 
 const PORT = process.env.PORT;
 
