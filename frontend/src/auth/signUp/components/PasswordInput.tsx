@@ -27,7 +27,7 @@ function PasswordInput({
         } rounded-xl flex items-center gap-2`}
       >
         <input
-          className="text-sm bg-transparent w-full p-2 focus:outline-none focus:ring-0"
+          className="text-sm bg-transparent w-full p-2 focus:outline-none focus:ring-0 dark:text-colorTextDrak"
           type={showPassword ? "text" : "password"}
           id={name}
           name={name}

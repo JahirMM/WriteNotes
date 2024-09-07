@@ -113,7 +113,7 @@ function SignUpForm({ theme }: SignUpFormProps) {
               name="firstName"
               id="firstName"
               placeholder="First name"
-              className="text-sm bg-transparent border border-black w-full rounded-xl p-2 focus:outline-none focus:ring-0 dark:border-colorBorder"
+              className="text-sm bg-transparent border border-black w-full rounded-xl p-2 focus:outline-none focus:ring-0 dark:border-colorBorder dark:text-colorTextDrak"
               required
               value={initialData.firstName}
               onChange={(e) =>
@@ -133,7 +133,7 @@ function SignUpForm({ theme }: SignUpFormProps) {
               name="middleName"
               id="middleName"
               placeholder="Middle name"
-              className="text-sm bg-transparent border border-black w-full rounded-xl p-2 focus:outline-none focus:ring-0 dark:border-colorBorder"
+              className="text-sm bg-transparent border border-black w-full rounded-xl p-2 focus:outline-none focus:ring-0 dark:border-colorBorder dark:text-colorTextDrak"
               value={initialData.middleName}
               onChange={(e) =>
                 setInitialData({ ...initialData, middleName: e.target.value })
@@ -152,7 +152,7 @@ function SignUpForm({ theme }: SignUpFormProps) {
               name="lastName"
               id="lastName"
               placeholder="Last name"
-              className="text-sm bg-transparent border border-black w-full rounded-xl p-2 focus:outline-none focus:ring-0 dark:border-colorBorder"
+              className="text-sm bg-transparent border border-black w-full rounded-xl p-2 focus:outline-none focus:ring-0 dark:border-colorBorder dark:text-colorTextDrak"
               required
               value={initialData.lastName}
               onChange={(e) =>
@@ -172,7 +172,7 @@ function SignUpForm({ theme }: SignUpFormProps) {
               name="maternalLastName"
               id="maternalLastName"
               placeholder="Maternal last name"
-              className="text-sm bg-transparent border border-black w-full rounded-xl p-2 focus:outline-none focus:ring-0 dark:border-colorBorder"
+              className="text-sm bg-transparent border border-black w-full rounded-xl p-2 focus:outline-none focus:ring-0 dark:border-colorBorder dark:text-colorTextDrak"
               required
               value={initialData.maternalLastName}
               onChange={(e) =>
@@ -193,7 +193,7 @@ function SignUpForm({ theme }: SignUpFormProps) {
             <input
               className={`${
                 errorEmail ? "border-red-500" : "border-black"
-              } text-sm bg-transparent border rounded-xl p-2 w-full focus:outline-none focus:ring-0 dark:border-colorBorder`}
+              } text-sm bg-transparent border rounded-xl p-2 w-full focus:outline-none focus:ring-0 dark:border-colorBorder dark:text-colorTextDrak`}
               type="email"
               id="E-mail"
               name="E-mail"
