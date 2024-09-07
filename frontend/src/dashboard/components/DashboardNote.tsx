@@ -6,6 +6,7 @@ import Start from "@/icons/Start";
 import { NoteInterface } from "@/share/interfaces/NoteInterface";
 
 // HOOKS
+import { useChangeTheme } from "@/share/hooks/useChangeTheme";
 import { useFormatDate } from "@/share/hooks/useFormatDate";
 import { useUpdateNote } from "@/share/hooks/useUpdateNote";
 
@@ -13,8 +14,9 @@ import { useRouter } from "next/navigation";
 
 function DashboardNote({ note }: { note: NoteInterface }) {
   const router = useRouter();
-  const { formattedDate } = useFormatDate(note.date!);
+  const { theme } = useChangeTheme();
   const { updateNoteMutation } = useUpdateNote();
+  const { formattedDate } = useFormatDate(note.date!);
 
   const handleStarClick = (event: React.MouseEvent) => {
     event.stopPropagation(); // Previene que el clic se propague al contenedor padre
@@ -60,7 +62,7 @@ function DashboardNote({ note }: { note: NoteInterface }) {
           />
         ) : (
           <StartNoBackground
-            fill="#000"
+            fill={`${theme === "light" ? "#000" : "#fff"}`}
             width={18}
             onClick={handleStarClick}
             className="hover:animate-spin"

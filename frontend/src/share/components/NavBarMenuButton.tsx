@@ -7,11 +7,13 @@ import { Dispatch, SetStateAction } from "react";
 interface NavBarMenuButtonProps {
   showSideBar: boolean;
   setShowSideBar: Dispatch<SetStateAction<boolean>>;
+  theme: "light" | "dark";
 }
 
 function NavBarMenuButton({
   showSideBar,
   setShowSideBar,
+  theme,
 }: NavBarMenuButtonProps) {
   return (
     <div
@@ -19,9 +21,9 @@ function NavBarMenuButton({
       onClick={() => setShowSideBar(!showSideBar)}
     >
       {showSideBar ? (
-        <Menu fill="#000" width={18} />
+        <Menu fill={`${theme === "light" ? "#000" : "#fff"}`} width={18} />
       ) : (
-        <Close fill="#000" width={18} />
+        <Close fill={`${theme === "light" ? "#000" : "#fff"}`} width={18} />
       )}
     </div>
   );

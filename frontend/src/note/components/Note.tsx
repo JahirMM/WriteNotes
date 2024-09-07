@@ -7,6 +7,7 @@ import Trash from "@/icons/Trash";
 import { NoteInterface } from "@/share/interfaces/NoteInterface";
 
 // HOOKS
+import { useChangeTheme } from "@/share/hooks/useChangeTheme";
 import { useFormatDate } from "@/share/hooks/useFormatDate";
 import { useUpdateNote } from "@/share/hooks/useUpdateNote";
 import { useDeleteNote } from "../hooks/useDeleteNote";
@@ -24,6 +25,7 @@ function Note({
   const { updateNoteMutation } = useUpdateNote();
   const { deleteNoteMutation } = useDeleteNote();
   const searchParams = useSearchParams();
+  const { theme } = useChangeTheme();
 
   const router = useRouter();
 
@@ -118,7 +120,7 @@ function Note({
           />
         ) : (
           <StartNoBackground
-            fill="#000"
+            fill={`${theme === "light" ? "#000" : "#fff"}`}
             width={18}
             onClick={handleStarClick}
             className="hover:animate-spin"

@@ -33,6 +33,7 @@ function NavBarPage({}) {
       <NavBarMenuButton
         showSideBar={showSideBar}
         setShowSideBar={setShowSideBar}
+        theme={theme}
       />
       <div
         className={`${showMenu ? "w-20" : "w-52 shadow-xl"} ${

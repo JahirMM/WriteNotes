@@ -1,3 +1,6 @@
+// HOOK
+import { useChangeTheme } from "@/share/hooks/useChangeTheme";
+
 // ICONS
 import StartNoBackground from "@/icons/StartNoBackground";
 import Start from "@/icons/Start";
@@ -15,6 +18,7 @@ const NotesFormHeader: React.FC<NotesFormHeaderProps> = ({
   onTitleChange,
   onFavoriteClick,
 }) => {
+  const { theme } = useChangeTheme();
   return (
     <header className="flex gap-5 flex-col-reverse justify-center sm:flex-row md:mt-0 md:mb-0">
       <input
@@ -35,7 +39,7 @@ const NotesFormHeader: React.FC<NotesFormHeaderProps> = ({
           />
         ) : (
           <StartNoBackground
-            fill="#000"
+            fill={`${theme === "light" ? "#000" : "#fff"}`}
             width={18}
             onClick={onFavoriteClick}
             className="hover:animate-spin"

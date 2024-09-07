@@ -143,7 +143,9 @@ function NoteForm({ totalNotes, onlyFavoriteNotes, showForm }: NoteFormProps) {
         showForm ? "block" : "hidden"
       } bg-backgroundNotes rounded-xl p-4 md:block dark:bg-backgroundNotesDark`}
     >
-      <form className={`p-2 flex flex-col h-full md:gap-0`}>
+      <form
+        className={`p-2 flex flex-col h-full text-colorText md:gap-0 dark:text-colorTextDrak`}
+      >
         <CloseFormButton onlyFavoriteNotes={onlyFavoriteNotes} />
         <NotesFormHeader
           title={initialData.title}

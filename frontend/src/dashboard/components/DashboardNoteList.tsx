@@ -6,6 +6,7 @@ import DashboardNote from "./DashboardNote";
 
 // ICON
 import Note from "@/icons/Note";
+import { useChangeTheme } from "@/share/hooks/useChangeTheme";
 import { useNotes } from "@/share/hooks/useNotes";
 
 import Link from "next/link";
@@ -19,6 +20,7 @@ function DashboardNoteList({
 }) {
   const { isLoading, isError, data, errorMessage } =
     useNotes(onlyFavoriteNotes);
+  const { theme } = useChangeTheme();
 
   if (isLoading) return <DashboardSkeleton />;
   if (isError)
@@ -45,7 +47,7 @@ function DashboardNoteList({
         className="bg-colorNote rounded-xl medium-note-dimensions cursor-pointer flex flex-col gap-3 justify-center items-center dark:bg-colorNoteDark"
       >
         <div className="bg-backgroundIcon h-28 w-28 rounded-full flex justify-center items-center dark:bg-backgroundIconDark">
-          <Note fill="#000" width={68} />
+          <Note fill={`${theme === "light" ? "#000" : "#fff"}`} width={68} />
         </div>
         <span className="text-colorText font-semibold dark:text-colorTextDrak">
           Notes ({notes?.length})

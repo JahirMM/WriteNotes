@@ -1,6 +1,13 @@
+"use client";
+
+// HOOK
+import { useChangeTheme } from "@/share/hooks/useChangeTheme";
+
+// COMPONENT
 import NavBarPage from "@/share/components/NavBarPage";
 
 export default function NotFound() {
+  const { theme } = useChangeTheme();
   return (
     <div>
       <NavBarPage />
@@ -20,11 +27,19 @@ export default function NotFound() {
           </p>
         </section>
         <section className="flex justify-center items-center">
-          <img
-            src="/pageNotFound/404ImgLight.svg"
-            alt=""
-            className="w-[60%] sm:w-[100%]"
-          />
+          {theme === "light" ? (
+            <img
+              src="/pageNotFound/404ImgLight.svg"
+              alt=""
+              className="w-[60%] sm:w-[100%]"
+            />
+          ) : (
+            <img
+              src="/pageNotFound/404ImgDark.svg"
+              alt=""
+              className="w-[60%] sm:w-[100%]"
+            />
+          )}
         </section>
       </div>
     </div>
