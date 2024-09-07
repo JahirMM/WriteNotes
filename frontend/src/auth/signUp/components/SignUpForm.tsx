@@ -234,7 +234,7 @@ function SignUpForm({ theme }: SignUpFormProps) {
           )}
           <button
             onClick={handleSubmit}
-            className="bg-black text-white font-bold w-full mt-5 py-3 px-2 rounded-xl col-start-1 col-end-3"
+            className="bg-black text-white font-bold w-full mt-5 py-3 px-2 rounded-xl col-start-1 col-end-3 dark:bg-backgroundNavBarOptionDark"
           >
             login
           </button>

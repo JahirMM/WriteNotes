@@ -64,7 +64,7 @@ function LoginForm({ theme }: LoginFormProps) {
           E-mail:
         </label>
         <input
-          className="text-sm text-colorText bg-transparent border border-black w-full rounded-xl p-2 mb-9 focus:outline-none focus:ring-0 dark:text-colorTextDrak"
+          className="text-sm text-colorText bg-transparent border border-black w-full rounded-xl p-2 mb-9 focus:outline-none focus:ring-0 dark:text-colorTextDrak dark:border-colorBorder"
           type="email"
           id="E-mail"
           name="E-mail"
@@ -80,9 +80,9 @@ function LoginForm({ theme }: LoginFormProps) {
         >
           Password:
         </label>
-        <div className="mb-9 border border-black rounded-xl flex items-center gap-2">
+        <div className="mb-9 border border-black rounded-xl flex items-center gap-2 dark:border-colorBorder">
           <input
-            className="text-sm text-colorText bg-transparent w-full p-2 focus:outline-none focus:ring-0 dark:text-colorTextDrak"
+            className="text-sm text-colorText bg-transparent w-full p-2 focus:outline-none focus:ring-0 dark:text-colorTextDra"
             type={showPassword ? "text" : "password"}
             id="password"
             name="password"
@@ -118,7 +118,7 @@ function LoginForm({ theme }: LoginFormProps) {
           )}
         </div>
         <button
-          className="bg-black text-white font-bold w-full py-3 px-2 rounded-xl"
+          className="bg-black text-white font-bold w-full py-3 px-2 rounded-xl dark:bg-backgroundNavBarOptionDark"
           onClick={handleSubmit}
         >
           login
