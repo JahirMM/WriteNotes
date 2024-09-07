@@ -15,7 +15,9 @@ const config: Config = {
         left: "left",
       },
       colors: {
+        // ************
         // LIGHT
+        // ************
         backgroundNavBarOption: "#F9F6F3",
         backgroundTopUserImage: "#F3EDE5",
         backgroundBottomUserImage: "#fff",
@@ -33,20 +35,22 @@ const config: Config = {
         colorNote: "#F3EDE5",
         colorText: "#000",
 
+        // ************
         // DARK
-        backgroundBottomUserImageDark: "#6F493D",
-        backgroundTopUserImageDark: "#301F1A",
-        backgroundNavBarOptionDark: "#5B3D33",
-        backgroundSecondaryDark: "#5B3D33",
-        backgroundPageDark: "#301F1A",
-        backgroundIconDark: "#B1805E",
-        backgroundNotesDark: "#6F493D",
-        backgroundUserModalDark: "#6F493D",
+        // ************
+        backgroundBottomUserImageDark: "#1F1F1F",
+        backgroundTopUserImageDark: "#0D0D0D",
+        backgroundNavBarOptionDark: "#252933",
+        backgroundUserModalDark: "#1F1F1F",
+        backgroundSecondaryDark: "#191919",
+        backgroundNotesDark: "#1F1F1F",
+        backgroundIconDark: "#191919",
+        backgroundPageDark: "#0D0D0D",
 
-        colorLineSeparatorUserDark: "#B1805E",
+        colorLineSeparatorUserDark: "#0D0D0D",
         colorTextPointerDark: "#E3D5C5",
+        colorNoteDark: "#252933",
         colorTextDrak: "#fff",
-        colorNoteDark: "#301F1A",
       },
     },
   },

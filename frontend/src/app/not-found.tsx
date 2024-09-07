@@ -7,11 +7,15 @@ export default function NotFound() {
       <div className="bg-backgroundSecondary rounded-2xl mt-2 mb-2 mr-3 ml-6 p-5 grid grid-cols-1 h-screen gap-4 sm:ml-20 sm:grid-cols-2 dark:bg-backgroundSecondaryDark">
         <section className="text-center flex flex-col justify-center gap-10 md:gap-12">
           <p className="font-bold text-3xl tracking-wider sm:text-5xl">
-            <span className="text-[#5B3D33]">Sorry !,</span>{" "}
-            <span className="block md:inline">this page</span>{" "}
-            <span className="block md:inline">isn't available</span>
+            <span className="text-[#5B3D33] dark:text-[#B1805E]">Sorry !,</span>{" "}
+            <span className="text-colorText block md:inline dark:text-colorTextDrak">
+              this page
+            </span>{" "}
+            <span className="text-colorText block md:inline dark:text-colorTextDrak">
+              isn't available
+            </span>
           </p>
-          <p className="text-base font-light">
+          <p className="text-base font-light text-colorText dark:text-colorTextDrak">
             The page you were looking for couldn't be found
           </p>
         </section>

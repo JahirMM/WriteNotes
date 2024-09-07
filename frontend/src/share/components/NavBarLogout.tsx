@@ -15,7 +15,7 @@ function NavBarLogout({ showMenu }: { showMenu: boolean }) {
       <span
         className={`text-sm text-colorText whitespace-nowrap transition-opacity duration-300 ease-linear ${
           showMenu ? "opacity-0 w-0" : "opacity-100 ml-3"
-        }`}
+        } dark:text-colorTextDrak`}
       >
         Logout
       </span>
