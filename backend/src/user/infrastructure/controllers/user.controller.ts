@@ -3,6 +3,8 @@ import { UpdateUserPhoto } from "../../application/UpdateUserPhoto.application";
 import { UserRepository } from "../repositories/user.repository";
 import { GetUser } from "../../application/getUser.application";
 
+import { serialize, CookieSerializeOptions } from "cookie";
+
 import { Request, Response } from "express";
 import { Router } from "express";
 
@@ -95,6 +97,31 @@ router.put("/userInformation", async (req: Request, res: Response) => {
       email: userInformation.email,
       profilePicture: userInformation.profilePicture,
     };
+
+    if (getUser[0].email !== email) {
+      const key = process.env.SECRET_TOKEN_KEY;
+      if (!key) {
+        throw new Error("No key for creating the token");
+      }
+
+      const payload = {
+        email: data.email,
+        userId: getUser[0].userId,
+      };
+
+      const token = jwt.sign(payload, key, { expiresIn: "1h" });
+
+      const cookieConfig: CookieSerializeOptions = {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: 60 * 60, // 1 hora
+        path: "/",
+      };
+
+      const cookie = serialize(process.env.TOKEN_NAME!, token, cookieConfig);
+      res.setHeader("Set-Cookie", cookie);
+    }
 
     return res.status(200).json({
       message: "User information successfully updated.",
