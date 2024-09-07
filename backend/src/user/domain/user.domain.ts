@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema<UserInterface>({
   middleName: String,
   lastName: { type: String, required: true },
   maternalLastName: { type: String, required: true },
+  profilePicture: { type: String || null },
 });
 
 export const User = mongoose.model<UserInterface>("user", userSchema);

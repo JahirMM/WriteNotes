@@ -64,7 +64,8 @@ router.post("/logOut", (_req, res: Response) => {
 
 router.post("/createAccount", async (req: Request, res: Response) => {
   try {
-    const data = req.body;
+    let data = req.body;
+
     if (data.middleName === "") {
       data.middleName = null;
     }
@@ -84,6 +85,10 @@ router.post("/createAccount", async (req: Request, res: Response) => {
       return res.status(409).json({ message: "Password already exists." });
     }
 
+    if (!data.profilePicture) {
+      data = { ...data, profilePicture: null };
+    }
+
     const createUser = new CreateAccount(new AuthRepository());
     const newUser = await createUser.createAccount(data);
     if (!newUser) {
@@ -98,6 +103,7 @@ router.post("/createAccount", async (req: Request, res: Response) => {
       middleName: newUser.middleName,
       lastName: newUser.lastName,
       maternalLastName: newUser.maternalLastName,
+      profilePicture: newUser.profilePicture,
     };
 
     return res
