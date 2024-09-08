@@ -27,6 +27,7 @@ function NavBarHeader({
       {user.profilePicture ? (
         <img
           src={`${domain}${user.profilePicture}`}
+          alt="User profile picture"
           className="min-h-11 min-w-11 max-h-11 max-w-11 rounded-[50%] cursor-pointer"
           onClick={handleShowProfile}
         ></img>

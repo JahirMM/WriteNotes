@@ -1,3 +1,5 @@
+"use client";
+
 // INTERFACE
 import { NoteInterface } from "@/share/interfaces/NoteInterface";
 
@@ -21,14 +23,17 @@ const useNoteForm = () => {
   const [showForm, setShowForm] = useState(initialData.noteId !== "" || action);
 
   useEffect(() => {
-    setInitialData({
-      noteId: searchParams?.get("noteId") || "",
-      title: searchParams?.get("title") || "",
-      description: searchParams?.get("description") || "",
-      favorite: isFavorite,
-    });
     const noteId = searchParams?.get("noteId") || "";
     const action = searchParams?.get("action") === "create";
+    const favorite = searchParams?.get("favorite") === "true";
+
+    setInitialData({
+      noteId,
+      title: searchParams?.get("title") || "",
+      description: searchParams?.get("description") || "",
+      favorite,
+    });
+
     setShowForm(noteId !== "" || action);
   }, [searchParams]);
 

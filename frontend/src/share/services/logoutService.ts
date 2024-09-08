@@ -1,8 +1,7 @@
-import { useInitialApi } from "../hooks/useInitialApi";
-
-const { initialApi } = useInitialApi();
+import { getInitialApi } from "../hooks/useInitialApi";
 
 export const fetchLogout = async () => {
+  const initialApi = getInitialApi();
   await initialApi.post(
     "logout",
     {},

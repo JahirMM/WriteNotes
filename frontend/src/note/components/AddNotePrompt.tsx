@@ -23,7 +23,7 @@ function AddNotePrompt({
       <div className="h-full p-2 rounded-xl flex flex-col gap-7 items-center justify-center">
         <img
           src="/notes/addNote.svg"
-          alt=""
+          alt="image of adding a note"
           className="w-0 cursor-pointer md:w-3/4"
           onClick={handleAddNote}
         />

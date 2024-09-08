@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export function useInitialApi() {
+export const getInitialApi = () => {
   const initialApi = axios.create({
     baseURL: "http://localhost:4000/writeNote/api/v1",
   });
 
-  return { initialApi };
-}
+  return initialApi;
+};

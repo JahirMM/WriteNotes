@@ -47,7 +47,7 @@ function LoginForm({ theme }: LoginFormProps) {
           WriteNote
         </h1>
         <p className="text-sm text-colorText mt-9 dark:text-colorTextDrak dark:font-light">
-          Don't have an account?{"  "}
+          Don&apos;t have an account?{"  "}
           <span
             className="underline cursor-pointer dark:text-colorTextDrak dark:font-light"
             onClick={() => router.push("/signUp")}
@@ -80,7 +80,7 @@ function LoginForm({ theme }: LoginFormProps) {
         >
           Password:
         </label>
-        <div className="mb-9 border border-black rounded-xl flex items-center gap-2 dark:border-colorBorder ">
+        <div className="mb-9 border border-black rounded-xl flex items-center gap-2 dark:border-colorBorder">
           <input
             className="text-sm text-colorText bg-transparent w-full p-2 focus:outline-none focus:ring-0 dark:text-colorTextDrak"
             type={showPassword ? "text" : "password"}

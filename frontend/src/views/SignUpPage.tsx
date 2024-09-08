@@ -15,7 +15,7 @@ function SignUpPage() {
       <div className="hidden overflow-auto h-full w-[45%] sm:flex">
         <img
           src="/signUp/imgSignUp.jpg"
-          alt="image Sign up"
+          alt="Image Sign up"
           className="h-full w-full"
         />
       </div>
