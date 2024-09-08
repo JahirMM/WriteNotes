@@ -1,12 +1,11 @@
 // INTERFACE
 import { GetUserResponseInterface } from "../interfaces/GetUserResponseInterface";
 
-import { useInitialApi } from "../hooks/useInitialApi";
-
-const { initialApi } = useInitialApi();
+import { getInitialApi } from "../hooks/useInitialApi";
 
 export const getUserInformation =
   async (): Promise<GetUserResponseInterface> => {
+    const initialApi = getInitialApi();
     const res = await initialApi.get("user", {
       withCredentials: true,
     });

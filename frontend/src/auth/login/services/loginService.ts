@@ -2,13 +2,12 @@
 import { LoginResponseInterface } from "../interfaces/LoginResponseInterface";
 import { LoginInterface } from "../interfaces/loginInterface";
 
-import { useInitialApi } from "@/share/hooks/useInitialApi";
-
-const { initialApi } = useInitialApi();
+import { getInitialApi } from "@/share/hooks/useInitialApi";
 
 export const fetchLogin = async (
   credentials: LoginInterface
 ): Promise<LoginResponseInterface> => {
+  const initialApi = getInitialApi();
   const res = await initialApi.post("login", credentials, {
     withCredentials: true,
   });

@@ -2,14 +2,12 @@
 import { CreateNoteResponseInterface } from "../interfaces/CreateNoteResponseInterface";
 import { NoteInterfaceService } from "@/share/interfaces/NoteInterfaceService";
 
-// HOOK
-import { useInitialApi } from "@/share/hooks/useInitialApi";
-
-const { initialApi } = useInitialApi();
+import { getInitialApi } from "@/share/hooks/useInitialApi";
 
 export const createNote = async (
   noteData: NoteInterfaceService
 ): Promise<CreateNoteResponseInterface> => {
+  const initialApi = getInitialApi();
   const res = await initialApi.post(`note`, noteData, {
     withCredentials: true,
   });

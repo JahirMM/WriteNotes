@@ -8,9 +8,13 @@ import HeaderPage from "@/share/components/HeaderPage";
 import NoteForm from "./NoteForm";
 import NoteList from "./NoteList";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
-function NoteComponent({ onlyFavoriteNotes }: { onlyFavoriteNotes: boolean }) {
+interface NoteComponentProps {
+  onlyFavoriteNotes: boolean;
+}
+
+function NoteComponent({ onlyFavoriteNotes }: NoteComponentProps) {
   const { filter, search, handleFilterChange, handleSearch } = useFilter();
   const [totalNotes, setTotalNotes] = useState(0);
 
@@ -40,4 +44,10 @@ function NoteComponent({ onlyFavoriteNotes }: { onlyFavoriteNotes: boolean }) {
   );
 }
 
-export default NoteComponent;
+export default function NoteComponentWrapper(props: NoteComponentProps) {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <NoteComponent {...props} />
+    </Suspense>
+  );
+}

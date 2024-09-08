@@ -1,3 +1,5 @@
+"use client";
+
 // ICONS
 import StartNoBackground from "@/icons/StartNoBackground";
 import Start from "@/icons/Start";

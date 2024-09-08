@@ -21,13 +21,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <TanstackProvider>
-        <body
-          className={`bg-backgroundPage ${lato.className} dark:bg-backgroundPageDark`}
-        >
-          {children}
-        </body>
-      </TanstackProvider>
+      <body
+        className={`bg-backgroundPage ${lato.className} dark:bg-backgroundPageDark`}
+      >
+        <TanstackProvider>{children}</TanstackProvider>
+      </body>
     </html>
   );
 }

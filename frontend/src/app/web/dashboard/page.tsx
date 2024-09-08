@@ -1,4 +1,5 @@
-import DashboardPage from "@/pages/DashboardPage";
+import DashboardPage from "@/views/DashboardPage";
+
 const page = () => {
   return <DashboardPage />;
 };

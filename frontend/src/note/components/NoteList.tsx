@@ -7,7 +7,7 @@ import { useNotes } from "@/share/hooks/useNotes";
 // COMPONENT
 import Note from "./Note";
 
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 
 function NoteList({
@@ -25,22 +25,34 @@ function NoteList({
   const { isLoading, data, isError, errorMessage } =
     useNotes(onlyFavoriteNotes);
 
-  if (isError)
+  const notes = useMemo(() => {
+    return search !== "" && data?.notes
+      ? data.notes.filter((note) =>
+          note.title.toLowerCase().includes(search.toLowerCase())
+        )
+      : data?.notes || [];
+  }, [search, data?.notes]);
+
+  useEffect(() => {
+    if (notes?.length) {
+      setTotalNotes(notes.length);
+    }
+  }, [notes, setTotalNotes]);
+
+  if (isError) {
     return (
       <div className="bg-backgroundNotes p-2 rounded-xl flex flex-col justify-center items-center gap-5 md:row-start-2 md:row-end-8 dark:bg-backgroundNotesDark">
-        <img src="/notes/errorNote.svg" alt="" className="w-0 md:w-3/4" />
+        <img
+          src="/notes/errorNote.svg"
+          alt="Error image when listing notes"
+          className="w-0 md:w-3/4"
+        />
         <span className="font-semibold">
           {errorMessage ? errorMessage : "An unknown error occurred"}
         </span>
       </div>
     );
-
-  const notes =
-    search !== ""
-      ? data?.notes.filter((note) =>
-          note.title.toLowerCase().includes(search!.toLowerCase())
-        )
-      : data?.notes || [];
+  }
 
   const handleAddNote = () => {
     const url = onlyFavoriteNotes
@@ -48,10 +60,6 @@ function NoteList({
       : `/web/notes?action=create&title=&description=&favorite=false`;
     router.push(url);
   };
-
-  useEffect(() => {
-    setTotalNotes(notes?.length || 0);
-  }, [notes, setTotalNotes]);
 
   return (
     <div

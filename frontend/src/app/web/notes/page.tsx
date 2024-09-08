@@ -1,4 +1,4 @@
-import NotePage from "@/pages/NotePage";
+import NotePage from "@/views/NotePage";
 
 function page() {
   return <NotePage />;

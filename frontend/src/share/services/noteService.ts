@@ -3,13 +3,12 @@ import { UpdateNoteResponseInterface } from "../interfaces/UpdateNoteResponseInt
 import { NotesResponsiveInterfaces } from "../interfaces/NotesResponsiveInterfaces";
 import { NoteInterfaceService } from "../interfaces/NoteInterfaceService";
 
-import { useInitialApi } from "../hooks/useInitialApi";
-
-const { initialApi } = useInitialApi();
+import { getInitialApi } from "../hooks/useInitialApi";
 
 export const fetchNotes = async (
   onlyFavorite: boolean
 ): Promise<NotesResponsiveInterfaces> => {
+  const initialApi = getInitialApi();
   const url = onlyFavorite ? "notes?favorite=true" : "notes";
   const res = await initialApi.get(url, {
     withCredentials: true,
@@ -22,6 +21,7 @@ export const updateNote = async (data: {
   noteData: NoteInterfaceService;
 }): Promise<UpdateNoteResponseInterface> => {
   const { noteId, noteData } = data;
+  const initialApi = getInitialApi();
 
   const res = await initialApi.put(`note/${noteId}`, noteData, {
     withCredentials: true,

@@ -1,4 +1,4 @@
-import FavoriteNotePpage from "@/pages/FavoriteNotePpage";
+import FavoriteNotePpage from "@/views/FavoriteNotePpage";
 
 function page() {
   return <FavoriteNotePpage />;

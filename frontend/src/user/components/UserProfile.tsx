@@ -43,7 +43,7 @@ function UserProfile({
             {user.profilePicture ? (
               <img
                 src={`${domain}${user.profilePicture}`}
-                alt="login image"
+                alt="Login image"
                 className="w-20 h-20 rounded-full"
               />
             ) : (

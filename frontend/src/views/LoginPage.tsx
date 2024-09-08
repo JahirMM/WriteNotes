@@ -16,7 +16,7 @@ function LoginPage() {
       <div className="hidden overflow-auto h-full w-1/2 sm:flex">
         <img
           src="/login/imgLogin.jpg"
-          alt="login image"
+          alt="Login image"
           className="h-full w-full"
         />
       </div>

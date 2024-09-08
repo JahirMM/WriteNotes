@@ -4,8 +4,10 @@ export function useScratchPad() {
   const [data, setData] = useState<string>("");
 
   useEffect(() => {
-    const information = localStorage.getItem("scratchPadInformation");
-    setData(information === null ? "" : information);
+    if (typeof window !== "undefined") {
+      const information = localStorage.getItem("scratchPadInformation");
+      setData(information === null ? "" : information);
+    }
   }, []);
 
   const addData = (text: string) => {
