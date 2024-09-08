@@ -6,9 +6,9 @@ import "./db/db";
 
 import { authenticate } from "./auth/infrastructure/middleware/authenticate.middleware";
 
-import noteRouter from "../src/note/infrastructure/controllers/note.controller";
-import authRouter from "../src/auth/infrastructure/controllers/auth.controller";
-import userRouter from "../src/user/infrastructure/controllers/user.controller";
+import noteRouter from "./note/infrastructure/controllers/note.controller";
+import authRouter from "./auth/infrastructure/controllers/auth.controller";
+import userRouter from "./user/infrastructure/controllers/user.controller";
 
 dotenv.config();
 
