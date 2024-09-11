@@ -22,7 +22,7 @@ function LoginPage() {
       </div>
       <LoginForm theme={theme} />
       <div
-        className="absolute top-4 right-4"
+        className="absolute top-4 right-4 cursor-pointer"
         typeof="submit"
         onClick={handleChangeTheme}
       >

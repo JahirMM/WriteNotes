@@ -7,7 +7,7 @@ import { useChangeTheme } from "@/share/hooks/useChangeTheme";
 import SignUpForm from "@/auth/signUp/components/SignUpForm";
 
 function SignUpPage() {
-  const { handleChangeTheme, theme } = useChangeTheme();
+  const { theme } = useChangeTheme();
 
   return (
     <main className="h-screen flex items-center justify-center sm:gap-4 sm:justify-between">
