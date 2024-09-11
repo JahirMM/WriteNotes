@@ -19,12 +19,16 @@ export function useChangeTheme() {
         "dark",
         preferredTheme === "dark"
       );
-      localStorage.setItem("theme", preferredTheme);
     }
-  }, [theme]);
+  }, []);
 
   const handleChangeTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    setTheme((prevTheme) => {
+      const newTheme = prevTheme === "light" ? "dark" : "light";
+      localStorage.setItem("theme", newTheme);
+      document.documentElement.classList.toggle("dark", newTheme === "dark");
+      return newTheme;
+    });
   };
 
   return { handleChangeTheme, theme };
