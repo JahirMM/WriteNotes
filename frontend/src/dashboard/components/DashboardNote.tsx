@@ -19,7 +19,7 @@ function DashboardNote({ note }: { note: NoteInterface }) {
   const { formattedDate } = useFormatDate(note.date!);
 
   const handleStarClick = (event: React.MouseEvent) => {
-    event.stopPropagation(); // Previene que el clic se propague al contenedor padre
+    event.stopPropagation();
     updateNoteMutation.mutate({
       noteId: note.noteId,
       noteData: {
@@ -46,8 +46,8 @@ function DashboardNote({ note }: { note: NoteInterface }) {
       onClick={handleNoteClick}
     >
       <div className="text-sm text-colorText space-y-2 dark:text-colorTextDrak">
-        <p className="font-semibold">{note.title}</p>
-        <p className="line-clamp-6 font-light">{note.description}</p>
+        <p className="font-bold dark:text-colorTextPointer">{note.title}</p>
+        <p className="line-clamp-6 font-normal">{note.description}</p>
       </div>
       <div className="flex justify-between items-center">
         <span className="text-xs text-colorText dark:text-colorTextDrak dark:font-light">
