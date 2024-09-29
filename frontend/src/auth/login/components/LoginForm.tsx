@@ -7,7 +7,7 @@ import Eye from "@/icons/Eye";
 import EyeSlash from "@/icons/EyeSlash";
 
 // SONNER
-import { toast } from "sonner";
+import { toast, Toaster } from "sonner";
 import { useValidateEmail } from "@/share/hooks/useValidateEmail";
 
 // HOOKS
@@ -124,6 +124,7 @@ function LoginForm({ theme }: LoginFormProps) {
           login
         </button>
       </form>
+      <Toaster position="top-right" richColors closeButton duration={3000} />
     </section>
   );
 }
