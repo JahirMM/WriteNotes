@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+  # Servicio para el backend
+  backend:
+    build:
+      context: ./backend # Ruta al Dockerfile del backend
+    ports:
+      - "4000:4000" # Mapea el puerto 4000 del contenedor al puerto 4000 del host
+    volumes:
+      - ./backend:/app
+      - ./backend/public/uploads:/app/public/uploads
+      - /app/node_modules
+    env_file:
+      - ./backend/.env # Archivo de variables de entorno
+    depends_on:
+      - mongo # El backend depende de MongoDB
+    networks:
+      - app-network
+
+  # Servicio para el frontend
+  frontend:
+    build:
+      context: ./frontend # Ruta al Dockerfile del frontend
+    ports:
+      - "3000:3000" # Mapea el puerto 3000 del contenedor al puerto 3000 del host
+    volumes:
+      - ./frontend:/app # Mapea el frontend local dentro del contenedor
+    env_file:
+      - ./frontend/.env # Archivo de variables de entorno
+    depends_on:
+      - backend # El frontend depende del backend
+    networks:
+      - app-network
+
+  # Servicio para MongoDB
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017" # Mapea el puerto de MongoDB
+    volumes:
+      - mongo-data:/data/db # Persistencia de datos en volumen
+    networks:
+      - app-network
+
+# Definición de volúmenes
+volumes:
+  mongo-data:
+
+# Red de los servicios
+networks:
+  app-network:

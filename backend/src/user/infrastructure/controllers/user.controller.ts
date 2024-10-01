@@ -137,6 +137,7 @@ router.put("/userPhoto", (req: Request, res: Response) => {
 
   updateUserPhoto.upload(req, res, async function (err: any) {
     if (err) {
+      console.error("Error during file upload:", err);
       if (
         err.message ===
         "Invalid file type. Please upload a JPEG, PNG, or JPG image."
@@ -156,11 +157,14 @@ router.put("/userPhoto", (req: Request, res: Response) => {
       try {
         decoded = jwt.verify(myToken, process.env.SECRET_TOKEN_KEY!);
       } catch (error) {
+        console.error("Invalid token:", error);
         return res.status(403).json({ message: "Invalid token." });
       }
 
       const userId = decoded.userId;
       const filename = req.file ? req.file.filename : null;
+
+      console.log("File uploaded:", filename);
 
       const userInformation = await updateUserPhoto.updateUserPhoto(
         userId,
@@ -168,6 +172,7 @@ router.put("/userPhoto", (req: Request, res: Response) => {
       );
 
       if (!userInformation) {
+        console.error("Could not update photo for user:", userId);
         return res.status(422).json({ message: "Could not update photo." });
       }
 
@@ -176,6 +181,7 @@ router.put("/userPhoto", (req: Request, res: Response) => {
         profilePicture: userInformation.profilePicture,
       });
     } catch (error) {
+      console.error("Internal server error:", error);
       return res.status(500).json({ message: "Internal server error." });
     }
   });

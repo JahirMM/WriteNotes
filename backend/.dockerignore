@@ -1,0 +1,31 @@
+# Ignorar los módulos de Node.js
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Ignorar la carpeta de salida de TypeScript
+dist
+build
+
+# Ignorar archivos de configuración locales
+.env
+.env.local
+.env.*.local
+
+# Ignorar archivos y carpetas relacionadas con Git
+.git
+.gitignore
+
+# Ignorar carpetas de pruebas
+coverage
+tests
+
+# Ignorar editorconfig y archivos de IDE
+.editorconfig
+.idea
+.vscode
+.DS_Store
+
+# Ignorar archivos temporales
+*.log
+*.swp
